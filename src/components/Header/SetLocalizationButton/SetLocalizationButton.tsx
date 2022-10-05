@@ -4,7 +4,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
 function SetLocalizationButton() {
-  const [checked, setChecked] = useState(false);
+  // const [checked, setChecked] = useState(false);
   const [localRadioValue, setLocalRadioValue] = useState("1");
 
   const localRadios = [

@@ -4,7 +4,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
 function SetThemeButton() {
-  const [checked, setChecked] = useState(false);
+  // const [checked, setChecked] = useState(false);
   const [themeRadioValue, setThemeRadioValue] = useState("1");
 
   const themeRadios = [
