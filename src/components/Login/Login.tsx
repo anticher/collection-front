@@ -2,6 +2,7 @@ import styles from "./styles.module.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useTranslation } from 'react-i18next';
 
 interface LoginFormInput {
   username: String;
@@ -9,6 +10,7 @@ interface LoginFormInput {
 }
 
 function Login() {
+  const { t, i18n } = useTranslation();
   const { register, handleSubmit } = useForm<LoginFormInput>();
   const onSubmit: SubmitHandler<LoginFormInput> = (data) => console.log(data);
 
@@ -16,11 +18,11 @@ function Login() {
     <>
       <Form className={styles.login} onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3" controlId="loginFromUsername">
-          <Form.Label>Username</Form.Label>
+          <Form.Label>{t("login:username")}</Form.Label>
           <Form.Control
             className={styles.control}
             type="text"
-            placeholder="Enter username"
+            placeholder={t("login:enter-username")}
             {...register("username")}
           />
           {/* <Form.Text className="text-muted">
@@ -29,16 +31,16 @@ function Login() {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="loginFromPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>{t("login:password")}</Form.Label>
           <Form.Control
             className={styles.control}
             type="password"
-            placeholder="Password"
+            placeholder={t("login:enter-password")}
             {...register("password")}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Login
+          {t("login:login")}
         </Button>
       </Form>
     </>
