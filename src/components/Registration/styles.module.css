@@ -1,0 +1,15 @@
+.registration {
+    padding: 30px;
+    width: 30em;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.control {
+    font-size: 0.8rem;
+}

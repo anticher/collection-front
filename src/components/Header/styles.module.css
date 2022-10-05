@@ -1,11 +1,12 @@
 .header {
     padding: 0.5rem 2rem;
+    height: var(--header-heigth);
     overflow: hidden;
     background-color: var(--base-main-color);
 }
 
 .row {
-    height: 60px;
+    height: 100%;
 }
 
 .column {
