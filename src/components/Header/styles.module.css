@@ -1,0 +1,28 @@
+.header {
+    padding: 0.5rem 2rem;
+    overflow: hidden;
+    background-color: var(--base-main-color);
+}
+
+.row {
+    height: 60px;
+}
+
+.column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    background-size: 90% 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../../assets//images/logo-no-background.svg);    
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
