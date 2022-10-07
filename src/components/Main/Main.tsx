@@ -1,8 +1,14 @@
 // import styles from "./styles.module.css";
+import Collections from "./Collections/Collections";
 
 function Main() {
-    return <div>main</div>;
-  }
   
-  export default Main;
-  
+
+  return (
+    <>
+      <Collections />
+    </>
+  );
+}
+
+export default Main;
