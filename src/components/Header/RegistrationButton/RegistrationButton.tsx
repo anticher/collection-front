@@ -1,4 +1,4 @@
-import styles from "./styles.module.css";
+import styles from "./RegistrationButton.module.css";
 import Button from "react-bootstrap/Button";
 
 function RegistrationButton() {

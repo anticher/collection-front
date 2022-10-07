@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 // ...
 import counterReducer from './testSlice'
-import { collectionsApiSlice } from '../components/Main/Collections/collectionsApiSlice'
+import { collectionsApiSlice } from '../components/collections/collections.api-slice'
 
 
 export const store = configureStore({

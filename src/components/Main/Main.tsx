@@ -1,12 +1,11 @@
-// import styles from "./styles.module.css";
-import Collections from "./Collections/Collections";
+// import styles from "./Main.module.css";
 
 function Main() {
   
 
   return (
     <>
-      <Collections />
+
     </>
   );
 }

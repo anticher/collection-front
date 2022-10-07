@@ -1,11 +1,11 @@
-import styles from "./styles.module.css";
+import styles from "./Header.module.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import SetLocalizationButton from "./SetLocalizationButton/SetLocalizationButton";
-import LoginButton from "./LoginButton/LoginButton";
-import RegistrationButton from "./RegistrationButton/RegistrationButton";
-import SetThemeButton from "./SetThemeButton/SetThemeButton";
-import SearchInput from "./SearchInput/SearchInput";
+import SetLocalizationButton from "./setLocalizationButton/SetLocalizationButton";
+import LoginButton from "./loginButton/LoginButton";
+import RegistrationButton from "./registrationButton/RegistrationButton";
+import SetThemeButton from "./setThemeButton/SetThemeButton";
+import SearchInput from "./searchInput/SearchInput";
 
 function Header() {
   return (

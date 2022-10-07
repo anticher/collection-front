@@ -1,4 +1,4 @@
-import styles from "./styles.module.css";
+import styles from "./Login.module.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useForm, SubmitHandler } from "react-hook-form";

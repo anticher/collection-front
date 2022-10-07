@@ -1,4 +1,4 @@
-import styles from "./styles.module.css";
+import styles from "./SearchInput.module.css";
 import Form from "react-bootstrap/Form";
 
 function SearchInput() {

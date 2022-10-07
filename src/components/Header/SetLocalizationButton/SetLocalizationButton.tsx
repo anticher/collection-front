@@ -1,4 +1,4 @@
-import styles from "./styles.module.css";
+import styles from "./SetLocalizationButton.module.css";
 import { useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";

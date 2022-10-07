@@ -1,5 +1,5 @@
 import { ICollection } from "../../../models/ICollection";
-import styles from "./CollectionsItem.module.css";
+import styles from "./Collections-item.module.css";
 
 type CollectionsItemProps = {
   data: ICollection

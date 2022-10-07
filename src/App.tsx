@@ -1,17 +1,18 @@
-import styles from "./styles.module.css";
-import Header from "./Header/Header";
-import Main from "./Main/Main";
+import styles from "./App.module.css";
+import Header from "./components/header/Header";
+import Main from "./components/main/Main";
 import { Route, Routes } from "react-router-dom";
-import Login from "./Login/Login";
-import Registration from "./Registration/Registration";
+import Login from "./components/login/Login";
+import Registration from "./components/registration/Registration";
 
-import { useAppSelector, useAppDispatch } from '../app/hooks'
-import { decrement, increment } from '../app/testSlice'
+import { useAppSelector, useAppDispatch } from "./app/hooks";
+import { decrement, increment } from "./app/testSlice";
+import Collections from "./components/collections/Collections";
 
 function App() {
   // The `state` arg is correctly typed as `RootState` already
-  const count = useAppSelector(state => state.counter.value)
-  const dispatch = useAppDispatch()
+  const count = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch();
 
   return (
     <div className={styles.app}>
@@ -24,7 +25,7 @@ function App() {
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<div>main</div>} />
-          <Route path="*" element={<Main />} />
+          <Route path="*" element={<Collections />} />
           <Route path="/test" element={<div>test</div>} />
         </Routes>
       </main>
