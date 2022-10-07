@@ -5,34 +5,39 @@ import Col from "react-bootstrap/Col";
 import CollectionsItem from "./collections-item/Collections-item";
 import { useGetCollectionsByUserQuery } from "./collections.api-slice";
 import { ICollection } from "../../models/ICollection";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 
 function Collections() {
-  const location = useLocation();
+  
+  const pathname = useLocation().pathname;
   const {
     data: collections = [],
     isLoading,
     isSuccess,
     isError,
-    error,
-  } = useGetCollectionsByUserQuery(location.pathname);
+  } = useGetCollectionsByUserQuery(pathname.substring(pathname.lastIndexOf('/')));
 
   let content;
 
   if (isLoading) {
-    content = <Col>loading</Col>;
+    content = <Row>loading</Row>;
   } else if (isSuccess) {
-    content = collections.map((collection: ICollection) => <Col className={styles.col} xs={4} key={collection.id}><CollectionsItem data={collection} /></Col>);
+    content = (
+      <>
+        <Row>{collections[0] && collections[0].ownerName}</Row>
+        <Row>
+          {collections.map((collection: ICollection) => (
+            <Col className={styles.col} xl={3} md={4} xs={6} key={collection.id}>
+              <CollectionsItem data={collection} />
+            </Col>
+          ))}
+        </Row>
+      </>
+    );
   } else if (isError) {
-    content = <Col>{error.toString()}</Col>;
+    content = <Row>failed to load data</Row>;
   }
-  return (
-    <Container className={styles.collections}>
-      <Row>
-        {content}
-      </Row>
-    </Container>
-  );
+  return <Container className={styles.collections}>{content}</Container>;
 }
 
 export default Collections;

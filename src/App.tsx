@@ -8,6 +8,7 @@ import Registration from "./components/registration/Registration";
 import { useAppSelector, useAppDispatch } from "./app/hooks";
 import { decrement, increment } from "./app/testSlice";
 import Collections from "./components/collections/Collections";
+import Collection from "./components/collections/collection/Collection";
 
 function App() {
   // The `state` arg is correctly typed as `RootState` already
@@ -25,8 +26,8 @@ function App() {
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<div>main</div>} />
-          <Route path="*" element={<Collections />} />
-          <Route path="/test" element={<div>test</div>} />
+          <Route path="collections/*" element={<Collections />} />
+          <Route path="collection/*" element={<Collection />} />
         </Routes>
       </main>
     </div>

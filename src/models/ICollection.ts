@@ -1,15 +1,16 @@
-import { Theme } from "./ITheme";
+import { ICollectionItem } from "./ICollectionItem";
+import { ITheme } from "./ITheme";
 
 export interface ICollection {
     id: string;
     name: string;
     description: string;
     image?: any;
-    ownerId: string;
-    creatorId: string;
+    ownerName: string;
+    creatorName: string;
     createDate: string;
     updateDate?: any;
     updatedBy?: any;
-    items: any[];
-    theme: Theme;
+    items: ICollectionItem[];
+    theme: ITheme;
 }
