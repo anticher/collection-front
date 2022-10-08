@@ -3,10 +3,14 @@ import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../app/hooks";
 import { initialState, setAuthData } from "../../../app/auth.slice";
+import { useTranslation } from "react-i18next";
 
 function LogoutButton() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const { t } = useTranslation();
+
   const onClickHandler = () => {
     dispatch(setAuthData(initialState));
     navigate('/');
@@ -19,7 +23,7 @@ function LogoutButton() {
         variant="primary"
         onClick={onClickHandler}
       >
-        LogOut
+        {t("header:logOut")}
       </Button>
     </>
   );

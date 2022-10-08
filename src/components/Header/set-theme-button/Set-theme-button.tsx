@@ -5,15 +5,18 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { setTheme } from "../../../app/slices/settings.slice";
 import { useBeforeunload } from 'react-beforeunload';
+import { useTranslation } from "react-i18next";
 
 function SetThemeButton() {
   const dispatch = useAppDispatch();
   const appTheme = useAppSelector((state) => state.settings.theme);
   const [themeRadioValue, setThemeRadioValue] = useState(appTheme);
 
+  const { t } = useTranslation();
+
   const themeRadios = [
-    { name: "light", value: "light" },
-    { name: "dark", value: "dark" },
+    { name: t('header:light'), value: "light" },
+    { name: t('header:dark'), value: "dark" },
   ];
 
   useBeforeunload(() => localStorage.setItem("theme", appTheme))

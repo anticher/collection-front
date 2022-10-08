@@ -15,7 +15,7 @@ function SetLocalizationButton() {
   
   const localRadios = [
     { name: "en", value: "en" },
-    { name: "ru", value: "ru" },
+    { name: "рус", value: "ru" },
   ];
 
   useBeforeunload(() => localStorage.setItem("localization", appLocalization))
