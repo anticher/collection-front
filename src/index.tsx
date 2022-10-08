@@ -6,6 +6,7 @@ import "./localization/i18n";
 import { store } from "./app/store";
 import App from "./App";
 import { Provider } from "react-redux";
+import { SnackbarProvider } from "notistack";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,7 +15,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <SnackbarProvider maxSnack={1}>
+          <App />
+        </SnackbarProvider>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
