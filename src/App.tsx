@@ -1,9 +1,8 @@
 import styles from "./App.module.css";
 import Header from "./components/header/Header";
-import Main from "./components/main/Main";
 import { Route, Routes } from "react-router-dom";
-import Login from "./components/login/Login";
-import Registration from "./components/registration/Registration";
+import Login from "./components/auth/login/Login";
+import Registration from "./components/auth/registration/Registration";
 
 import { useAppSelector, useAppDispatch } from "./app/hooks";
 import { decrement, increment } from "./app/testSlice";
@@ -11,10 +10,9 @@ import Collections from "./components/collections/Collections";
 import Collection from "./components/collections/collection/Collection";
 
 function App() {
-  // The `state` arg is correctly typed as `RootState` already
   const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
-
+  console.log('app');
   return (
     <div className={styles.app}>
       <Header />

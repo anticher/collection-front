@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CollectionsItem from "./collections-item/Collections-item";
-import { useGetCollectionsByUserQuery } from "./collections.api-slice";
+import { useGetCollectionsByUserQuery } from "../../app/api-slices/collections.api-slice";
 import { ICollection } from "../../models/ICollection";
 import { useLocation } from "react-router-dom";
 

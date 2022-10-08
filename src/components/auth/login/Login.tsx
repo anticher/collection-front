@@ -3,16 +3,34 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
+import {useSendLoginCredentialsMutation } from "../../../app/api-slices/auth.api-slice"
+import { useAppDispatch } from "../../../app/hooks";
+import { setAuthData } from "../../../app/authSlice";
+import { useNavigate } from "react-router-dom";
 
 interface LoginFormInput {
-  username: String;
-  password: String;
+  username: string;
+  password: string;
 }
 
 function Login() {
-  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { t } = useTranslation();
+  const [sendCredentials, { isLoading }] = useSendLoginCredentialsMutation()
   const { register, handleSubmit } = useForm<LoginFormInput>();
-  const onSubmit: SubmitHandler<LoginFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<LoginFormInput> = async (data) => {
+    const canSend = [data.username, data.password].every(Boolean) && !isLoading
+    if (canSend) {
+      try {
+        const result = await sendCredentials(data).unwrap()
+        dispatch(setAuthData(result));
+        navigate(`/collections/${result.username}`)
+      } catch (err) {
+        console.error('Failed to login: ', err)
+      }
+    }
+  };
 
   return (
     <>

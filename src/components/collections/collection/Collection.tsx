@@ -2,7 +2,7 @@ import styles from "./Collection.module.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useGetCollectionByIdQuery } from "../collections.api-slice";
+import { useGetCollectionByIdQuery } from "../../../app/api-slices/collections.api-slice";
 import { useLocation } from "react-router-dom";
 import { ICollectionItem } from "../../../models/ICollectionItem";
 

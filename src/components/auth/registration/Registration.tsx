@@ -2,18 +2,39 @@ import styles from "./Registration.module.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useSendRegistrationCredentialsMutation } from "../../../app/api-slices/auth.api-slice";
 
 interface RegistrationFormInput {
-  username: String;
-  email: String;
-  password: String;
-  passwordConfirm: String;
+  username: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
 }
 
 function Registration() {
+  const navigate = useNavigate();
+  const [sendCredentials, { isLoading }] =
+    useSendRegistrationCredentialsMutation();
   const { register, handleSubmit } = useForm<RegistrationFormInput>();
-  const onSubmit: SubmitHandler<RegistrationFormInput> = (data) =>
-    console.log(data);
+  const onSubmit: SubmitHandler<RegistrationFormInput> = async (data) => {
+    const canSend =
+      [data.username, data.email, data.password, data.passwordConfirm].every(
+        Boolean
+      ) &&
+      data.password === data.passwordConfirm &&
+      !isLoading;
+    if (canSend) {
+      try {
+        const { username, email, password } = data;
+        const result = await sendCredentials({username, email, password}).unwrap();
+        console.log(result);
+        navigate('/login');
+      } catch (err) {
+        console.error("Failed to signUp: ", err);
+      }
+    }
+  };
 
   return (
     <>

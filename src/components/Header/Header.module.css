@@ -16,10 +16,16 @@
 }
 
 .logo {
+    padding: 0;
     background-size: 90% 90%;
     background-position: center;
     background-repeat: no-repeat;
     background-image: url(../../assets//images/logo-no-background.svg);    
+}
+
+.logoLink {
+    width: 100%;
+    height: 100%;
 }
 
 .buttons {
