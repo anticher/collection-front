@@ -1,9 +1,14 @@
 .collectionsItem {
-    aspect-ratio : 1 / 1;
     width: 100%;
     background-color: rgb(100, 237, 146);
     color: inherit;
     text-decoration: inherit;
+    cursor: pointer;
+}
+
+.collectionsItem:hover {
+    box-shadow: 0 0 10px;
+    color: inherit;
 }
 
 .background {
@@ -11,10 +16,4 @@
     width: 100%;
     background-size: contain;
     background-image: url(https://hatrabbits.com/wp-content/uploads/2018/07/ai.jpg);
-}
-
-.descriptionBlock {
-    padding: 0.3em;
-    display: flex;
-    flex-direction: column;
 }

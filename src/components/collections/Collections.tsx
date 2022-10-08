@@ -20,16 +20,16 @@ function Collections() {
   } = useGetCollectionsByUserQuery(pathname.substring(pathname.lastIndexOf('/')));
 
   let content;
-
+  
   if (isLoading) {
     content = <Row>loading</Row>;
   } else if (isSuccess) {
     content = (
       <>
         <Row>{collections[0] && collections[0].ownerName}</Row>
-        <Row>
+        <Row xs={1} md={2}>
           {collections.map((collection: ICollection) => (
-            <Col className={styles.col} xl={3} md={4} xs={6} key={collection.id}>
+            <Col className={styles.col} key={collection.id}>
               <CollectionsItem data={collection} />
             </Col>
           ))}
