@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from './auth.slice'
+import settingsReducer from './slices/settings.slice'
 import { collectionsApiSlice } from './api-slices/collections.api-slice'
 import { AuthApiSlice } from './api-slices/auth.api-slice'
 
@@ -7,6 +8,7 @@ import { AuthApiSlice } from './api-slices/auth.api-slice'
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    settings: settingsReducer,
     [collectionsApiSlice.reducerPath]: collectionsApiSlice.reducer,
     [AuthApiSlice.reducerPath]: AuthApiSlice.reducer
   },

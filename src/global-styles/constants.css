@@ -1,10 +1,21 @@
 :root {
+  --header-heigth: 70px;
+}
+
+.app-theme-light {
   --base-white-color: #ffffff;
   --base-black-color: #090909;
   --base-dark-color: #272643;
   --base-light-color: #e3f6f5;
   --base-main-color: #bae8e8;
   --base-accent-color: #2c698d;
+}
 
-  --header-heigth: 70px;
+.app-theme-dark {
+  --base-white-color: #090909;;
+  --base-black-color: #ffffff;
+  --base-dark-color: #272643;
+  --base-light-color: #e3f6f5;
+  --base-main-color: yellow;
+  --base-accent-color: #2c698d;
 }
