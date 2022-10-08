@@ -6,6 +6,8 @@ import CollectionsItem from "./collections-item/Collections-item";
 import { useGetCollectionsByUserQuery } from "../../app/api-slices/collections.api-slice";
 import { ICollection } from "../../models/ICollection";
 import { useLocation } from "react-router-dom";
+import CreateCollectionButton from "./create-collection-button/Create-collection-button";
+import BackButton from "../common/main-button/Main-button";
 
 function Collections() {
   
@@ -37,7 +39,12 @@ function Collections() {
   } else if (isError) {
     content = <Row>failed to load data</Row>;
   }
-  return <Container className={styles.collections}>{content}</Container>;
+  return <Container className={styles.collections}>
+    <Row>
+      <BackButton />
+      <CreateCollectionButton />
+    </Row>
+    {content}</Container>;
 }
 
 export default Collections;
