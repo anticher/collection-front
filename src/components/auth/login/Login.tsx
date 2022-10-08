@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
 import {useSendLoginCredentialsMutation } from "../../../app/api-slices/auth.api-slice"
 import { useAppDispatch } from "../../../app/hooks";
-import { setAuthData } from "../../../app/authSlice";
+import { setAuthData } from "../../../app/auth.slice";
 import { useNavigate } from "react-router-dom";
 
 interface LoginFormInput {

@@ -1,14 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-// ...
-import counterReducer from './testSlice'
-import authReducer from './authSlice'
+import authReducer from './auth.slice'
 import { collectionsApiSlice } from './api-slices/collections.api-slice'
 import { AuthApiSlice } from './api-slices/auth.api-slice'
 
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     auth: authReducer,
     [collectionsApiSlice.reducerPath]: collectionsApiSlice.reducer,
     [AuthApiSlice.reducerPath]: AuthApiSlice.reducer

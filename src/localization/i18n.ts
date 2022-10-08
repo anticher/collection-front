@@ -1,7 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import loginComponentDictionaryEn from "./locales/en/loginComponentDictionary.json";
-import loginComponentDictionaryRu from "./locales/ru/loginComponentDictionary.json";
+import loginComponentDictionaryEn from "./locales/en/login-component.dictionary.json";
+import loginComponentDictionaryRu from "./locales/ru/login-component.dictionary.json";
 
 const resources = {
   en: {

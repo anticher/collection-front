@@ -1,4 +1,4 @@
-import styles from "./RegistrationButton.module.css";
+import styles from "./Registration-button.module.css";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 

@@ -1,30 +1,30 @@
-import styles from "./SetThemeButton.module.css";
+import styles from "./Set-localization-button.module.css";
 import { useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
-function SetThemeButton() {
+function SetLocalizationButton() {
   // const [checked, setChecked] = useState(false);
-  const [themeRadioValue, setThemeRadioValue] = useState("1");
+  const [localRadioValue, setLocalRadioValue] = useState("1");
 
-  const themeRadios = [
-    { name: "light", value: "1" },
-    { name: "dark", value: "2" },
+  const localRadios = [
+    { name: "En", value: "1" },
+    { name: "Ru", value: "2" },
   ];
   return (
     <>
       <ButtonGroup>
-        {themeRadios.map((radio, idx) => (
+        {localRadios.map((radio, idx) => (
           <ToggleButton
             className={styles.button}
             key={idx}
-            id={`theme-radio-${idx}`}
+            id={`local-radio-${idx}`}
             type="radio"
             variant="primary"
-            name="theme-radio"
+            name="local-radio"
             value={radio.value}
-            checked={themeRadioValue === radio.value}
-            onChange={(e) => setThemeRadioValue(e.currentTarget.value)}
+            checked={localRadioValue === radio.value}
+            onChange={(e) => setLocalRadioValue(e.currentTarget.value)}
           >
             {radio.name}
           </ToggleButton>
@@ -34,4 +34,4 @@ function SetThemeButton() {
   );
 }
 
-export default SetThemeButton;
+export default SetLocalizationButton;

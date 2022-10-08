@@ -1,13 +1,13 @@
 import styles from "./Header.module.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import SetLocalizationButton from "./setLocalizationButton/SetLocalizationButton";
-import LoginButton from "./loginButton/LoginButton";
-import RegistrationButton from "./registrationButton/RegistrationButton";
-import SetThemeButton from "./setThemeButton/SetThemeButton";
-import SearchInput from "./searchInput/SearchInput";
+import SetLocalizationButton from "./set-localization-button/Set-localization-button";
+import LoginButton from "./login-button/Login-button";
+import RegistrationButton from "./registration-button/Registration-button";
+import SetThemeButton from "./set-theme-button/Set-theme-button";
+import SearchInput from "./search-input/Search-input";
 import { useAppSelector } from "../../app/hooks";
-import LogoutButton from "./logoutButton/LogoutButton";
+import LogoutButton from "./logout-button/Logout-button";
 import MyCollectionsButton from "./my-collections-button/My-collections-button";
 import { Link } from "react-router-dom";
 
