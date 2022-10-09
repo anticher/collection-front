@@ -11,8 +11,10 @@ import { SnackbarProvider } from "notistack";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+console.log(process.env.REACT_APP_API_URL)
 root.render(
   <React.StrictMode>
+    {/* <BrowserRouter basename="/collection-front/"> */}
     <BrowserRouter>
       <Provider store={store}>
         <SnackbarProvider maxSnack={1}>

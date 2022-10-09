@@ -10,17 +10,18 @@ import CreateCollectionButton from "./create-collection-button/Create-collection
 import BackButton from "../common/main-button/Main-button";
 
 function Collections() {
-  
   const pathname = useLocation().pathname;
   const {
     data: collections = [],
     isLoading,
     isSuccess,
     isError,
-  } = useGetCollectionsByUserQuery(pathname.substring(pathname.lastIndexOf('/')));
+  } = useGetCollectionsByUserQuery(
+    pathname.substring(pathname.lastIndexOf("/"))
+  );
 
   let content;
-  
+
   if (isLoading) {
     content = <Row>loading</Row>;
   } else if (isSuccess) {
@@ -39,12 +40,15 @@ function Collections() {
   } else if (isError) {
     content = <Row>failed to load data</Row>;
   }
-  return <Container className={styles.collections}>
-    <Row>
-      <BackButton />
-      <CreateCollectionButton />
-    </Row>
-    {content}</Container>;
+  return (
+    <Container className={styles.collections}>
+      <Row>
+        <BackButton />
+        <CreateCollectionButton />
+      </Row>
+      {content}
+    </Container>
+  );
 }
 
 export default Collections;

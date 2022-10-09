@@ -5,7 +5,7 @@ import { RootState } from "../store";
 export const AuthApiSlice = createApi({
   reducerPath: "auth-api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8080/v1/auth",
+    baseUrl: `${process.env.REACT_APP_API_URL}v1/auth`,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.accessToken;
       if (token) {
