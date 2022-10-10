@@ -1,19 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ICollection } from "../../models/ICollection";
 import { ICollectionCreate } from "../../models/ICollectionCreate";
-import { RootState } from "../store";
 
 export const CollectionsApiSlice = createApi({
   reducerPath: "collections-api",
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_API_URL}v1/collections`,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.accessToken;
-      if (token) {
-        headers.set("authentication", `Bearer ${token}`);
-      }
+    prepareHeaders(headers) {
       return headers;
     },
+    credentials: "include"
   }),
   endpoints: (builder) => ({
     getCollections: builder.query<ICollection[], string>({

@@ -29,7 +29,12 @@ function Login() {
   const onSubmit: SubmitHandler<LoginFormInput> = async (data) => {
     const canSend = [data.username, data.password].every(Boolean) && !isLoading;
     if (canSend) {
+      console.log(data)
       const result = await sendCredentials(data).unwrap();
+      console.log(result);
+      localStorage.setItem("username", result.username)
+      localStorage.setItem("userId", result.userId)
+      localStorage.setItem("role", result.role)
       dispatch(setAuthData(result));
       navigate(`/collections/${result.username}`);
     }

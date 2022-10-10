@@ -18,6 +18,7 @@ function Collections() {
     isLoading,
     isSuccess,
     isError,
+    refetch,
   } = useGetCollectionsByUserQuery(
     pathname.substring(pathname.lastIndexOf("/"))
   );
@@ -32,7 +33,11 @@ function Collections() {
     content = (
       <>
         {/* {isCreateModalVisible && <CreateCollectionModal />} */}
-        <CreateCollectionModal isCreateModalVisible={isCreateModalVisible} setCreateModalVisibility={setCreateModalVisibility}/>
+        <CreateCollectionModal
+          isCreateModalVisible={isCreateModalVisible}
+          setCreateModalVisibility={setCreateModalVisibility}
+          refetch={refetch}
+        />
         <Row>{collections[0] && collections[0].ownerName}</Row>
         <Row xs={1} md={2}>
           {collections.map((collection: ICollection) => (
@@ -50,7 +55,9 @@ function Collections() {
     <Container className={styles.collections}>
       <Row>
         <BackButton />
-        <CreateCollectionButton setCreateModalVisibility={setCreateModalVisibility}/>
+        <CreateCollectionButton
+          setCreateModalVisibility={setCreateModalVisibility}
+        />
       </Row>
       {content}
     </Container>

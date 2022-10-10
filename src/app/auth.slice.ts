@@ -2,14 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
 interface AuthState {
-  accessToken: string;
   username: string;
   userId: string;
   role: string;
 }
 
 export interface AuthResponse {
-  accessToken: string;
   username: string;
   userId: string;
   role: string;
@@ -21,10 +19,9 @@ export interface RegistrationResponse {
 }
 
 export const initialState: AuthState = {
-  accessToken: "",
-  username: "",
-  userId: "",
-  role: "",
+  username: localStorage.getItem("username") || "",
+  userId: localStorage.getItem("userId") || "",
+  role: localStorage.getItem("role") || "",
 };
 
 export const authSlice = createSlice({
@@ -32,9 +29,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setAuthData: (state, action: PayloadAction<AuthResponse>) => {
-      const { username, userId, role, accessToken } = action.payload;
-      console.log('dispatcher')
-      state.accessToken = accessToken;
+      const { username, userId, role } = action.payload;
       state.role = role;
       state.userId = userId;
       state.username = username;

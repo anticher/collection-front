@@ -1,7 +1,7 @@
 import styles from "./Create-collection-form.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import CreateCollectionCustomInput from "../create-collection-custom-input/Create-collection-custom-input";
 import { CreateCollectionFormInput } from "../models/create-collection-form-input";
@@ -10,11 +10,16 @@ import { useCreateCollectionMutation } from "../../../../app/api-slices/collecti
 import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../../app/hooks";
 
-function CreateCollectionForm() {
+
+type CreateCollectionFormProps = {
+  setCreateModalVisibility: Dispatch<SetStateAction<boolean>>
+  refetch: () => void
+};
+
+function CreateCollectionForm(props: CreateCollectionFormProps) {
   const pathname = useLocation().pathname;
   const ownerName = pathname.substring(pathname.lastIndexOf("/") + 1);
   const [customInputs, setCustomInputs] = useState([] as string[]);
-  console.log(ownerName);
   const {
     data: themes = [],
     isLoading: isThemesLoading,
@@ -38,7 +43,6 @@ function CreateCollectionForm() {
     formState: { errors },
   } = useForm<CreateCollectionFormInput>();
   const onSubmit: SubmitHandler<CreateCollectionFormInput> = async (data) => {
-    console.log(data);
     const canSend =
       [data.name, data.description, data.theme, data.image].every(Boolean) &&
       !isThemesLoading &&
@@ -47,17 +51,16 @@ function CreateCollectionForm() {
       creatorName &&
       (creatorRole === "admin" ||
         (ownerName === creatorName && creatorRole === "user"));
-    console.log("owner-creator");
-    console.log(ownerName);
-    console.log(creatorName);
+    if (!data.custom) data.custom = [];
     if (canSend) {
-      console.log("can send");
       const newCollection = {
         ...data,
         ownerName,
         creatorName,
       }
       await sendCollectionCredentials(newCollection).unwrap();
+      props.setCreateModalVisibility(false)
+      props.refetch()
       // dispatch(setAuthData(result));
       // navigate(`/collections/${result.username}`);
     }

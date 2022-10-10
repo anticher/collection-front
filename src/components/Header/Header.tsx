@@ -13,8 +13,6 @@ import { Link } from "react-router-dom";
 
 function Header() {
   const auth = useAppSelector((state) => state.auth);
-  console.log('header')
-  console.log(auth)
   return (
     <header className={styles.header}>
       <Row className={styles.row}>

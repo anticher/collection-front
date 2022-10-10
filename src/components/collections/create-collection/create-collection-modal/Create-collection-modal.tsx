@@ -6,6 +6,7 @@ import CreateCollectionForm from "../create-collection-form/Create-collection-fo
 type CreateCollectionModalProps = {
     isCreateModalVisible: boolean;
     setCreateModalVisibility: Dispatch<SetStateAction<boolean>>
+    refetch: () => void
   };
   
 
@@ -21,7 +22,7 @@ function CreateCollectionModal(props: CreateCollectionModalProps) {
         <Modal.Title id="example-modal-sizes-title-lg">Create new collection</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <CreateCollectionForm />
+        <CreateCollectionForm setCreateModalVisibility={props.setCreateModalVisibility} refetch={props.refetch}/>
       </Modal.Body>
     </Modal>
   );
