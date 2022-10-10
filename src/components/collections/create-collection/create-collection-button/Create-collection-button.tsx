@@ -1,12 +1,15 @@
+import { Dispatch, SetStateAction } from "react";
 import styles from "./Create-collection-button.module.css";
 import Button from "react-bootstrap/Button";
 
+type CreateCollectionButtonProps = {
+  setCreateModalVisibility: Dispatch<SetStateAction<boolean>>
+};
 
-function CreateCollectionButton() {
-
+function CreateCollectionButton(props: CreateCollectionButtonProps) {
   const onClickHandler = () => {
-    console.log('create collection')
-  }
+    props.setCreateModalVisibility(true);
+  };
 
   return (
     <>

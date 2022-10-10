@@ -3,7 +3,7 @@ import { ICollection } from "../../models/ICollection";
 import { ICollectionCreate } from "../../models/ICollectionCreate";
 import { RootState } from "../store";
 
-export const collectionsApiSlice = createApi({
+export const CollectionsApiSlice = createApi({
   reducerPath: "collections-api",
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_API_URL}v1/collections`,
@@ -39,4 +39,5 @@ export const {
   useGetCollectionsQuery,
   useGetCollectionsByUserQuery,
   useGetCollectionByIdQuery,
-} = collectionsApiSlice;
+  useCreateCollectionMutation
+} = CollectionsApiSlice;
