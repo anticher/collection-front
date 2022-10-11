@@ -33,7 +33,7 @@ function CreateCollectionCustomInput(props: CreateCollectionCustomInputProps) {
     <InputGroup key={props.index} className="mb-3">
       <Form.Select
         aria-label="Default select example"
-        {...props.register(`custom.${props.index}.fieldType`, {
+        {...props.register(`customFields.${props.index}.fieldType`, {
           required: true,
         })}
       >
@@ -42,7 +42,7 @@ function CreateCollectionCustomInput(props: CreateCollectionCustomInputProps) {
       </Form.Select>
       <Form.Control
         aria-label="Text input with dropdown button"
-        {...props.register(`custom.${props.index}.title`, {
+        {...props.register(`customFields.${props.index}.title`, {
           required: true,
         })}
       />

@@ -5,5 +5,5 @@ export interface CreateCollectionFormInput {
   description: string;
   theme: string;
   image: string;
-  custom: { fieldType: customFieldTypeEnum; title: string }[];
+  customFields: { fieldType: customFieldTypeEnum; title: string }[];
 }

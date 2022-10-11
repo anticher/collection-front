@@ -51,7 +51,7 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
       creatorName &&
       (creatorRole === "admin" ||
         (ownerName === creatorName && creatorRole === "user"));
-    if (!data.custom) data.custom = [];
+    if (!data.customFields) data.customFields = [];
     if (canSend) {
       const newCollection = {
         ...data,
@@ -75,7 +75,7 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
     const removeIndex = customInputs.length - 1;
     // const newCustomInputs = removeIndex ? customInputs.slice(0, removeIndex) : [];
     const newCustomInputs = customInputs.slice(0, removeIndex);
-    unregister(`custom.${removeIndex}`);
+    unregister(`customFields.${removeIndex}`);
     setCustomInputs([...newCustomInputs]);
   };
 
@@ -155,7 +155,7 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
 
       {customInputs.length ? createCustomInputs() : null}
 
-      {(errors.custom ||
+      {(errors.customFields ||
         errors.description ||
         errors.image ||
         errors.theme ||
