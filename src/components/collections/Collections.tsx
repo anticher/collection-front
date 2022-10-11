@@ -7,9 +7,9 @@ import { useGetCollectionsByUserQuery } from "../../app/api-slices/collections.a
 import { ICollection } from "../../models/ICollection";
 import { useLocation } from "react-router-dom";
 import CreateCollectionButton from "./create-collection/create-collection-button/Create-collection-button";
-import BackButton from "../common/main-button/Main-button";
 import { useState } from "react";
 import CreateCollectionModal from "./create-collection/create-collection-modal/Create-collection-modal";
+import RouteButton from "../common/route-button/Route-button";
 
 function Collections() {
   const pathname = useLocation().pathname;
@@ -33,11 +33,6 @@ function Collections() {
     content = (
       <>
         {/* {isCreateModalVisible && <CreateCollectionModal />} */}
-        <CreateCollectionModal
-          isCreateModalVisible={isCreateModalVisible}
-          setCreateModalVisibility={setCreateModalVisibility}
-          refetch={refetch}
-        />
         <Row>{collections[0] && collections[0].ownerName}</Row>
         <Row xs={1} md={2}>
           {collections.map((collection: ICollection) => (
@@ -54,11 +49,16 @@ function Collections() {
   return (
     <Container className={styles.collections}>
       <Row>
-        <BackButton />
+        <RouteButton route={`/`} text='Main page' />
         <CreateCollectionButton
           setCreateModalVisibility={setCreateModalVisibility}
         />
       </Row>
+      <CreateCollectionModal
+          isCreateModalVisible={isCreateModalVisible}
+          setCreateModalVisibility={setCreateModalVisibility}
+          refetch={refetch}
+        />
       {content}
     </Container>
   );

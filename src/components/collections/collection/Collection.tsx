@@ -5,13 +5,22 @@ import Col from "react-bootstrap/Col";
 import { useGetCollectionByIdQuery } from "../../../app/api-slices/collections.api-slice";
 import { useLocation } from "react-router-dom";
 import { ICollectionItem } from "../../../models/ICollectionItem";
+import RouteButton from "../../common/route-button/Route-button";
+import CreateCollectionItemButton from "./create-collection-item-button/Create-collection-item-button";
+import { useState } from "react";
+import CreateCollectionItemModal from "./create-collection-item-modal/create-collection-modal/Create-collection-item-modal";
+
 
 function Collection() {
   const pathname = useLocation().pathname;
-  console.log(pathname);
+
   const { data, isLoading, isSuccess, isError } = useGetCollectionByIdQuery(
     pathname.substring(pathname.lastIndexOf("/"))
   );
+
+  console.log(data)
+
+  const [isCreateModalVisible, setCreateModalVisibility] = useState(false);
 
   let content;
 
@@ -23,24 +32,34 @@ function Collection() {
         <Row>{data.items.length && data.ownerName}</Row>
         <Row>
           {data.items.map((item: ICollectionItem) => (
-            <Col
-              className={styles.col}
-              xl={3}
-              md={4}
-              xs={6}
-              key={item.id}
-            >
+            <Col className={styles.col} xl={3} md={4} xs={6} key={item.id}>
               <div>{item.name}</div>
             </Col>
           ))}
         </Row>
       </>
-    ) : 'no content';
-    // content = <div>{data.items.length ? data.items[0].id : 'no items'}</div>
+    ) : (
+      "no content"
+    );
   } else if (isError) {
     content = <div>failed to load data</div>;
   }
-  return <Container className={styles.collections}>{content}</Container>;
+  return (
+    <Container>
+      <Row>
+        <RouteButton route={`/collections/${data?.ownerName}`} text='back to collection' />
+        <CreateCollectionItemButton
+          setCreateModalVisibility={setCreateModalVisibility}
+        />
+      </Row>
+      <CreateCollectionItemModal
+          isCreateModalVisible={isCreateModalVisible}
+          setCreateModalVisibility={setCreateModalVisibility}
+          // refetch={refetch}
+        />
+      {content}
+    </Container>
+  );
 }
 
 export default Collection;
