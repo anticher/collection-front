@@ -12,7 +12,7 @@ import MyCollectionsButton from "./my-collections-button/My-collections-button";
 import { Link } from "react-router-dom";
 
 function Header() {
-  const auth = useAppSelector((state) => state.auth);
+  const username = useAppSelector((state) => state.auth.username);
   return (
     <header className={styles.header}>
       <Row className={styles.row}>
@@ -23,7 +23,7 @@ function Header() {
         <Col className={`${styles.column} ${styles.buttons}`} md={6}>
           <SetThemeButton />
           <SetLocalizationButton />
-          {auth.username ? (
+          {username ? (
             <>
               <MyCollectionsButton />
               <LogoutButton />

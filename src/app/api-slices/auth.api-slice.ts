@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { AuthResponse, RegistrationResponse } from "../auth.slice";
+import { IAuthResponse } from "../../models/IAuthResponse";
+import { IRegistrationResponse } from "../../models/IRegistrationResponse";
 
 export const AuthApiSlice = createApi({
   reducerPath: "auth-api",
@@ -8,11 +9,11 @@ export const AuthApiSlice = createApi({
     prepareHeaders(headers) {
       return headers;
     },
-    credentials: "include"
+    credentials: "include",
   }),
   endpoints: (builder) => ({
     sendLoginCredentials: builder.mutation<
-      AuthResponse,
+      IAuthResponse,
       { username: string; password: string }
     >({
       query: (credentials) => ({
@@ -21,8 +22,14 @@ export const AuthApiSlice = createApi({
         body: credentials,
       }),
     }),
+    sendLogout: builder.mutation<void, void>({
+      query: () => ({
+        url: "/logout",
+        method: "POST",
+      }),
+    }),
     sendRegistrationCredentials: builder.mutation<
-    RegistrationResponse,
+      IRegistrationResponse,
       { username: string; email: string; password: string }
     >({
       query: (credentials) => ({
@@ -34,4 +41,8 @@ export const AuthApiSlice = createApi({
   }),
 });
 
-export const { useSendLoginCredentialsMutation, useSendRegistrationCredentialsMutation } = AuthApiSlice;
+export const {
+  useSendLoginCredentialsMutation,
+  useSendRegistrationCredentialsMutation,
+  useSendLogoutMutation
+} = AuthApiSlice;

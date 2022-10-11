@@ -9,6 +9,7 @@ import { setAuthData } from "../../../app/auth.slice";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
+import { setLocalStorageAuth } from "../../../app/local-storage/auth-storage";
 
 interface LoginFormInput {
   username: string;
@@ -32,16 +33,13 @@ function Login() {
       console.log(data)
       const result = await sendCredentials(data).unwrap();
       console.log(result);
-      localStorage.setItem("username", result.username)
-      localStorage.setItem("userId", result.userId)
-      localStorage.setItem("role", result.role)
+      setLocalStorageAuth(result);
       dispatch(setAuthData(result));
       navigate(`/collections/${result.username}`);
     }
   };
 
   useEffect(() => {
-    console.log(error);
     if (error) {
       "status" in error && error.status === 400
         ? enqueueSnackbar("Wrong username or password", { variant: 'error' })
