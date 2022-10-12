@@ -10,15 +10,15 @@ import CreateCollectionItemButton from "./create-collection-item-button/Create-c
 import { useState } from "react";
 import CreateCollectionItemModal from "./create-collection-item-modal/create-collection-modal/Create-collection-item-modal";
 
-
 function Collection() {
   const pathname = useLocation().pathname;
 
-  const { data, isLoading, isSuccess, isError } = useGetCollectionByIdQuery(
-    pathname.substring(pathname.lastIndexOf("/"))
-  );
+  const { data, isLoading, isSuccess, isError, refetch } =
+    useGetCollectionByIdQuery(pathname.substring(pathname.lastIndexOf("/")));
 
-  console.log(data)
+  console.log(data?.customFieldTitles);
+
+  console.log(data?.items);
 
   const [isCreateModalVisible, setCreateModalVisibility] = useState(false);
 
@@ -26,40 +26,42 @@ function Collection() {
 
   if (isLoading) {
     content = <div>loading</div>;
-  } else if (isSuccess) {
-    content = data.items.length ? (
-      <>
-        <Row>{data.items.length && data.ownerName}</Row>
-        <Row>
-          {data.items.map((item: ICollectionItem) => (
-            <Col className={styles.col} xl={3} md={4} xs={6} key={item.id}>
-              <div>{item.name}</div>
-            </Col>
-          ))}
-        </Row>
-      </>
-    ) : (
-      "no content"
-    );
   } else if (isError) {
     content = <div>failed to load data</div>;
-  }
-  return (
-    <Container>
-      <Row>
-        <RouteButton route={`/collections/${data?.ownerName}`} text='back to collection' />
-        <CreateCollectionItemButton
-          setCreateModalVisibility={setCreateModalVisibility}
-        />
-      </Row>
-      <CreateCollectionItemModal
+  } else if (isSuccess) {
+    content = (
+      <>
+        <Row>
+          <RouteButton
+            route={`/collections/${data.ownerName}`}
+            text="back to collection"
+          />
+          <CreateCollectionItemButton
+            setCreateModalVisibility={setCreateModalVisibility}
+          />
+        </Row>
+        <CreateCollectionItemModal
           isCreateModalVisible={isCreateModalVisible}
           setCreateModalVisibility={setCreateModalVisibility}
-          // refetch={refetch}
+          collectionData={data}
+          refetch={refetch}
         />
-      {content}
-    </Container>
-  );
+        {data.items.length ? (
+          <>
+            <Row>{data.items.length && data.ownerName}</Row>
+            <Row>
+              {data.items.map((item: ICollectionItem) => (
+                <Col className={styles.col} xl={3} md={4} xs={6} key={item.id}>
+                  <div>{item.name}</div>
+                </Col>
+              ))}
+            </Row>
+          </>
+        ) : "no items" }
+      </>
+    );
+  }
+  return <Container>{content}</Container>;
 }
 
 export default Collection;
