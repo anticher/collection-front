@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSendRegistrationCredentialsMutation } from "../../../app/api-slices/auth.api-slice";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
+import { buttonVariant } from "../../../constants/bootstrap-constants";
 
 interface RegistrationFormInput {
   username: string;
@@ -47,7 +48,6 @@ function Registration() {
   } = useForm<RegistrationFormInput>();
 
   useEffect(() => {
-    console.log(error);
     if (error) {
       "status" in error && error.status === 400
         ? enqueueSnackbar("User with the same name or email already exists", { variant: 'error' })
@@ -82,6 +82,7 @@ function Registration() {
             className={styles.control}
             type="text"
             placeholder="Enter username"
+            autoComplete="off"
             {...register("username", {
               required: formLimits.username.required,
               maxLength: formLimits.username.maxLength,
@@ -101,6 +102,7 @@ function Registration() {
             className={styles.control}
             type="email"
             placeholder="Enter email"
+            autoComplete="off"
             {...register("email", {
               required: formLimits.email.required,
               maxLength: formLimits.email.maxLength,
@@ -133,7 +135,7 @@ function Registration() {
             })}
           />
           {errors.password?.type === "required" && (
-            <Form.Text>Password is required</Form.Text>
+            <Form.Text>Password required</Form.Text>
           )}
           {errors.password?.type === "minLength" && (
             <Form.Text>Minimum length is 8 characters</Form.Text>
@@ -160,7 +162,7 @@ function Registration() {
             })}
           />
           {errors.passwordConfirm?.type === "required" && (
-            <Form.Text>Password confirmation is required</Form.Text>
+            <Form.Text>Password confirmation required</Form.Text>
           )}
           {errors.passwordConfirm?.type === "minLength" && (
             <Form.Text>Minimum length is 8 characters</Form.Text>
@@ -172,7 +174,7 @@ function Registration() {
             <Form.Text>Passwords should match</Form.Text>
           )}
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant={buttonVariant} type="submit">
           Register
         </Button>
       </Form>

@@ -1,35 +1,52 @@
 .header {
-    padding: 0.5rem 2rem;
-    height: var(--header-heigth);
-    overflow: hidden;
-    background-color: var(--base-main-color);
+  padding: 0.5rem 2rem;
+  height: var(--header-heigth);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 0.8em;
+  background-color: var(--secondary-back-color);
+  box-shadow: 0 0 4px var(--base-font-color);
+  overflow: hidden;
 }
 
 .row {
-    height: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .column {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .logo {
-    padding: 0;
-    background-size: 90% 90%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url(../../assets//images/logo-no-background.svg);    
+  padding: 0;
+  height: 100%;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(../../assets//images/logo-no-background.svg);
 }
 
 .logoLink {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.2rem;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 }

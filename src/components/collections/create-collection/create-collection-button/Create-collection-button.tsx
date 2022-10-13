@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import styles from "./Create-collection-button.module.css";
 import Button from "react-bootstrap/Button";
+import { buttonVariant } from "../../../../constants/bootstrap-constants";
 
 type CreateCollectionButtonProps = {
   setCreateModalVisibility: Dispatch<SetStateAction<boolean>>
@@ -15,7 +16,7 @@ function CreateCollectionButton(props: CreateCollectionButtonProps) {
     <>
       <Button
         className={styles.button}
-        variant="primary"
+        variant={buttonVariant}
         onClick={onClickHandler}
       >
         Create collection

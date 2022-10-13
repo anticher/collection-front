@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useTranslation } from 'react-i18next'
 import { setLocalization } from "../../../app/slices/settings.slice";
 import { useBeforeunload } from 'react-beforeunload';
+import { buttonOutlineVariant } from "../../../constants/bootstrap-constants";
 
 function SetLocalizationButton() {
   const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ function SetLocalizationButton() {
             key={idx}
             id={`local-radio-${idx}`}
             type="radio"
-            variant="primary"
+            variant={buttonOutlineVariant}
             name="local-radio"
             value={radio.value}
             checked={localRadioValue === radio.value}

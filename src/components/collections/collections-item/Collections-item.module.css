@@ -1,9 +1,11 @@
 .collectionsItem {
     width: 100%;
-    background-color: rgb(100, 237, 146);
+    height: 100%;
+    background-color: var(--secondary-back-color);
     color: inherit;
     text-decoration: inherit;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .collectionsItem:hover {
@@ -11,9 +13,26 @@
     color: inherit;
 }
 
+.body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .background {
     aspect-ratio : 16 / 9;
     width: 100%;
-    background-size: contain;
-    background-image: url(https://hatrabbits.com/wp-content/uploads/2018/07/ai.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(https://live.staticflickr.com/98/245744537_9b2401b807_b.jpg);
+    border-radius: 0;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.button {
+    width: fit-content;
 }

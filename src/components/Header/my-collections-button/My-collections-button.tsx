@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../../app/hooks";
+import { buttonVariant } from "../../../constants/bootstrap-constants";
 
 function MyCollectionsButton() {
   const username = useAppSelector((state) => state.auth.username);
@@ -17,10 +18,10 @@ function MyCollectionsButton() {
     <>
       <Button
         className={styles.button}
-        variant="primary"
+        variant={buttonVariant}
         onClick={onClickHandler}
       >
-        {t("header:myCollections")}
+        {t("header:home")}
       </Button>
     </>
   );

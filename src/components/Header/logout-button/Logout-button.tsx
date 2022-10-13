@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useSendLogoutMutation } from "../../../app/api-slices/auth.api-slice";
 import { setLocalStorageAuthDefault } from "../../../app/local-storage/auth-storage";
 import { initialState, setAuthData } from "../../../app/auth.slice";
+import { buttonVariant, spinnerVariant } from "../../../constants/bootstrap-constants";
 
 
 function LogoutButton() {
@@ -28,10 +29,10 @@ function LogoutButton() {
   return (
       <Button
         className={styles.button}
-        variant="primary"
+        variant={buttonVariant}
         onClick={onClickHandler}
       >
-        {isLoading ? <Spinner animation="border" variant="dark" /> : t("header:logOut")}
+        {isLoading ? <Spinner animation="border" variant={spinnerVariant} /> : t("header:logOut")}
       </Button>
   );
 }

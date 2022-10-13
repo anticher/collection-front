@@ -17,8 +17,8 @@ function App() {
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<div>main</div>} />
+          <Route path="collections/:username/:id" element={<Collection />} />
           <Route path="collections/*" element={<Collections />} />
-          <Route path="collection/*" element={<Collection />} />
         </Routes>
       </main>
     </div>

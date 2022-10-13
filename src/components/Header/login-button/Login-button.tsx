@@ -2,6 +2,7 @@ import styles from "./Login-button.module.css";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { buttonVariant } from "../../../constants/bootstrap-constants";
 
 function LoginButton() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function LoginButton() {
     <>
       <Button
         className={styles.button}
-        variant="primary"
+        variant={buttonVariant}
         onClick={onClickHandler}
       >
         {t("header:signIn")}

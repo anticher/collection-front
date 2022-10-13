@@ -9,11 +9,11 @@ import { useGetThemesQuery } from "../../../../app/api-slices/themes.api-slice";
 import { useCreateCollectionMutation } from "../../../../app/api-slices/collections.api-slice";
 import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../../app/hooks";
-
+import { buttonVariant } from "../../../../constants/bootstrap-constants";
 
 type CreateCollectionFormProps = {
-  setCreateModalVisibility: Dispatch<SetStateAction<boolean>>
-  refetch: () => void
+  setCreateModalVisibility: Dispatch<SetStateAction<boolean>>;
+  refetch: () => void;
 };
 
 function CreateCollectionForm(props: CreateCollectionFormProps) {
@@ -57,10 +57,10 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
         ...data,
         ownerName,
         creatorName,
-      }
+      };
       await sendCollectionCredentials(newCollection).unwrap();
-      props.setCreateModalVisibility(false)
-      props.refetch()
+      props.setCreateModalVisibility(false);
+      props.refetch();
       // dispatch(setAuthData(result));
       // navigate(`/collections/${result.username}`);
     }
@@ -93,7 +93,7 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <Form.Group className="mb-3">
         <Form.Label>Colection title</Form.Label>
         <Form.Control
@@ -160,19 +160,26 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
         errors.image ||
         errors.theme ||
         errors.name) && <Form.Text>all fields are required</Form.Text>}
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-      <Button variant="primary" type="button" onClick={onAddFieldClickHandler}>
-        Add field
-      </Button>
-      <Button
-        variant="primary"
-        type="button"
-        onClick={onRemoveFieldClickHandler}
-      >
-        Remove field
-      </Button>
+
+      <div className={styles.buttons}>
+        <Button variant={buttonVariant} type="submit">
+          Submit
+        </Button>
+        <Button
+          variant={buttonVariant}
+          type="button"
+          onClick={onAddFieldClickHandler}
+        >
+          Add field
+        </Button>
+        <Button
+          variant={buttonVariant}
+          type="button"
+          onClick={onRemoveFieldClickHandler}
+        >
+          Remove field
+        </Button>
+      </div>
     </Form>
   );
 }

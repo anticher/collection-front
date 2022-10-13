@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { setLocalStorageAuth } from "../../../app/local-storage/auth-storage";
+import { buttonVariant } from "../../../constants/bootstrap-constants";
 
 interface LoginFormInput {
   username: string;
@@ -26,13 +27,11 @@ function Login() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const { register, handleSubmit } = useForm<LoginFormInput>();
+  const { register, handleSubmit, formState: { errors }, } = useForm<LoginFormInput>();
   const onSubmit: SubmitHandler<LoginFormInput> = async (data) => {
     const canSend = [data.username, data.password].every(Boolean) && !isLoading;
     if (canSend) {
-      console.log(data)
       const result = await sendCredentials(data).unwrap();
-      console.log(result);
       setLocalStorageAuth(result);
       dispatch(setAuthData(result));
       navigate(`/collections/${result.username}`);
@@ -56,8 +55,14 @@ function Login() {
             className={styles.control}
             type="text"
             placeholder={t("login:enter-username")}
-            {...register("username")}
+            autoComplete="off"
+            {...register("username", {
+              required: true,
+            })}
           />
+          {errors.username?.type === "required" && (
+            <Form.Text>Username required</Form.Text>
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="loginFromPassword">
@@ -66,11 +71,16 @@ function Login() {
             className={styles.control}
             type="password"
             placeholder={t("login:enter-password")}
-            {...register("password")}
+            {...register("password", {
+              required: true,
+            })}
           />
+          {errors.password?.type === "required" && (
+            <Form.Text>Password required</Form.Text>
+          )}
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant={buttonVariant} type="submit">
           {t("login:login")}
         </Button>
       </Form>

@@ -1,0 +1,27 @@
+.btn-warning,
+.btn-outline-warning,
+.btn-warning:hover,
+.btn-outline-warning:hover {
+  color: var(--base-font-color);
+  /* filter: grayscale(10%); */
+}
+
+.form-control,
+.form-control:focus {
+  color: var(--base-font-color);
+  background-color: var(--secondary-back-color);
+}
+
+.form-control:focus {
+  border-color: var(--primary-accent-color);
+  box-shadow: 0 0 10px var(--primary-accent-color);
+}
+
+.form-label,
+.form-control::placeholder {
+  color: var(--base-font-color);
+}
+
+.form-text {
+  color: var(--base-danger-color);
+}

@@ -1,7 +1,5 @@
 import styles from "./Collection.module.css";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { useGetCollectionByIdQuery } from "../../../app/api-slices/collections.api-slice";
 import { useLocation } from "react-router-dom";
 import { ICollectionItem } from "../../../models/ICollectionItem";
@@ -9,6 +7,7 @@ import RouteButton from "../../common/route-button/Route-button";
 import CreateCollectionItemButton from "./create-collection-item-button/Create-collection-item-button";
 import { useState } from "react";
 import CreateCollectionItemModal from "./create-collection-item-modal/create-collection-modal/Create-collection-item-modal";
+import { Card } from "react-bootstrap";
 
 function Collection() {
   const pathname = useLocation().pathname;
@@ -31,15 +30,6 @@ function Collection() {
   } else if (isSuccess) {
     content = (
       <>
-        <Row>
-          <RouteButton
-            route={`/collections/${data.ownerName}`}
-            text="back to collection"
-          />
-          <CreateCollectionItemButton
-            setCreateModalVisibility={setCreateModalVisibility}
-          />
-        </Row>
         <CreateCollectionItemModal
           isCreateModalVisible={isCreateModalVisible}
           setCreateModalVisibility={setCreateModalVisibility}
@@ -48,20 +38,47 @@ function Collection() {
         />
         {data.items.length ? (
           <>
-            <Row>{data.items.length && data.ownerName}</Row>
-            <Row>
+            <h2 className={styles.title}>{data.name}</h2>
+            <div className={styles.itemsContainer}>
               {data.items.map((item: ICollectionItem) => (
-                <Col className={styles.col} xl={3} md={4} xs={6} key={item.id}>
-                  <div>{item.name}</div>
-                </Col>
+                <div className={styles.gridCell} key={item.id}>
+                  <Card>
+                    <Card.Img
+                      variant="top"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScKUxaKXHXDF2oyXfMM1igSWtR-8SQ6yyCOw&usqp=CAU"
+                    />
+                    <Card.Body>
+                      <Card.Title>{item.name}</Card.Title>
+                      <Card.Text>{item.name}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>
               ))}
-            </Row>
+            </div>
           </>
-        ) : "no items" }
+        ) : (
+          "no items"
+        )}
       </>
     );
   }
-  return <Container>{content}</Container>;
+  return (
+    <Container>
+      <div className={styles.buttonsRow}>
+        <RouteButton
+          route={pathname.substring(0, pathname.lastIndexOf("/"))}
+          text="Back to collections"
+        />
+        {isSuccess && (
+          <CreateCollectionItemButton
+            setCreateModalVisibility={setCreateModalVisibility}
+          />
+        )}
+      </div>
+
+      {content}
+    </Container>
+  );
 }
 
 export default Collection;
