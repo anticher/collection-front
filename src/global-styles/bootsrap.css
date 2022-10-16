@@ -39,3 +39,12 @@
 .modal-header .btn-close:hover {
   opacity: 1;
 }
+
+.card, .card > * {
+  color: var(--base-font-color);
+  background-color: var(--secondary-back-color);
+}
+
+.card {
+  border: 1px solid var(--primary-accent-color);
+}

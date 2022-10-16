@@ -108,6 +108,8 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
       <Form.Group className="mb-3">
         <Form.Label>Colection description</Form.Label>
         <Form.Control
+          as="textarea"
+          rows={3}
           type="text"
           placeholder="Enter collection description"
           {...register("description", {
@@ -115,7 +117,7 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
           })}
         />
       </Form.Group>
-
+      
       {isThemesLoading ? (
         "loading"
       ) : (

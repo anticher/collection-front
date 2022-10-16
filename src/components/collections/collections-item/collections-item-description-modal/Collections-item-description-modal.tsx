@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
+import ReactMarkdown from 'react-markdown'
 import Modal from "react-bootstrap/Modal";
 import { ICollection } from "../../../../models/ICollection";
 
@@ -15,7 +16,7 @@ function CollectionsItemDescriptionModal(
     <Modal
       show={props.showDescription}
       onHide={() => props.setShowDescription(false)}
-      dialogClassName="modal-90w"
+      fullscreen
       aria-labelledby="example-custom-modal-styling-title"
     >
       <Modal.Header closeButton>
@@ -24,7 +25,7 @@ function CollectionsItemDescriptionModal(
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>{props.data.description}</p>
+        <ReactMarkdown>{props.data.description}</ReactMarkdown>
       </Modal.Body>
     </Modal>
   );
