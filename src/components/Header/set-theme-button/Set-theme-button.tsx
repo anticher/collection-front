@@ -2,8 +2,8 @@ import styles from "./Set-theme-button.module.css";
 import { useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { setTheme } from "../../../app/slices/settings.slice";
+import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";
+import { setTheme } from "../../../app/settings/settings.slice";
 import { useBeforeunload } from 'react-beforeunload';
 import { buttonOutlineVariant } from "../../../constants/bootstrap-constants";
 

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IAuthResponse } from "../models/IAuthResponse";
-import type { RootState } from "./store";
+import { IAuthResponse } from "../../models/IAuthResponse";
+import type { RootState } from "../store";
 
 export interface IAuthState {
   username: string;

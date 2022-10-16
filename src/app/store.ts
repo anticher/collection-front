@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./auth.slice";
-import settingsReducer from "./slices/settings.slice";
-import { CollectionsApiSlice } from "./api-slices/collections.api-slice";
-import { AuthApiSlice } from "./api-slices/auth.api-slice";
-import { ThemesApiSlice } from "./api-slices/themes.api-slice";
-import { CollectionItemsApiSlice } from "./api-slices/collection-items.api-slice";
+import authReducer from "./auth/auth.slice";
+import settingsReducer from "./settings/settings.slice";
+import { CollectionsApiSlice } from "./collections/collections.api-slice";
+import { AuthApiSlice } from "./auth/auth.api-slice";
+import { ThemesApiSlice } from "./themes/themes.api-slice";
+import { CollectionItemsApiSlice } from "./collection-items/collection-items.api-slice";
+import { TagsApiSlice } from "./tags/tags.api-slice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     [CollectionsApiSlice.reducerPath]: CollectionsApiSlice.reducer,
     [CollectionItemsApiSlice.reducerPath]: CollectionItemsApiSlice.reducer,
     [ThemesApiSlice.reducerPath]: ThemesApiSlice.reducer,
+    [TagsApiSlice.reducerPath]: TagsApiSlice.reducer,
     [AuthApiSlice.reducerPath]: AuthApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -20,6 +22,7 @@ export const store = configureStore({
       CollectionsApiSlice.middleware,
       CollectionItemsApiSlice.middleware,
       ThemesApiSlice.middleware,
+      TagsApiSlice.middleware,
       AuthApiSlice.middleware
     ),
 });

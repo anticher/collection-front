@@ -2,9 +2,9 @@ import styles from "./Set-localization-button.module.css";
 import { useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";
 import { useTranslation } from 'react-i18next'
-import { setLocalization } from "../../../app/slices/settings.slice";
+import { setLocalization } from "../../../app/settings/settings.slice";
 import { useBeforeunload } from 'react-beforeunload';
 import { buttonOutlineVariant } from "../../../constants/bootstrap-constants";
 

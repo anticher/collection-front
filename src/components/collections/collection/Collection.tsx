@@ -1,6 +1,6 @@
 import styles from "./Collection.module.css";
 import Container from "react-bootstrap/Container";
-import { useGetCollectionByIdQuery } from "../../../app/api-slices/collections.api-slice";
+import { useGetCollectionByIdQuery } from "../../../app/collections/collections.api-slice";
 import { useLocation } from "react-router-dom";
 import { ICollectionItem } from "../../../models/ICollectionItem";
 import RouteButton from "../../common/route-button/Route-button";
@@ -14,10 +14,6 @@ function Collection() {
 
   const { data, isLoading, isSuccess, isError, refetch } =
     useGetCollectionByIdQuery(pathname.substring(pathname.lastIndexOf("/")));
-
-  console.log(data?.customFieldTitles);
-
-  console.log(data?.items);
 
   const [isCreateModalVisible, setCreateModalVisibility] = useState(false);
 

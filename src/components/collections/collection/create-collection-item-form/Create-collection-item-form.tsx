@@ -1,115 +1,130 @@
-// import styles from "./Create-collection-item-form.module.css";
+import styles from "./Create-collection-item-form.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { ICollection } from "../../../../models/ICollection";
-import { customFieldTypeEnum } from "../../create-collection/enum/custom-field-type.enum";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CreateCollectionItemFormInput } from "../../create-collection/models/create-collection-item-form-input";
-import { useCreateCollectionItemMutation } from "../../../../app/api-slices/collection-items.api-slice";
-import { useAppSelector } from "../../../../app/hooks";
+import { useCreateCollectionItemMutation } from "../../../../app/collection-items/collection-items.api-slice";
+
+import CustomMultiSelect from "../../../common/custom-select/Custom-multi-select";
+import { useGetCredentialsForCreate } from "../../../../app/hooks/use-get-creadentials-for-create";
+import { createCustomInputs } from "./create-custom-inputs";
+import { checkItemCreateData } from "./check-item-create-data";
+import { useGetTagsQuery } from "../../../../app/tags/tags.api-slice";
 
 type CreateCollectionItemFormProps = {
   setCreateModalVisibility: Dispatch<SetStateAction<boolean>>;
   collectionData: ICollection;
-  refetch: () => void
+  refetch: () => void;
 };
 
-function CreateCollectionItemForm(props: CreateCollectionItemFormProps) {
-  const customFieldsTitles = props.collectionData.customFieldTitles;
-  const ownerName = props.collectionData.ownerName
-
-  const auth = useAppSelector((state) => state.auth);
-  const creatorName = auth?.username;
-  const creatorRole = auth?.role;
-  
+function CreateCollectionItemForm({
+  collectionData,
+  setCreateModalVisibility,
+  refetch,
+}: CreateCollectionItemFormProps) {
   const [
     sendCollectionItemCredentials,
-    { isLoading: isCollectionItemSendLoading, error },
+    { isLoading: isCollectionItemSendLoading },
   ] = useCreateCollectionItemMutation();
 
+  const { data: tags = [], isLoading } = useGetTagsQuery("");
+  const options = tags.length
+    ? tags.map((tag) => {
+        return { value: tag.name, label: tag.name };
+      })
+    : [];
+
+  const customFieldsTitles = collectionData.customFieldTitles;
+  const ownerName = collectionData.ownerName;
+  const [creatorName, creatorRole] = useGetCredentialsForCreate();
+
+  const [selectedOption, setSelectedOption] = useState<string[]>([]);
+  const selectRef = useRef(null);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    setValue,
   } = useForm<CreateCollectionItemFormInput>();
   const onSubmit: SubmitHandler<CreateCollectionItemFormInput> = async (
     data
   ) => {
-    console.log(data);
-    console.log(ownerName)
-    console.log(creatorName)
-    const canSend =
-      [data.name, data.tagNames, !isCollectionItemSendLoading, ownerName, creatorName].every(Boolean) &&
-      (creatorRole === "admin" ||
-        (ownerName === creatorName && creatorRole === "user"));
-    if (canSend) {
-      console.log('can send')
-      const newCollectionItem = {
-        ...data,
-        ownerName,
-        creatorName,
-        collectionId: props.collectionData.id
-      }
-      console.log(newCollectionItem)
+    const newCollectionItem = {
+      ...data,
+      tagNames: data.tagNames.join(","),
+      ownerName,
+      creatorName,
+      collectionId: collectionData.id,
+    };
+    if (
+      checkItemCreateData(
+        newCollectionItem,
+        isCollectionItemSendLoading,
+        creatorRole
+      )
+    ) {
       await sendCollectionItemCredentials(newCollectionItem).unwrap();
-      props.setCreateModalVisibility(false)
-      props.refetch()
+      setCreateModalVisibility(false);
+      refetch();
     }
   };
 
-  const createCustomInputs = () => {
-    if (!customFieldsTitles || customFieldsTitles.length === 0) {
-      return null;
-    }
-    return customFieldsTitles.map(({ id, fieldName, fieldType }, index) => {
-      return (
-        <Form.Group className="mb-3" key={id}>
-          <Form.Label>{fieldName}</Form.Label>
-          <Form.Control
-            type={fieldType === customFieldTypeEnum.string ? "text" : "number"}
-            placeholder="Enter collection description"
-            {...register(`customFields.${id}`, {
-              required: true,
-            })}
-          />
-        </Form.Group>
-      );
-    });
-  };
-
-  return (
+  const content = !isLoading ? (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Form.Group className="mb-3">
         <Form.Label>Item name</Form.Label>
         <Form.Control
           type="text"
           placeholder="Enter collection title"
+          autoComplete="off"
           {...register("name", {
             required: true,
           })}
         />
       </Form.Group>
 
-      <Form.Group className="mb-3">
+      <Form.Group className={styles.tagNamesInputGroup}>
         <Form.Label>Item tags</Form.Label>
         <Form.Control
           type="text"
           placeholder="Enter collection description"
+          value={selectedOption}
+          autoComplete="off"
           {...register("tagNames", {
             required: true,
           })}
+          onFocus={() => {
+            if (selectRef && selectRef.current) {
+              (selectRef.current as HTMLSelectElement).focus();
+            }
+          }}
         />
       </Form.Group>
 
-      {createCustomInputs()}
+      <Form.Group className="mb-3">
+        <Form.Label>Item tags</Form.Label>
+        <CustomMultiSelect
+          selectRef={selectRef}
+          options={options}
+          setValue={(newSelectedOption: string[]) =>
+            setValue("tagNames", newSelectedOption)
+          }
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+        />
+      </Form.Group>
+
+      {createCustomInputs({ customFieldsTitles, register })}
 
       <Button variant="primary" type="submit">
         Submit
       </Button>
     </Form>
-  );
+  ) : (<Form></Form>);
+
+  return content;
 }
 
 export default CreateCollectionItemForm;

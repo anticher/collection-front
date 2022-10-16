@@ -6,7 +6,7 @@ import LoginButton from "./login-button/Login-button";
 import RegistrationButton from "./registration-button/Registration-button";
 import SetThemeButton from "./set-theme-button/Set-theme-button";
 import SearchInput from "./search-input/Search-input";
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector } from "../../app/app-hooks";
 import LogoutButton from "./logout-button/Logout-button";
 import MyCollectionsButton from "./my-collections-button/My-collections-button";
 import { Link } from "react-router-dom";

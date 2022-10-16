@@ -5,12 +5,21 @@ import Login from "./components/auth/login/Login";
 import Registration from "./components/auth/registration/Registration";
 import Collections from "./components/collections/Collections";
 import Collection from "./components/collections/collection/Collection";
-import { useAppSelector } from "./app/hooks"
+import { useAppSelector } from "./app/app-hooks"
+import { useEffect } from "react";
 
 function App() {
   const appTheme = useAppSelector((state) => state.settings.theme);
+
+  useEffect(()  => {
+    const appThemeClass = `app-theme-${appTheme}`;
+    document.body.classList.add(appThemeClass);
+    return () => {
+        document.body.classList.remove(appThemeClass);
+    };
+});
   return (
-    <div className={`${styles.app} app-theme-${appTheme}`}>
+    <div className={styles.app}>
       <Header />
       <main className={styles.main}>
         <Routes>

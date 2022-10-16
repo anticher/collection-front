@@ -2,3 +2,77 @@
 @import "./init.css";
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "./bootsrap.css";
+
+
+.custom-select__control, .custom-select__control--is-focused {
+    border-radius: 0.375rem !important;
+    color: var(--base-font-color) !important;
+    background-color: var(--secondary-back-color) !important;
+}
+
+.custom-select__input-container {
+    color: var(--base-font-color) !important;
+}
+
+.custom-select__placeholder {
+    color: var(--base-font-color) !important;
+}
+
+.custom-select__control--is-focused {
+    border-color: var(--primary-accent-color) !important;
+    box-shadow: 0 0 10px var(--primary-accent-color) !important;
+}
+
+.custom-select__multi-value {
+    border-radius: 4px !important;
+    overflow: hidden;
+}
+
+.custom-select__multi-value__label {
+    background-color: var(--primary-accent-color);
+    border-radius: 0 !important;
+}
+
+.custom-select__multi-value__remove {
+    background-color: var(--primary-accent-color);
+    border-radius: 0 !important;
+}
+
+.custom-select__multi-value__remove:hover {
+    color: var(--base-danger-color) !important;
+    background-color: var(--primary-accent-color) !important;
+}
+
+.custom-select__menu {
+    color: var(--base-font-color) !important;
+    background-color: var(--secondary-back-color) !important;
+}
+
+.custom-select__option--is-focused {
+    background-color: var(--base-back-color) !important;
+}
+
+.custom-select__indicator {
+    color: var(--base-font-color) !important;
+}
+
+.custom-select__clear-indicator:hover {
+    color: var(--base-danger-color) !important;
+    cursor: pointer;
+}
+
+.custom-select__dropdown-indicator:hover {
+    color: var(--primary-accent-color) !important;
+    cursor: pointer;
+}
+/* 
+.form-control,
+.form-control:focus {
+  color: var(--base-font-color);
+  background-color: var(--secondary-back-color);
+}
+
+.form-control:focus {
+  border-color: var(--primary-accent-color);
+  box-shadow: 0 0 10px var(--primary-accent-color);
+} */

@@ -3,13 +3,13 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useSendLoginCredentialsMutation } from "../../../app/api-slices/auth.api-slice";
-import { useAppDispatch } from "../../../app/hooks";
-import { setAuthData } from "../../../app/auth.slice";
+import { useSendLoginCredentialsMutation } from "../../../app/auth/auth.api-slice";
+import { useAppDispatch } from "../../../app/app-hooks";
+import { setAuthData } from "../../../app/auth/auth.slice";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
-import { setLocalStorageAuth } from "../../../app/local-storage/auth-storage";
+import { setLocalStorageAuth } from "../../../app/auth/auth-storage";
 import { buttonVariant } from "../../../constants/bootstrap-constants";
 
 interface LoginFormInput {

@@ -2,7 +2,7 @@ import styles from "./My-collections-button.module.css";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppSelector } from "../../../app/app-hooks";
 import { buttonVariant } from "../../../constants/bootstrap-constants";
 
 function MyCollectionsButton() {

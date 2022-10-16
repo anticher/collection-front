@@ -25,3 +25,17 @@
 .form-text {
   color: var(--base-danger-color);
 }
+
+.modal-content {
+  color: var(--base-font-color);
+  background-color: var(--base-back-color);
+}
+
+.modal-header .btn-close {
+  background-color: var(--primary-accent-color);
+  opacity: 0.9;
+}
+
+.modal-header .btn-close:hover {
+  opacity: 1;
+}

@@ -5,10 +5,10 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import CreateCollectionCustomInput from "../create-collection-custom-input/Create-collection-custom-input";
 import { CreateCollectionFormInput } from "../models/create-collection-form-input";
-import { useGetThemesQuery } from "../../../../app/api-slices/themes.api-slice";
-import { useCreateCollectionMutation } from "../../../../app/api-slices/collections.api-slice";
+import { useGetThemesQuery } from "../../../../app/themes/themes.api-slice";
+import { useCreateCollectionMutation } from "../../../../app/collections/collections.api-slice";
 import { useLocation } from "react-router-dom";
-import { useAppSelector } from "../../../../app/hooks";
+import { useAppSelector } from "../../../../app/app-hooks";
 import { buttonVariant } from "../../../../constants/bootstrap-constants";
 
 type CreateCollectionFormProps = {

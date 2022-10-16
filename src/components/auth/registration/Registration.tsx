@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useSendRegistrationCredentialsMutation } from "../../../app/api-slices/auth.api-slice";
+import { useSendRegistrationCredentialsMutation } from "../../../app/auth/auth.api-slice";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { buttonVariant } from "../../../constants/bootstrap-constants";
