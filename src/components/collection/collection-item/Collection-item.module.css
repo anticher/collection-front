@@ -1,4 +1,5 @@
-.collectionsItem {
+.collectionItem {
+  /* padding-top: 10px; */
   width: 100%;
   height: 100%;
   background-color: var(--secondary-back-color);
@@ -8,7 +9,7 @@
   overflow: hidden;
 }
 
-.collectionsItem:hover {
+.collectionItem:hover {
   box-shadow: 0 0 10px;
   color: inherit;
 }

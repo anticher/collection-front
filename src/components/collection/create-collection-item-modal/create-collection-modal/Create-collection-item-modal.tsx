@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 // import styles from "./Create-collection-modal.module.css";
 import Modal from "react-bootstrap/Modal";
-import { ICollection } from "../../../../../models/ICollection";
+import { ICollection } from "../../../../models/ICollection";
 import CreateCollectionItemForm from "../../create-collection-item-form/Create-collection-item-form";
 
 type CreateCollectionItemModalProps = {

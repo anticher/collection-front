@@ -6,6 +6,7 @@ import Card from "react-bootstrap/Card";
 import { buttonVariant } from "../../../constants/bootstrap-constants";
 import CollectionsItemDescriptionModal from "./collections-item-description-modal/Collections-item-description-modal";
 import { useState } from "react";
+import { NoImageSwg } from "../../collection/No-image-swg";
 
 type CollectionsItemProps = {
   data: ICollection;
@@ -37,7 +38,19 @@ function CollectionsItem(props: CollectionsItemProps) {
         setShowDescription={setShowDescription}
         data={data}
       />
-      <Card.Img className={styles.background} />
+
+      {data.image ? (
+        // <div className={styles.imageContainer}>
+          <Card.Img
+            className={styles.image}
+            src={data.image}
+            alt="collection-image"
+          />
+        // </div>
+      ) : (
+        <NoImageSwg color={"#8054A0"} />
+      )}
+
       <Card.Body className={styles.body}>
         <Card.Title>{data.name || "no name"}</Card.Title>
         <Card.Text>{data.theme?.name || "empty theme"}</Card.Text>

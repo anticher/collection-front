@@ -10,6 +10,8 @@ import { useCreateCollectionMutation } from "../../../../app/collections/collect
 import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../../app/app-hooks";
 import { buttonVariant } from "../../../../constants/bootstrap-constants";
+import { useSendImageMutation } from "../../../../app/image-upload/image-upload.api-slice";
+import { transformImageToFormdata } from "../../../../app/image-upload/transform-image-to-formdata";
 
 type CreateCollectionFormProps = {
   setCreateModalVisibility: Dispatch<SetStateAction<boolean>>;
@@ -33,8 +35,10 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
 
   const [
     sendCollectionCredentials,
-    { isLoading: isCollectionSendLoading, error },
+    { isLoading: isCollectionSendLoading, error: collectionUploadError },
   ] = useCreateCollectionMutation();
+
+  const [sendImage] = useSendImageMutation();
 
   const {
     register,
@@ -44,7 +48,7 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
   } = useForm<CreateCollectionFormInput>();
   const onSubmit: SubmitHandler<CreateCollectionFormInput> = async (data) => {
     const canSend =
-      [data.name, data.description, data.theme, data.image].every(Boolean) &&
+      [data.name, data.description, data.theme].every(Boolean) &&
       !isThemesLoading &&
       !isCollectionSendLoading &&
       ownerName &&
@@ -53,16 +57,19 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
         (ownerName === creatorName && creatorRole === "user"));
     if (!data.customFields) data.customFields = [];
     if (canSend) {
+      const imageUrl = data.image.length
+        ? (await sendImage(transformImageToFormdata(data.image["0"])).unwrap())
+            .secure_url
+        : null;
       const newCollection = {
         ...data,
+        image: imageUrl,
         ownerName,
         creatorName,
       };
       await sendCollectionCredentials(newCollection).unwrap();
       props.setCreateModalVisibility(false);
       props.refetch();
-      // dispatch(setAuthData(result));
-      // navigate(`/collections/${result.username}`);
     }
   };
 
@@ -73,7 +80,6 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
   const onRemoveFieldClickHandler = () => {
     if (!customInputs.length) return;
     const removeIndex = customInputs.length - 1;
-    // const newCustomInputs = removeIndex ? customInputs.slice(0, removeIndex) : [];
     const newCustomInputs = customInputs.slice(0, removeIndex);
     unregister(`customFields.${removeIndex}`);
     setCustomInputs([...newCustomInputs]);
@@ -117,7 +123,7 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
           })}
         />
       </Form.Group>
-      
+
       {isThemesLoading ? (
         "loading"
       ) : (
@@ -145,14 +151,8 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
       )}
 
       <Form.Group className="mb-3">
-        <Form.Label>Colection image url</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter collection image url"
-          {...register("image", {
-            required: true,
-          })}
-        />
+        <Form.Label>Collection image</Form.Label>
+        <Form.Control type="file" {...register("image")} />
       </Form.Group>
 
       {customInputs.length ? createCustomInputs() : null}

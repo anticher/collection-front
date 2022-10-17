@@ -1,8 +1,8 @@
 import Form from "react-bootstrap/Form";
 import { UseFormRegister } from "react-hook-form";
-import { ICustomFieldTitle } from "../../../../models/ICustomFieldTitle";
-import { customFieldTypeEnum } from "../../create-collection/enum/custom-field-type.enum";
-import { CreateCollectionItemFormInput } from "../../create-collection/models/create-collection-item-form-input";
+import { ICustomFieldTitle } from "../../../models/ICustomFieldTitle";
+import { customFieldTypeEnum } from "../../collections/create-collection/enum/custom-field-type.enum";
+import { CreateCollectionItemFormInput } from "../../collections/create-collection/models/create-collection-item-form-input";
 
 type createCustomInputsProps = {
     customFieldsTitles: ICustomFieldTitle[];

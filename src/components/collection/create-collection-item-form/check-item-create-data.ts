@@ -1,4 +1,4 @@
-import { ICollectionItemCreate } from "../../../../models/ICollectionItemCreate";
+import { ICollectionItemCreate } from "../../../models/ICollectionItemCreate";
 
 export const checkItemCreateData = (
   { name, tagNames, ownerName, creatorName }: ICollectionItemCreate,

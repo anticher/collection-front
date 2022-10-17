@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@types/react-beforeunload": "^2.1.1",
+    "@types/react-helmet": "^6.1.5",
     "gh-pages": "^4.0.0"
   }
 }

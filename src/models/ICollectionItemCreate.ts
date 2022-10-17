@@ -4,6 +4,7 @@ export interface ICollectionItemCreate {
   ownerName: string;
   creatorName: string;
   name: string;
+  image: string | null;
   tagNames: string;
   customFields: Record<string, CustomFieldValue>
   collectionId: string;

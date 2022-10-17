@@ -1,6 +1,5 @@
 import styles from "./Collections.module.css";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import CollectionsItem from "./collections-item/Collections-item";
 import { useGetCollectionsByUserQuery } from "../../app/collections/collections.api-slice";
 import { ICollection } from "../../models/ICollection";
@@ -33,9 +32,9 @@ function Collections() {
   } else if (isSuccess) {
     content = (
       <>
-        <div className={styles.itemsContainer}>
+        <div className={styles.itemsGrid}>
           {collections.map((collection: ICollection) => (
-            <div className={styles.gridCell} key={collection.id}>
+            <div className={styles.itemContainer} key={collection.id}>
               <CollectionsItem data={collection} />
             </div>
           ))}
