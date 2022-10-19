@@ -50,6 +50,7 @@ function CreateCollectionItemForm({
 
   const { register, handleSubmit, setValue } =
     useForm<CreateCollectionItemFormInput>();
+
   const onSubmit: SubmitHandler<CreateCollectionItemFormInput> = async (
     data
   ) => {

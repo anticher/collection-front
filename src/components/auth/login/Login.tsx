@@ -26,7 +26,7 @@ function Login() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const { register, handleSubmit, formState: { errors }, } = useForm<LoginFormInput>();
+  const { register, handleSubmit, setFocus, formState: { errors }, } = useForm<LoginFormInput>();
   const onSubmit: SubmitHandler<LoginFormInput> = async (data) => {
     const canSend = [data.username, data.password].every(Boolean) && !isLoading;
     if (canSend) {
@@ -35,6 +35,10 @@ function Login() {
       navigate(`/collections/${result.username}`);
     }
   };
+
+  useEffect(() => {
+    setFocus("username");
+  }, [setFocus]);
 
   useEffect(() => {
     if (error) {

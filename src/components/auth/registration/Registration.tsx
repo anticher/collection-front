@@ -42,6 +42,7 @@ function Registration() {
 
   const {
     register,
+    setFocus,
     formState: { errors },
     handleSubmit,
     watch
@@ -54,6 +55,10 @@ function Registration() {
         : enqueueSnackbar("Server error", { variant: 'error' });
     }
   }, [enqueueSnackbar, error]);
+
+  useEffect(() => {
+    setFocus("username");
+  }, [setFocus]);
 
   const onSubmit: SubmitHandler<RegistrationFormInput> = async (data) => {
     const canSend =
