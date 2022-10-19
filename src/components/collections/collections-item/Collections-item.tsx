@@ -7,6 +7,7 @@ import { buttonVariant } from "../../../constants/bootstrap-constants";
 import CollectionsItemDescriptionModal from "./collections-item-description-modal/Collections-item-description-modal";
 import { useState } from "react";
 import { NoImageSwg } from "../../collection/No-image-swg";
+import { useAppSelector } from "../../../app/app-hooks";
 
 type CollectionsItemProps = {
   data: ICollection;
@@ -16,7 +17,12 @@ function CollectionsItem(props: CollectionsItemProps) {
   const [showDescription, setShowDescription] = useState(false);
 
   const navigate = useNavigate();
+
+  const auth = useAppSelector((state) => state.auth);
+
   const { data } = props;
+
+  const isUserOwnerOrAdmin = data.ownerName === auth.username || auth.role === 'admin' || false;
 
   const onEditClickHandler = (e: React.MouseEvent<EventTarget>) => {
     console.log("edit");
@@ -70,13 +76,13 @@ function CollectionsItem(props: CollectionsItemProps) {
           >
             Description
           </Button>
-          <Button
+          {isUserOwnerOrAdmin && <Button
             className={styles.button}
             variant={buttonVariant}
             onClick={onEditClickHandler}
           >
             Edit
-          </Button>
+          </Button>}
         </div>
       </Card.Body>
     </Card>

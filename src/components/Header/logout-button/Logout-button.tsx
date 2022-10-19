@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../app/app-hooks";
 import { useTranslation } from "react-i18next";
 import { useSendLogoutMutation } from "../../../app/auth/auth.api-slice";
-import { setLocalStorageAuthDefault } from "../../../app/auth/auth-storage";
 import { initialState, setAuthData } from "../../../app/auth/auth.slice";
 import { buttonVariant, spinnerVariant } from "../../../constants/bootstrap-constants";
 
@@ -18,10 +17,8 @@ function LogoutButton() {
 
   const [sendLogout, { isLoading }] = useSendLogoutMutation();
 
-
   const onClickHandler = async () => {
     await sendLogout();
-    setLocalStorageAuthDefault();
     dispatch(setAuthData(initialState));
     navigate("/");
   };

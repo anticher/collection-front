@@ -9,7 +9,6 @@ import { setAuthData } from "../../../app/auth/auth.slice";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
-import { setLocalStorageAuth } from "../../../app/auth/auth-storage";
 import { buttonVariant } from "../../../constants/bootstrap-constants";
 
 interface LoginFormInput {
@@ -32,7 +31,6 @@ function Login() {
     const canSend = [data.username, data.password].every(Boolean) && !isLoading;
     if (canSend) {
       const result = await sendCredentials(data).unwrap();
-      setLocalStorageAuth(result);
       dispatch(setAuthData(result));
       navigate(`/collections/${result.username}`);
     }

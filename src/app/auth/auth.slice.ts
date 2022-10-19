@@ -4,14 +4,14 @@ import type { RootState } from "../store";
 
 export interface IAuthState {
   username: string;
-  userId: string;
+  id: string;
   role: string;
 }
 
 export const initialState: IAuthState = {
-  username: localStorage.getItem("username") || "",
-  userId: localStorage.getItem("userId") || "",
-  role: localStorage.getItem("role") || "",
+  username: "",
+  id: "",
+  role: "",
 };
 
 export const authSlice = createSlice({
@@ -19,9 +19,9 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setAuthData: (state, action: PayloadAction<IAuthResponse>) => {
-      const { username, userId, role } = action.payload;
+      const { username, id, role } = action.payload;
       state.role = role;
-      state.userId = userId;
+      state.id = id;
       state.username = username;
     },
   },

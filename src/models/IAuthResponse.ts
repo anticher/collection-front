@@ -1,5 +1,5 @@
 export interface IAuthResponse {
   username: string;
-  userId: string;
+  id: string;
   role: string;
 }

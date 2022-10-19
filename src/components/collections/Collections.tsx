@@ -10,18 +10,22 @@ import CreateCollectionModal from "./create-collection/create-collection-modal/C
 import RouteButton from "../common/route-button/Route-button";
 import { Alert, Spinner } from "react-bootstrap";
 import { spinnerVariant } from "../../constants/bootstrap-constants";
+import { useAppSelector } from "../../app/app-hooks";
 
 function Collections() {
   const pathname = useLocation().pathname;
+  const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
   const {
     data: collections = [],
     isLoading,
     isSuccess,
     isError,
     refetch,
-  } = useGetCollectionsByUserQuery(
-    pathname.substring(pathname.lastIndexOf("/"))
-  );
+  } = useGetCollectionsByUserQuery(collectionsOwner);
+
+  const auth = useAppSelector((state) => state.auth);
+
+  const isUserOwnerOrAdmin = collectionsOwner === auth.username || auth.role === 'admin' || false;
 
   const [isCreateModalVisible, setCreateModalVisibility] = useState(false);
 
@@ -51,9 +55,11 @@ function Collections() {
       </h2>
       <div className={styles.buttonsRow}>
         <RouteButton route={`/`} text="Main page" />
-        <CreateCollectionButton
-          setCreateModalVisibility={setCreateModalVisibility}
-        />
+        {isUserOwnerOrAdmin && (
+          <CreateCollectionButton
+            setCreateModalVisibility={setCreateModalVisibility}
+          />
+        )}
       </div>
       <CreateCollectionModal
         isCreateModalVisible={isCreateModalVisible}

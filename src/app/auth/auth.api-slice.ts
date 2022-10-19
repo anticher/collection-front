@@ -12,6 +12,9 @@ export const AuthApiSlice = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
+    checkAuth: builder.query({
+      query: () => "/check-auth",
+    }),
     sendLoginCredentials: builder.mutation<
       IAuthResponse,
       { username: string; password: string }
@@ -42,6 +45,7 @@ export const AuthApiSlice = createApi({
 });
 
 export const {
+  useCheckAuthQuery,
   useSendLoginCredentialsMutation,
   useSendRegistrationCredentialsMutation,
   useSendLogoutMutation

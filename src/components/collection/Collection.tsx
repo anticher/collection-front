@@ -10,17 +10,22 @@ import CreateCollectionItemModal from "./create-collection-item-modal/create-col
 import { Alert, Spinner } from "react-bootstrap";
 import CollectionItem from "./collection-item/Collection-item";
 import { spinnerVariant } from "../../constants/bootstrap-constants";
+import { useAppSelector } from "../../app/app-hooks";
 
 function Collection() {
   const pathname = useLocation().pathname;
-
+  const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1)
   const {
     data: collection,
     isLoading,
     isSuccess,
     isError,
     refetch,
-  } = useGetCollectionByIdQuery(pathname.substring(pathname.lastIndexOf("/")));
+  } = useGetCollectionByIdQuery("/" + collectionId);
+
+  const auth = useAppSelector((state) => state.auth);
+
+  const isUserOwnerOrAdmin = collection?.ownerName === auth.username || auth.role === 'admin' || false;
 
   const [isCreateModalVisible, setCreateModalVisibility] = useState(false);
 
@@ -59,7 +64,7 @@ function Collection() {
           route={pathname.substring(0, pathname.lastIndexOf("/"))}
           text="Back to collections"
         />
-        {isSuccess && (
+        {isSuccess && isUserOwnerOrAdmin && (
           <CreateCollectionItemButton
             setCreateModalVisibility={setCreateModalVisibility}
           />
