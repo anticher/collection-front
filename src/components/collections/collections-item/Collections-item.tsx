@@ -7,7 +7,8 @@ import { buttonVariant } from "../../../constants/bootstrap-constants";
 import CollectionsItemDescriptionModal from "./collections-item-description-modal/Collections-item-description-modal";
 import { useState } from "react";
 import { NoImageSwg } from "../../collection/No-image-swg";
-import { useAppSelector } from "../../../app/app-hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";
+import { setCollectionUpdateModalVisibility, setUpdatedCollectionId } from "../../../app/collections/collections.slice";
 
 type CollectionsItemProps = {
   data: ICollection;
@@ -24,8 +25,11 @@ function CollectionsItem(props: CollectionsItemProps) {
 
   const isUserOwnerOrAdmin = data.ownerName === auth.username || auth.role === 'admin' || false;
 
-  const onEditClickHandler = (e: React.MouseEvent<EventTarget>) => {
-    console.log("edit");
+  const dispatch = useAppDispatch();
+  
+  const onEditClickHandler = () => {
+    dispatch(setUpdatedCollectionId(data.id))
+    dispatch(setCollectionUpdateModalVisibility(true))
   };
 
   const onDescriptionClickHandler = (e: React.MouseEvent<EventTarget>) => {

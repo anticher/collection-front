@@ -1,28 +1,35 @@
-import { Dispatch, SetStateAction } from "react";
 import styles from "./Create-collection-modal.module.css";
 import Modal from "react-bootstrap/Modal";
 import CreateCollectionForm from "../create-collection-form/Create-collection-form";
+import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
+import { setCollectionModalVisibility } from "../../../../app/collections/collections.slice";
 
-type CreateCollectionModalProps = {
-    isCreateModalVisible: boolean;
-    setCreateModalVisibility: Dispatch<SetStateAction<boolean>>
-    refetch: () => void
+function CreateCollectionModal() {
+  const isCreateModalVisible = useAppSelector(
+    (state) => state.collections.isCreateModalVisible
+  );
+
+  const dispatch = useAppDispatch();
+
+  const onHideHandler = () => {
+    dispatch(setCollectionModalVisibility(false));
   };
-  
 
-function CreateCollectionModal(props: CreateCollectionModalProps) {
+
   return (
     <Modal
-      size="lg"
-      show={props.isCreateModalVisible}
-      onHide={() => props.setCreateModalVisibility(false)}
+      size="xl"
+      show={isCreateModalVisible}
+      onHide={onHideHandler}
       aria-labelledby="example-modal-sizes-title-lg"
     >
       <Modal.Header closeButton>
-        <Modal.Title id="example-modal-sizes-title-lg">Create new collection</Modal.Title>
+        <Modal.Title id="example-modal-sizes-title-lg">
+          Create new collection
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <CreateCollectionForm setCreateModalVisibility={props.setCreateModalVisibility} refetch={props.refetch}/>
+        <CreateCollectionForm />
       </Modal.Body>
     </Modal>
   );

@@ -2,7 +2,7 @@ import { CustomFieldValue } from "../components/collections/create-collection/mo
 
 export interface ICollectionItemCreate {
   ownerName: string;
-  creatorName: string;
+  username: string;
   name: string;
   image: string | null;
   tagNames: string;

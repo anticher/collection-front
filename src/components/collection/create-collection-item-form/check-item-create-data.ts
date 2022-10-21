@@ -1,7 +1,7 @@
 import { ICollectionItemCreate } from "../../../models/ICollectionItemCreate";
 
 export const checkItemCreateData = (
-  { name, tagNames, ownerName, creatorName }: ICollectionItemCreate,
+  { name, tagNames, ownerName, username }: ICollectionItemCreate,
   isCollectionItemSendLoading: boolean,
   creatorRole: string
 ) => {
@@ -11,9 +11,9 @@ export const checkItemCreateData = (
       tagNames.length,
       !isCollectionItemSendLoading,
       ownerName,
-      creatorName,
+      username,
     ].every(Boolean) &&
     (creatorRole === "admin" ||
-      (ownerName === creatorName && creatorRole === "user"))
+      (ownerName === username && creatorRole === "user"))
   );
 };

@@ -1,27 +1,27 @@
 import styles from "./Create-collection-form.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import CreateCollectionCustomInput from "../create-collection-custom-input/Create-collection-custom-input";
 import { CreateCollectionFormInput } from "../models/create-collection-form-input";
 import { useGetThemesQuery } from "../../../../app/themes/themes.api-slice";
-import { useCreateCollectionMutation } from "../../../../app/collections/collections.api-slice";
+import {
+  useCreateCollectionMutation,
+  useGetCollectionsByUserQuery,
+} from "../../../../app/collections/collections.api-slice";
 import { useLocation } from "react-router-dom";
-import { useAppSelector } from "../../../../app/app-hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
 import { buttonVariant } from "../../../../constants/bootstrap-constants";
 import { useSendImageMutation } from "../../../../app/image-upload/image-upload.api-slice";
 import { transformImageToFormdata } from "../../../../app/image-upload/transform-image-to-formdata";
+import { setCollectionModalVisibility } from "../../../../app/collections/collections.slice";
 
-type CreateCollectionFormProps = {
-  setCreateModalVisibility: Dispatch<SetStateAction<boolean>>;
-  refetch: () => void;
-};
-
-function CreateCollectionForm(props: CreateCollectionFormProps) {
+function CreateCollectionForm() {
   const pathname = useLocation().pathname;
   const ownerName = pathname.substring(pathname.lastIndexOf("/") + 1);
   const [customInputs, setCustomInputs] = useState([] as string[]);
+
   const {
     data: themes = [],
     isLoading: isThemesLoading,
@@ -29,14 +29,23 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
     isError,
   } = useGetThemesQuery("");
 
+  const { refetch } = useGetCollectionsByUserQuery(ownerName);
+
   const auth = useAppSelector((state) => state.auth);
-  const creatorName = auth?.username;
+  const username = auth?.username;
   const creatorRole = auth?.role;
 
+  const dispatch = useAppDispatch();
+
   const [
-    sendCollectionCredentials,
-    { isLoading: isCollectionSendLoading, error: collectionUploadError },
+    createCollection,
+    { isLoading: isCollectionCreateLoading, error: collectionCreateError },
   ] = useCreateCollectionMutation();
+
+  // const [
+  //   updateCollection,
+  //   { isLoading: isCollectionUpdateSLoading, error: collectionUpdateError },
+  // ] = useUpdateCollectionMutation();
 
   const [sendImage] = useSendImageMutation();
 
@@ -50,11 +59,11 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
     const canSend =
       [data.name, data.description, data.theme].every(Boolean) &&
       !isThemesLoading &&
-      !isCollectionSendLoading &&
+      !isCollectionCreateLoading &&
       ownerName &&
-      creatorName &&
+      username &&
       (creatorRole === "admin" ||
-        (ownerName === creatorName && creatorRole === "user"));
+        (ownerName === username && creatorRole === "user"));
     if (!data.customFields) data.customFields = [];
     if (canSend) {
       const imageUrl = data.image.length
@@ -65,11 +74,11 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
         ...data,
         image: imageUrl,
         ownerName,
-        creatorName,
+        username,
       };
-      await sendCollectionCredentials(newCollection).unwrap();
-      props.setCreateModalVisibility(false);
-      props.refetch();
+      await createCollection(newCollection).unwrap();
+      dispatch(setCollectionModalVisibility(false));
+      refetch();
     }
   };
 
@@ -84,6 +93,13 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
     unregister(`customFields.${removeIndex}`);
     setCustomInputs([...newCustomInputs]);
   };
+
+  // const [imageInputValue, setImageInputValue] = useState()
+
+  // const imageInputChange = (e: any) => {
+  //   console.log(e.target.files[0])
+  //   setImageInputValue(e.target.files[0]);
+  // }
 
   const createCustomInputs = () => {
     return customInputs.map((customInput, index) => {
@@ -152,7 +168,12 @@ function CreateCollectionForm(props: CreateCollectionFormProps) {
 
       <Form.Group className="mb-3">
         <Form.Label>Collection image</Form.Label>
-        <Form.Control type="file" {...register("image")} />
+        {/* <img src={imageInputValue && URL.createObjectURL(imageInputValue)}/> */}
+        <Form.Control
+          type="file"
+          {...register("image")}
+          // onChange={(e) => imageInputChange(e)}
+        />
       </Form.Group>
 
       {customInputs.length ? createCustomInputs() : null}

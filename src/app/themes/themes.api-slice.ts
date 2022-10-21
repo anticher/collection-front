@@ -8,15 +8,13 @@ export const ThemesApiSlice = createApi({
     prepareHeaders(headers) {
       return headers;
     },
-    credentials: "include"
+    credentials: "include",
   }),
   endpoints: (builder) => ({
     getThemes: builder.query<ITheme[], string>({
       query: () => "/",
-    })
+    }),
   }),
 });
 
-export const {
-  useGetThemesQuery,
-} = ThemesApiSlice;
+export const { useGetThemesQuery } = ThemesApiSlice;

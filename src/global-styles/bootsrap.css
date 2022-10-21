@@ -7,12 +7,20 @@
 }
 
 .form-control,
+.form-select,
+.form-select:focus,
 .form-control:focus {
   color: var(--base-font-color);
   background-color: var(--secondary-back-color);
 }
 
-.form-control:focus {
+
+.form-select option {
+  background-color: blue;
+}
+
+.form-control:focus,
+.form-select:focus {
   border-color: var(--primary-accent-color);
   box-shadow: 0 0 10px var(--primary-accent-color);
 }
@@ -40,7 +48,8 @@
   opacity: 1;
 }
 
-.card, .card > * {
+.card,
+.card > * {
   color: var(--base-font-color);
   background-color: var(--secondary-back-color);
 }

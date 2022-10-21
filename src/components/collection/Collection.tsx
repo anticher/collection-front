@@ -21,7 +21,7 @@ function Collection() {
     isSuccess,
     isError,
     refetch,
-  } = useGetCollectionByIdQuery("/" + collectionId);
+  } = useGetCollectionByIdQuery(collectionId);
 
   const auth = useAppSelector((state) => state.auth);
 

@@ -4,7 +4,6 @@
   background-color: var(--secondary-back-color);
   color: inherit;
   text-decoration: inherit;
-  cursor: pointer;
   overflow: hidden;
 }
 

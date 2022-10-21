@@ -5,12 +5,12 @@ import { useGetCollectionsByUserQuery } from "../../app/collections/collections.
 import { ICollection } from "../../models/ICollection";
 import { useLocation } from "react-router-dom";
 import CreateCollectionButton from "./create-collection/create-collection-button/Create-collection-button";
-import { useState } from "react";
 import CreateCollectionModal from "./create-collection/create-collection-modal/Create-collection-modal";
 import RouteButton from "../common/route-button/Route-button";
 import { Alert, Spinner } from "react-bootstrap";
 import { spinnerVariant } from "../../constants/bootstrap-constants";
 import { useAppSelector } from "../../app/app-hooks";
+import UpdateCollectionModal from "./update-collection/update-collection-modal/Update-collection-modal";
 
 function Collections() {
   const pathname = useLocation().pathname;
@@ -20,14 +20,12 @@ function Collections() {
     isLoading,
     isSuccess,
     isError,
-    refetch,
   } = useGetCollectionsByUserQuery(collectionsOwner);
 
   const auth = useAppSelector((state) => state.auth);
 
-  const isUserOwnerOrAdmin = collectionsOwner === auth.username || auth.role === 'admin' || false;
-
-  const [isCreateModalVisible, setCreateModalVisibility] = useState(false);
+  const isUserOwnerOrAdmin =
+    collectionsOwner === auth.username || auth.role === "admin" || false;
 
   let content;
 
@@ -55,17 +53,10 @@ function Collections() {
       </h2>
       <div className={styles.buttonsRow}>
         <RouteButton route={`/`} text="Main page" />
-        {isUserOwnerOrAdmin && (
-          <CreateCollectionButton
-            setCreateModalVisibility={setCreateModalVisibility}
-          />
-        )}
+        {isUserOwnerOrAdmin && <CreateCollectionButton />}
       </div>
-      <CreateCollectionModal
-        isCreateModalVisible={isCreateModalVisible}
-        setCreateModalVisibility={setCreateModalVisibility}
-        refetch={refetch}
-      />
+      <CreateCollectionModal />
+      <UpdateCollectionModal />
       {content}
     </Container>
   );

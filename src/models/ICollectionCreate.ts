@@ -5,6 +5,6 @@ export interface ICollectionCreate {
   description: string;
   theme: string;
   ownerName: string;
-  creatorName: string;
+  username: string;
   customFields: { fieldType: customFieldTypeEnum; title: string }[];
 }

@@ -41,7 +41,7 @@ function CreateCollectionItemForm({
 
   const customFieldsTitles = collectionData.customFieldTitles;
   const ownerName = collectionData.ownerName;
-  const [creatorName, creatorRole] = useGetCredentialsForCreate();
+  const [username, creatorRole] = useGetCredentialsForCreate();
 
   const [selectedOption, setSelectedOption] = useState<string[]>([]);
   const selectRef = useRef(null);
@@ -59,7 +59,7 @@ function CreateCollectionItemForm({
       image: null,
       tagNames: data.tagNames.join(","),
       ownerName,
-      creatorName,
+      username,
       collectionId: collectionData.id,
     };
     if (
@@ -95,10 +95,8 @@ function CreateCollectionItemForm({
       </Form.Group>
 
       <Form.Group className={styles.tagNamesInputGroup}>
-        <Form.Label>Item tags</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Enter collection description"
           value={selectedOption}
           autoComplete="off"
           {...register("tagNames", {
