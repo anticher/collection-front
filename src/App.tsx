@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "./app/app-hooks";
 import { useEffect } from "react";
 import { useCheckAuthQuery } from "./app/auth/auth.api-slice";
 import { initialState, setAuthData } from "./app/auth/auth.slice";
-import CollectionItemPage from "./components/collection/collection-item-page/Collection-item-page";
+import CollectionItemPage from "./components/collection-item-page/Collection-item-page";
 
 function App() {
   const appTheme = useAppSelector((state) => state.settings.theme);

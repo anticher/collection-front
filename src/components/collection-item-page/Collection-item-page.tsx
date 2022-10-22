@@ -1,7 +1,7 @@
 import { Card, Container, ListGroup } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import { useGetCollectionItemByIdQuery } from "../../../app/collection-items/collection-items.api-slice";
-import RouteButton from "../../common/route-button/Route-button";
+import { useGetCollectionItemByIdQuery } from "../../app/collection-items/collection-items.api-slice";
+import RouteButton from "../common/route-button/Route-button";
 import styles from "./Collection-item-page.module.css";
 
 function CollectionItemPage() {

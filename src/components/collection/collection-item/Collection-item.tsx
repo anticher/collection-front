@@ -4,7 +4,8 @@ import { NoImageSwg } from "../No-image-swg";
 import { ICollectionItem } from "../../../models/ICollectionItem";
 import { Badge, Button } from "react-bootstrap";
 import RouteButton from "../../common/route-button/Route-button";
-import { useAppSelector } from "../../../app/app-hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";
+import { setCollectionItemUpdateModalVisibility, setUpdatedCollectionItemId } from "../../../app/collection-items/collection-items.slice";
 
 type CollectionsItemProps = {
   item: ICollectionItem;
@@ -15,6 +16,13 @@ function CollectionItem({ item }: CollectionsItemProps) {
 
   const isUserOwnerOrAdmin =
     item.ownerName === auth.username || auth.role === "admin" || false;
+
+  const dispatch = useAppDispatch();
+
+  const onEditClickHandler = () => {
+    dispatch(setUpdatedCollectionItemId(item.id));
+    dispatch(setCollectionItemUpdateModalVisibility(true));
+  };
 
   return (
     <Card className={styles.collectionItem}>
@@ -39,7 +47,9 @@ function CollectionItem({ item }: CollectionsItemProps) {
             text="View"
             route={`/collections/${item.ownerName}/${item.collectionId}/${item.id}`}
           />
-          {isUserOwnerOrAdmin && <Button>Edit</Button>}
+          {isUserOwnerOrAdmin && (
+            <Button onClick={onEditClickHandler}>Edit</Button>
+          )}
         </div>
       </Card.Body>
     </Card>

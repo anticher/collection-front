@@ -2,19 +2,19 @@ import styles from "./Create-collection-item-form.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
-import { ICollection } from "../../../models/ICollection";
+import { ICollection } from "../../../../../models/ICollection";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { CreateCollectionItemFormInput } from "../../collections/create-collection/models/create-collection-item-form-input";
-import { useCreateCollectionItemMutation } from "../../../app/collection-items/collection-items.api-slice";
+import { CreateCollectionItemFormInput } from "../../../../collections/create-collection/models/create-collection-item-form-input";
+import { useCreateCollectionItemMutation } from "../../../../../app/collection-items/collection-items.api-slice";
 
-import CustomMultiSelect from "../../common/custom-select/Custom-multi-select";
-import { useGetCredentialsForCreate } from "../../../app/hooks/use-get-creadentials-for-create";
+import CustomMultiSelect from "../../../../common/custom-select/Custom-multi-select";
+import { useGetCredentialsForCreate } from "../../../../../app/hooks/use-get-creadentials-for-create";
 import { createCustomInputs } from "./create-custom-inputs";
 import { checkItemCreateData } from "./check-item-create-data";
-import { useGetTagsQuery } from "../../../app/tags/tags.api-slice";
-import { ICollectionItemCreate } from "../../../models/ICollectionItemCreate";
-import { transformImageToFormdata } from "../../../app/image-upload/transform-image-to-formdata";
-import { useSendImageMutation } from "../../../app/image-upload/image-upload.api-slice";
+import { useGetTagsQuery } from "../../../../../app/tags/tags.api-slice";
+import { ICollectionItemCreate } from "../../../../../models/ICollectionItemCreate";
+import { transformImageToFormdata } from "../../../../../app/image-upload/transform-image-to-formdata";
+import { useSendImageMutation } from "../../../../../app/image-upload/image-upload.api-slice";
 import { InputGroup } from "react-bootstrap";
 
 type CreateCollectionItemFormProps = {

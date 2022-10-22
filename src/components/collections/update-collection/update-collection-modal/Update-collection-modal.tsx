@@ -1,4 +1,3 @@
-import styles from "./Update-collection-modal.module.css";
 import Modal from "react-bootstrap/Modal";
 import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
 import UpdateCollectionForm from "../update-collection-form/Update-collection-form";
@@ -6,8 +5,8 @@ import {
   setCollectionUpdateModalVisibility,
   setUpdatedCollectionId,
 } from "../../../../app/collections/collections.slice";
-import { Spinner } from "react-bootstrap";
 import { buttonVariant } from "../../../../constants/bootstrap-constants";
+import ModalSpinner from "../../../common/spinners/Modal-spinner";
 
 function UpdateCollectionModal() {
   const isUpdateModalVisible = useAppSelector(
@@ -40,16 +39,7 @@ function UpdateCollectionModal() {
       <Modal.Body>
         <UpdateCollectionForm />
       </Modal.Body>
-      {isModalSpinnerVisible && (
-        <Spinner
-          className={styles.spinner}
-          variant={buttonVariant}
-          animation="border"
-          role="status"
-        >
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      )}
+      {isModalSpinnerVisible && <ModalSpinner />}
     </Modal>
   );
 }

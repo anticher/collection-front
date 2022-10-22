@@ -6,11 +6,12 @@ import { ICollectionItem } from "../../models/ICollectionItem";
 import RouteButton from "../common/route-button/Route-button";
 import CreateCollectionItemButton from "./create-collection-item-button/Create-collection-item-button";
 import { useState } from "react";
-import CreateCollectionItemModal from "./create-collection-item-modal/create-collection-modal/Create-collection-item-modal";
 import { Alert, Spinner } from "react-bootstrap";
 import CollectionItem from "./collection-item/Collection-item";
 import { spinnerVariant } from "../../constants/bootstrap-constants";
 import { useAppSelector } from "../../app/app-hooks";
+import CreateCollectionItemModal from "./collection-item/create-collection-item/create-collection-item-modal/Create-collection-item-modal";
+import UpdateCollectionItemModal from "./collection-item/update-collection-item/update-collection-item-modal/Update-collection-item-modal";
 
 function Collection() {
   const pathname = useLocation().pathname;
@@ -44,6 +45,7 @@ function Collection() {
         refetch={refetch}
         collectionData={collection}
       />
+      <UpdateCollectionItemModal />
         <div className={styles.itemsGrid}>
           {collection.items.map((item: ICollectionItem) => (
             <div className={styles.itemContainer} key={item.id}>
