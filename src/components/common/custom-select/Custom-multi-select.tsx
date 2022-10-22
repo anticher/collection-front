@@ -34,7 +34,7 @@ function CustomMultiSelect(props: CustomMultiSelectProps) {
         value={getValue()}
         onChange={onChange}
         options={props.options}
-        placeholder="Enter collection description"
+        placeholder="Enter collection tags"
         isMulti
       />
     </>

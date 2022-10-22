@@ -1,20 +1,13 @@
 .collectionItem {
-  /* padding-top: 10px; */
   width: 100%;
   height: 100%;
   background-color: var(--secondary-back-color);
   color: inherit;
   text-decoration: inherit;
-  cursor: pointer;
   overflow: hidden;
 }
 
-.collectionItem:hover {
-  box-shadow: 0 0 10px;
-  color: inherit;
-}
-
-.body {
+.cardBody {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -26,11 +19,14 @@
   object-fit: cover;
 }
 
-.buttons {
+.badges {
+  margin-bottom: 1.5rem;
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-.button {
-  width: fit-content;
+.buttons {
+  display: flex;
+  gap: 0.5rem;
 }

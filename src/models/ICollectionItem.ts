@@ -1,3 +1,4 @@
+import { ICustomFieldValue } from "./ICustomFieldValue";
 import { ITag } from "./ITag";
 
 export interface ICollectionItem {
@@ -6,6 +7,7 @@ export interface ICollectionItem {
     tagNames: ITag[];
     comments: string; 
     collectionId: string;
+    customFieldValues: ICustomFieldValue[];
     image: string;
     likes?: any;
     ownerName: string;

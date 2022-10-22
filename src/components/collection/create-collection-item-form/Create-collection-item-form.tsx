@@ -15,6 +15,7 @@ import { useGetTagsQuery } from "../../../app/tags/tags.api-slice";
 import { ICollectionItemCreate } from "../../../models/ICollectionItemCreate";
 import { transformImageToFormdata } from "../../../app/image-upload/transform-image-to-formdata";
 import { useSendImageMutation } from "../../../app/image-upload/image-upload.api-slice";
+import { InputGroup } from "react-bootstrap";
 
 type CreateCollectionItemFormProps = {
   setCreateModalVisibility: Dispatch<SetStateAction<boolean>>;

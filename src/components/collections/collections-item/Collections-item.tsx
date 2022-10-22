@@ -14,14 +14,12 @@ type CollectionsItemProps = {
   data: ICollection;
 };
 
-function CollectionsItem(props: CollectionsItemProps) {
+function CollectionsItem({data}: CollectionsItemProps) {
   const [showDescription, setShowDescription] = useState(false);
 
   const navigate = useNavigate();
 
   const auth = useAppSelector((state) => state.auth);
-
-  const { data } = props;
 
   const isUserOwnerOrAdmin = data.ownerName === auth.username || auth.role === 'admin' || false;
 
@@ -38,7 +36,7 @@ function CollectionsItem(props: CollectionsItemProps) {
 
   const onShowClickHandler = () => {
     console.log("card trigger");
-    navigate(`${data.ownerName}/${data.id}`);
+    navigate(`${data.id}`);
   };
 
   return (
