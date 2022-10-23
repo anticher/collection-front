@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useGetCollectionItemByIdQuery } from "../../app/collection-items/collection-items.api-slice";
 import RouteButton from "../common/route-button/Route-button";
 import styles from "./Collection-item-page.module.css";
+import CommentsSection from "./comments-section/Comments-section";
 
 function CollectionItemPage() {
   const pathname = useLocation().pathname;
@@ -18,8 +19,8 @@ function CollectionItemPage() {
   if (!collectionItem) return null;
   return (
     <Container>
-      <Card className={styles.CollectionItemPage}>
-        <Card.Img variant="top" src={collectionItem.image || undefined} />
+      <Card>
+        <Card.Img  className={styles.image} variant="top" src={collectionItem.image || undefined} />
         <Card.Body>
           <Card.Title>{collectionItem.name}</Card.Title>
           <Card.Text>
@@ -39,6 +40,9 @@ function CollectionItemPage() {
         </ListGroup>
         <Card.Body>
           <RouteButton text="Back" route={`/collections/${collectionItem?.ownerName}/${collectionItem?.collectionId}`} />
+        </Card.Body>
+        <Card.Body>
+          <CommentsSection />
         </Card.Body>
       </Card>
     </Container>

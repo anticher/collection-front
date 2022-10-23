@@ -1,3 +1,4 @@
-/* .CollectionItemPage {
-    width: 90%;
-} */
+.image {
+    object-fit: contain;
+    max-height: 80vh;
+}

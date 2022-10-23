@@ -10,6 +10,7 @@ import { ThemesApiSlice } from "./themes/themes.api-slice";
 import { CollectionItemsApiSlice } from "./collection-items/collection-items.api-slice";
 import { TagsApiSlice } from "./tags/tags.api-slice";
 import { ImageUploadApiSlice } from "./image-upload/image-upload.api-slice";
+import { CommentsApiSlice } from "./comments/comments.api-slice";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     [CollectionItemsApiSlice.reducerPath]: CollectionItemsApiSlice.reducer,
     [ThemesApiSlice.reducerPath]: ThemesApiSlice.reducer,
     [TagsApiSlice.reducerPath]: TagsApiSlice.reducer,
+    [CommentsApiSlice.reducerPath]: CommentsApiSlice.reducer,
     [AuthApiSlice.reducerPath]: AuthApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -31,6 +33,7 @@ export const store = configureStore({
       CollectionItemsApiSlice.middleware,
       ThemesApiSlice.middleware,
       TagsApiSlice.middleware,
+      CommentsApiSlice.middleware,
       AuthApiSlice.middleware,
     ),
 });
