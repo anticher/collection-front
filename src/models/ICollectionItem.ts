@@ -1,4 +1,5 @@
 import { ICustomFieldValue } from "./ICustomFieldValue";
+import { ILike } from "./ILike";
 import { ITag } from "./ITag";
 
 export interface ICollectionItem {
@@ -9,7 +10,7 @@ export interface ICollectionItem {
     collectionId: string;
     customFieldValues: ICustomFieldValue[];
     image: string;
-    likes?: any;
+    likes: ILike[];
     ownerName: string;
     creatorName: string;
     createDate: string;

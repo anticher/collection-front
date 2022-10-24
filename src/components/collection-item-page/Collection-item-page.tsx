@@ -4,6 +4,7 @@ import { useGetCollectionItemByIdQuery } from "../../app/collection-items/collec
 import RouteButton from "../common/route-button/Route-button";
 import styles from "./Collection-item-page.module.css";
 import CommentsSection from "./comments-section/Comments-section";
+import LikesBlock from "./likes-block/Likes-block";
 
 function CollectionItemPage() {
   const pathname = useLocation().pathname;
@@ -40,6 +41,7 @@ function CollectionItemPage() {
         </ListGroup>
         <Card.Body>
           <RouteButton text="Back" route={`/collections/${collectionItem?.ownerName}/${collectionItem?.collectionId}`} />
+          <LikesBlock />
         </Card.Body>
         <Card.Body>
           <CommentsSection />
