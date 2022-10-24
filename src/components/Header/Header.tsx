@@ -10,6 +10,7 @@ import { useAppSelector } from "../../app/app-hooks";
 import LogoutButton from "./logout-button/Logout-button";
 import MyCollectionsButton from "./my-collections-button/My-collections-button";
 import { Link } from "react-router-dom";
+import RouteButton from "../common/route-button/Route-button";
 
 function Header() {
   const auth = useAppSelector((state) => state.auth);
@@ -23,6 +24,7 @@ function Header() {
         <Col className={`${styles.column} ${styles.buttons}`} lg={{ span: 6, offset: 0, order: 'last'}} xs={{ span: 10, offset: 2 }}>
           <SetThemeButton />
           <SetLocalizationButton />
+          {auth.role === 'admin' && <RouteButton text="admin" route="/admin-menu"/>}
           {auth.username ? (
             <>
               <MyCollectionsButton />

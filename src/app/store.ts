@@ -12,6 +12,7 @@ import { TagsApiSlice } from "./tags/tags.api-slice";
 import { ImageUploadApiSlice } from "./image-upload/image-upload.api-slice";
 import { CommentsApiSlice } from "./comments/comments.api-slice";
 import { LikesApiSlice } from "./likes/likes.api-slice";
+import { UsersApiSlice } from "./users/users.api-slice";
 
 export const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export const store = configureStore({
     [TagsApiSlice.reducerPath]: TagsApiSlice.reducer,
     [CommentsApiSlice.reducerPath]: CommentsApiSlice.reducer,
     [LikesApiSlice.reducerPath]: LikesApiSlice.reducer,
+    [UsersApiSlice.reducerPath]: UsersApiSlice.reducer,
     [AuthApiSlice.reducerPath]: AuthApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -37,6 +39,7 @@ export const store = configureStore({
       TagsApiSlice.middleware,
       CommentsApiSlice.middleware,
       LikesApiSlice.middleware,
+      UsersApiSlice.middleware,
       AuthApiSlice.middleware,
     ),
 });
