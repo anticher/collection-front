@@ -11,9 +11,9 @@ import { useCheckAuthQuery } from "./app/auth/auth.api-slice";
 import { initialState, setAuthData } from "./app/auth/auth.slice";
 import CollectionItemPage from "./components/collection-item-page/Collection-item-page";
 import AdminPage from "./components/admin/Admin-page";
-import SearchResultsPage from "./components/search/Search-resullts-page";
+import SearchResultsPage from "./components/search/pages/Search-results-page";
 import Main from "./components/main/Main";
-import TagSearchResultsPage from "./components/search/Tag-search-results-page";
+import TagSearchResultsPage from "./components/search/pages/Tag-search-results-page";
 
 function App() {
   const appTheme = useAppSelector((state) => state.settings.theme);

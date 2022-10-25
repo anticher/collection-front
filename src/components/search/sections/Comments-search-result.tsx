@@ -1,30 +1,29 @@
 import { Card } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDebounce } from "usehooks-ts";
-import { useSearchCollectionQuery } from "../../app/collections/collections.api-slice";
+import { useSearchCommentQuery } from "../../../app/comments/comments.api-slice";
 
-function SearchCollections() {
+function CommentsSearchResult() {
   const navigate = useNavigate();
   const { searchString } = useParams();
 
   const debouncedValue = useDebounce<string>(searchString || "", 500);
-  const { data: searchCollectionResult } =
-    useSearchCollectionQuery(debouncedValue);
+  const { data: searchCommentResult } = useSearchCommentQuery(debouncedValue);
 
   return (
     <>
-      {searchCollectionResult && searchCollectionResult.length
-        ? searchCollectionResult.map((collection) => {
+      {searchCommentResult && searchCommentResult.length
+        ? searchCommentResult.map((comment) => {
             return (
-              <Card key={collection.id}>
+              <Card key={comment.id}>
                 <Card.Body
                   onClick={() =>
                     navigate(
-                      `/collections/${collection.ownerName}/${collection.id}`
+                      `/collections/${comment.item.ownerName}/${comment.item.collectionId}/${comment.item.id}`
                     )
                   }
                 >
-                  {collection.name}
+                  {comment.message}
                 </Card.Body>
               </Card>
             );
@@ -34,4 +33,4 @@ function SearchCollections() {
   );
 }
 
-export default SearchCollections;
+export default CommentsSearchResult;

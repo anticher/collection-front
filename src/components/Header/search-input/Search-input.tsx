@@ -25,7 +25,7 @@ function SearchInput() {
         className={styles.input}
         placeholder={t("header:search")}
         aria-label="Search"
-        value={pathname.startsWith("/search") ? value : ""}
+        value={pathname.startsWith("/search/") ? value : ""}
         onChange={(e) => changeHandle(e)}
       />
     </>

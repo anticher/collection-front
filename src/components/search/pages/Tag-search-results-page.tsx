@@ -1,10 +1,10 @@
 import { Container } from "react-bootstrap";
-import ItemsByTagSearch from "./Items-by-tag-search";
+import ItemsByTagSearchResult from "../sections/Items-by-tag-search-result";
 
 function TagSearchResultsPage() {
   return (
     <Container>
-      <ItemsByTagSearch />
+      <ItemsByTagSearchResult isDebounce={false}/>
     </Container>
   );
 }
