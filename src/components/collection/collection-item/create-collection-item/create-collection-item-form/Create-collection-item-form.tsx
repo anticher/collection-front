@@ -33,7 +33,7 @@ function CreateCollectionItemForm({
     { isLoading: isCollectionItemSendLoading },
   ] = useCreateCollectionItemMutation();
 
-  const { data: tags = [], isLoading } = useGetTagsQuery("");
+  const { data: tags = [], isLoading } = useGetTagsQuery();
   const options = tags.length
     ? tags.map((tag) => {
         return { value: tag.name, label: tag.name };

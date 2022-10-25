@@ -13,8 +13,8 @@ function SearchInput() {
 
   const changeHandle = (e: ChangeEvent) => {
     const eventValue = (e.target as HTMLInputElement).value;
+    setValue(eventValue);
     if (eventValue) {
-      setValue(eventValue);
       navigate("/search/" + eventValue);
     }
   };

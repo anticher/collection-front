@@ -8,15 +8,16 @@ export const TagsApiSlice = createApi({
     prepareHeaders(headers) {
       return headers;
     },
-    credentials: "include"
+    credentials: "include",
   }),
   endpoints: (builder) => ({
-    getTags: builder.query<ITag[], string>({
+    getTags: builder.query<ITag[], void>({
       query: () => "/",
-    })
+    }),
+    getTagByName: builder.query<ITag, string | null>({
+      query: (name: string) => `one-by-name/${name}`,
+    }),
   }),
 });
 
-export const {
-  useGetTagsQuery,
-} = TagsApiSlice;
+export const { useGetTagsQuery, useGetTagByNameQuery } = TagsApiSlice;

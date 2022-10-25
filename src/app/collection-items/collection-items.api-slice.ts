@@ -77,11 +77,11 @@ export const CollectionItemsApiSlice = createApi({
 export const {
   useGetCollectionItemsQuery,
   useGetCollectionItemByIdQuery,
+  useSearchCollectionItemQuery,
   useCreateCollectionItemMutation,
   useUpdateCollectionItemNameMutation,
   useUpdateCollectionItemTagsMutation,
   useUpdateCollectionItemImageMutation,
   useUpdateCollectionItemCustomFieldMutation,
   useDeleteCollectionItemMutation,
-  useSearchCollectionItemQuery,
 } = CollectionItemsApiSlice;

@@ -39,7 +39,7 @@ function UpdateCollectionItemTagsGroup() {
     data: tags = [],
     isLoading: isTagsDataLoading,
     isError: isTagsDataDataError,
-  } = useGetTagsQuery("");
+  } = useGetTagsQuery();
   const options = tags.length
     ? tags.map((tag) => {
         return { value: tag.name, label: tag.name };
