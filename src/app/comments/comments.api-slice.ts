@@ -15,6 +15,12 @@ export const CommentsApiSlice = createApi({
     getCommentsByCollectionItem: builder.query<IComment[], string | null>({
       query: (id: string) => `by-collection-item-id/${id}`,
     }),
+    searchComment: builder.query<IComment[], string>({
+      query: (credentials) => ({
+        url: `/search/${credentials}`,
+        method: "GET",
+      }),
+    }),
     createComment: builder.mutation<string, ICommentCreate>({
       query: (credentials) => ({
         url: "/add-comment",
@@ -25,4 +31,4 @@ export const CommentsApiSlice = createApi({
   }),
 });
 
-export const {useGetCommentsByCollectionItemQuery, useCreateCommentMutation} = CommentsApiSlice;
+export const {useGetCommentsByCollectionItemQuery, useSearchCommentQuery, useCreateCommentMutation} = CommentsApiSlice;

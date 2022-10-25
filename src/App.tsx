@@ -11,6 +11,7 @@ import { useCheckAuthQuery } from "./app/auth/auth.api-slice";
 import { initialState, setAuthData } from "./app/auth/auth.slice";
 import CollectionItemPage from "./components/collection-item-page/Collection-item-page";
 import AdminPage from "./components/admin/Admin-page";
+import SearchResultsPage from "./components/search-results/Search-resullts-page";
 
 function App() {
   const appTheme = useAppSelector((state) => state.settings.theme);
@@ -52,6 +53,7 @@ function App() {
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin-menu" element={<AdminPage />} />
+          <Route path="/search/:searchString" element={<SearchResultsPage />} />
           <Route path="/" element={<div>main</div>} />
           <Route path="collections/:username/:id/:id" element={<CollectionItemPage />} />
           <Route path="collections/:username/:id" element={<Collection />} />
