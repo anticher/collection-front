@@ -23,6 +23,9 @@ export const CollectionItemsApiSlice = createApi({
     getCollectionItemById: builder.query<ICollectionItem, string | null>({
       query: (id: string) => `one-by-id/${id}`,
     }),
+    getLatestCollectionItems: builder.query<ICollectionItem[], number>({
+      query: (count: number) => `latest/${count}`,
+    }),
     searchCollectionItem: builder.query<ICollectionItem[], string>({
       query: (credentials) => ({
         url: `/search/${credentials}`,
@@ -77,6 +80,7 @@ export const CollectionItemsApiSlice = createApi({
 export const {
   useGetCollectionItemsQuery,
   useGetCollectionItemByIdQuery,
+  useGetLatestCollectionItemsQuery,
   useSearchCollectionItemQuery,
   useCreateCollectionItemMutation,
   useUpdateCollectionItemNameMutation,

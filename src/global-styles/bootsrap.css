@@ -57,3 +57,8 @@
 .card {
   border: 1px solid var(--primary-accent-color);
 }
+
+.list-group-item {
+  color: var(--base-font-color);
+  background-color: var(--base-back-color);
+}

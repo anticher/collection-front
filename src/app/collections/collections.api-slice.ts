@@ -8,6 +8,7 @@ import { ICollectionCustomFieldDelete } from "../../models/ICollectionCustomFiel
 import { ICollectionThemeUpdate } from "../../models/ICollectionThemeUpdate";
 import { ICollectionDelete } from "../../models/ICollectionDelete";
 import { ICollectionImageUpdate } from "../../models/ICollectionImageUpdate";
+import { ICollectionLargest } from "../../models/ICollectionLargest";
 
 export const CollectionsApiSlice = createApi({
   reducerPath: "collections-api",
@@ -27,6 +28,9 @@ export const CollectionsApiSlice = createApi({
     }),
     getCollectionById: builder.query<ICollection, string | null>({
       query: (id: string) => `one-by-id/${id}`,
+    }),
+    getLargestCollections: builder.query<ICollectionLargest[], number>({
+      query: (count: number) => `largest/${count}`,
     }),
     searchCollection: builder.query<ICollection[], string>({
       query: (credentials) => ({
@@ -97,6 +101,7 @@ export const {
   useGetCollectionsQuery,
   useGetCollectionsByUserQuery,
   useGetCollectionByIdQuery,
+  useGetLargestCollectionsQuery,
   useSearchCollectionQuery,
   useCreateCollectionMutation,
   useUpdateCollectionDescriptionMutation,

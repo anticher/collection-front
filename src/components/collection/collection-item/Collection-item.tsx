@@ -6,6 +6,7 @@ import { Badge, Button } from "react-bootstrap";
 import RouteButton from "../../common/route-button/Route-button";
 import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";
 import { setCollectionItemUpdateModalVisibility, setUpdatedCollectionItemId } from "../../../app/collection-items/collection-items.slice";
+import { badgeVariant } from "../../../constants/bootstrap-constants";
 
 type CollectionsItemProps = {
   item: ICollectionItem;
@@ -36,7 +37,7 @@ function CollectionItem({ item }: CollectionsItemProps) {
         <div className={styles.badges}>
           {item.tagNames.map((tagObject) => {
             return (
-              <Badge key={tagObject.id} bg="warning" text="dark">
+              <Badge key={tagObject.id} bg={badgeVariant} text="dark">
                 {tagObject.name}
               </Badge>
             );
