@@ -23,7 +23,6 @@ function App() {
     data: userState,
     isSuccess,
     isError,
-    error,
   } = useCheckAuthQuery('', {
     pollingInterval: 60000,
   });

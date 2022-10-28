@@ -14,13 +14,14 @@ const min = 14;
 const max = 20;
 
 const options = {
-  luminosity: "bright",
+  luminosity: "light",
   hue: "purple",
 };
 
 function TagCloudSection() {
   const navigate = useNavigate();
-  const { data: tags = [] } = useGetTagsQuery();  
+
+  const { data: tags = [] } = useGetTagsQuery();
 
   const data = tags.map((tag) => ({
     value: tag.name,

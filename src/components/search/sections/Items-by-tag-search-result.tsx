@@ -1,13 +1,16 @@
+import { Alert, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useDebounce } from "usehooks-ts";
 import { useGetTagByNameQuery } from "../../../app/tags/tags.api-slice";
+import { spinnerVariant } from "../../../constants/bootstrap-constants";
 import SearchResultItem from "../search-result-item/Search-result-item";
 
 type ItemsByTagSearchProps = {
   isDebounce: boolean;
+  isVoid: boolean;
 };
 
-function ItemsByTagSearchResult({ isDebounce }: ItemsByTagSearchProps) {
+function ItemsByTagSearchResult({ isDebounce, isVoid }: ItemsByTagSearchProps) {
   const { searchString } = useParams();
 
   const debouncedValue = useDebounce<string>(
@@ -15,21 +18,35 @@ function ItemsByTagSearchResult({ isDebounce }: ItemsByTagSearchProps) {
     isDebounce ? 500 : 0
   );
 
-  const { data: tag } = useGetTagByNameQuery(debouncedValue);
+  const { data: tag, isSuccess, isLoading, isError } = useGetTagByNameQuery(debouncedValue);
+
+  let content = null;
+
+  if (isLoading) {
+    content = <Spinner animation="border" variant={spinnerVariant} />;
+  } else if (isSuccess && tag.collectionItems.length) {
+    content = (
+      tag.collectionItems.map((item) => {
+        return (
+          <SearchResultItem
+            key={item.id}
+            navigateUrl={`/collections/${item.ownerName}/${item.collectionId}/${item.id}`}
+            name={item.ownerName}
+            type="Item"
+          />
+        );
+      })
+    );
+  } else if (isError) {
+    content = <Alert variant="danger">Failed to load data</Alert>;
+  } else if (!isVoid) {
+    content = <Alert variant="warning">No items</Alert>;
+
+  }
 
   return (
     <>
-      {tag &&
-        tag.collectionItems.map((item) => {
-          return (
-             <SearchResultItem
-             key={item.id}
-             navigateUrl={`/collections/${item.ownerName}/${item.collectionId}/${item.id}`}
-             name={item.ownerName}
-             type="Item"
-           />
-          );
-        })}
+      {content}
     </>
   );
 }

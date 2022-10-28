@@ -9,7 +9,7 @@ function SearchResultsPage() {
     <Container>
       <h3>Search results</h3>
       <ItemsSearchResult />
-      <ItemsByTagSearchResult isDebounce={true} />
+      <ItemsByTagSearchResult isDebounce={true} isVoid={true} />
       <CollectionsSearchResult />
       <CommentsSearchResult />
     </Container>

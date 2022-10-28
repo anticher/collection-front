@@ -2,6 +2,7 @@
 @import "./init.css";
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "./bootsrap.css";
+@import "./tag-cloud.css";
 
 .custom-select__control,
 .custom-select__control--is-focused {
