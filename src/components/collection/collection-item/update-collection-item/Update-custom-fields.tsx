@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../../app/app-hooks";
 import { useGetCollectionByIdQuery } from "../../../../app/collections/collections.api-slice";
-import UpdateCollectionItemCustomFieldString from "./Update-custom-field-string";
+import UpdateCollectionItemCustomFieldString from "./Update-custom-field";
 
 function UpdateCollectionItemCustomFields() {
   const pathname = useLocation().pathname;
@@ -23,16 +23,18 @@ function UpdateCollectionItemCustomFields() {
   }
   const customFieldValues = [...collectionItem.customFieldValues];
 
+  console.log(customFieldValues);
+
   const createCustomInputGroup = () => {
     return customFieldValues
       .sort(
         (a, b) => a.customFieldTitle.fieldIndex - b.customFieldTitle.fieldIndex
       )
-      .map((customField, index) => {
+      .map((customField) => {
         return (
           <UpdateCollectionItemCustomFieldString
             key={customField.id}
-            index={index}
+            index={customField.customFieldTitle.fieldIndex}
           />
         );
       });

@@ -1,3 +1,4 @@
+import styles from "./Update-custom-field-string.module.css";
 import { useSnackbar } from "notistack";
 import { useState, useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
@@ -7,8 +8,9 @@ import { useUpdateCollectionItemCustomFieldMutation } from "../../../../app/coll
 import { setCollectionItemModalSpinnerVisibility } from "../../../../app/collection-items/collection-items.slice";
 import { useGetCollectionByIdQuery } from "../../../../app/collections/collections.api-slice";
 import { buttonVariant } from "../../../../constants/bootstrap-constants";
+import { customFieldTypeEnum } from "../../../collections/create-collection/enum/custom-field-type.enum";
 
-function UpdateCollectionItemCustomFieldInteger({ index }: { index: number }) {
+function UpdateCollectionItemCustomField({ index }: { index: number }) {
   const pathname = useLocation().pathname;
   const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -32,7 +34,7 @@ function UpdateCollectionItemCustomFieldInteger({ index }: { index: number }) {
   const [sendNewValue, { isLoading: isSendLoading, error: isSendError }] =
     useUpdateCollectionItemCustomFieldMutation();
 
-  const customField = collectionItem?.customFieldValues[index];
+  const customField = collectionItem?.customFieldValues.find((field) => field.customFieldTitle.fieldIndex === index);
 
   const [value, setValue] = useState(customField?.fieldValue || "");
 
@@ -60,6 +62,62 @@ function UpdateCollectionItemCustomFieldInteger({ index }: { index: number }) {
 
   if (!collectionItem || !customField) return null;
 
+  let control;
+
+  switch (customField.customFieldTitle.fieldType) {
+    case customFieldTypeEnum.integer:
+      control = (
+        <Form.Control
+          type="number"
+          autoComplete="off"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      );
+      break;
+    case customFieldTypeEnum.date:
+      control = (
+        <Form.Control
+          type="date"
+          autoComplete="off"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      );
+      break;
+    case customFieldTypeEnum.textarea:
+      control = (
+        <Form.Control
+          as="textarea"
+          rows={1}
+          autoComplete="off"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      );
+      break;
+    case customFieldTypeEnum.checkbox:
+      control = (
+        <Form.Check
+        className={styles.checkWrapper}
+          type="checkbox"
+          autoComplete="off"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      );
+      break;
+    default:
+      control = (
+        <Form.Control
+          type="text"
+          autoComplete="off"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      );
+  }
+
   const submitHandler = async () => {
     if (customField.fieldValue !== value && value.length) {
       await sendNewValue({
@@ -78,12 +136,7 @@ function UpdateCollectionItemCustomFieldInteger({ index }: { index: number }) {
           defaultValue={customField.customFieldTitle.fieldName}
           disabled
         ></Form.Control>
-        <Form.Control
-          type="number"
-          autoComplete="off"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
+        {control}
       </InputGroup>
       <div className="d-flex flex-row-reverse">
         <Button variant={buttonVariant} type="button" onClick={submitHandler}>
@@ -94,4 +147,4 @@ function UpdateCollectionItemCustomFieldInteger({ index }: { index: number }) {
   );
 }
 
-export default UpdateCollectionItemCustomFieldInteger;
+export default UpdateCollectionItemCustomField;
