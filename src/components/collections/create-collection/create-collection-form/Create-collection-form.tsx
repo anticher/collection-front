@@ -1,7 +1,7 @@
 import styles from "./Create-collection-form.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import CreateCollectionCustomInput from "../create-collection-custom-input/Create-collection-custom-input";
 import { CreateCollectionFormInput } from "../models/create-collection-form-input";
@@ -16,6 +16,7 @@ import { buttonVariant } from "../../../../constants/bootstrap-constants";
 import { useSendImageMutation } from "../../../../app/image-upload/image-upload.api-slice";
 import { transformImageToFormdata } from "../../../../app/image-upload/transform-image-to-formdata";
 import { setCollectionModalVisibility } from "../../../../app/collections/collections.slice";
+import { useSnackbar } from "notistack";
 
 function CreateCollectionForm() {
   const pathname = useLocation().pathname;
@@ -25,8 +26,7 @@ function CreateCollectionForm() {
   const {
     data: themes = [],
     isLoading: isThemesLoading,
-    isSuccess,
-    isError,
+    isError: isThemesError,
   } = useGetThemesQuery("");
 
   const { refetch } = useGetCollectionsByUserQuery(ownerName);
@@ -39,15 +39,21 @@ function CreateCollectionForm() {
 
   const [
     createCollection,
-    { isLoading: isCollectionCreateLoading, error: collectionCreateError },
+    { isLoading: isCollectionCreateLoading, isError: isCollectionCreateError },
   ] = useCreateCollectionMutation();
 
-  // const [
-  //   updateCollection,
-  //   { isLoading: isCollectionUpdateSLoading, error: collectionUpdateError },
-  // ] = useUpdateCollectionMutation();
+  const [sendImage, { isLoading: isSendImageLoading, isError: isSendImageError }] = useSendImageMutation();
 
-  const [sendImage] = useSendImageMutation();
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    if (isThemesError || isSendImageError || isCollectionCreateError) {
+      enqueueSnackbar("Server error", { variant: "error" });
+    }
+  }, [enqueueSnackbar, isThemesError, isCollectionCreateError, isSendImageError]);
+
+  const isLoading = isCollectionCreateLoading || isSendImageLoading || isThemesLoading;
 
   const {
     register,
@@ -93,13 +99,6 @@ function CreateCollectionForm() {
     unregister(`customFields.${removeIndex}`);
     setCustomInputs([...newCustomInputs]);
   };
-
-  // const [imageInputValue, setImageInputValue] = useState()
-
-  // const imageInputChange = (e: any) => {
-  //   console.log(e.target.files[0])
-  //   setImageInputValue(e.target.files[0]);
-  // }
 
   const createCustomInputs = () => {
     return customInputs.map((customInput, index) => {
@@ -168,12 +167,7 @@ function CreateCollectionForm() {
 
       <Form.Group className="mb-3">
         <Form.Label>Collection image</Form.Label>
-        {/* <img src={imageInputValue && URL.createObjectURL(imageInputValue)}/> */}
-        <Form.Control
-          type="file"
-          {...register("image")}
-          // onChange={(e) => imageInputChange(e)}
-        />
+        <Form.Control type="file" {...register("image")} />
       </Form.Group>
 
       {customInputs.length ? createCustomInputs() : null}
@@ -185,10 +179,15 @@ function CreateCollectionForm() {
         errors.name) && <Form.Text>all fields are required</Form.Text>}
 
       <div className={styles.buttons}>
-        <Button variant={buttonVariant} type="submit">
+        <Button
+          disabled={isLoading}
+          variant={buttonVariant}
+          type="submit"
+        >
           Submit
         </Button>
         <Button
+          disabled={isLoading}
           variant={buttonVariant}
           type="button"
           onClick={onAddFieldClickHandler}
@@ -196,6 +195,7 @@ function CreateCollectionForm() {
           Add field
         </Button>
         <Button
+          disabled={isLoading}
           variant={buttonVariant}
           type="button"
           onClick={onRemoveFieldClickHandler}

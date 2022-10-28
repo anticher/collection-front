@@ -15,7 +15,7 @@ import UpdateCollectionItemModal from "./collection-item/update-collection-item/
 
 function Collection() {
   const pathname = useLocation().pathname;
-  const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1)
+  const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
   const {
     data: collection,
     isLoading,
@@ -26,7 +26,8 @@ function Collection() {
 
   const auth = useAppSelector((state) => state.auth);
 
-  const isUserOwnerOrAdmin = collection?.ownerName === auth.username || auth.role === 'admin' || false;
+  const isUserOwnerOrAdmin =
+    collection?.ownerName === auth.username || auth.role === "admin" || false;
 
   const [isCreateModalVisible, setCreateModalVisibility] = useState(false);
 
@@ -39,18 +40,16 @@ function Collection() {
   } else if (isSuccess) {
     content = (
       <>
-      <CreateCollectionItemModal
-        isCreateModalVisible={isCreateModalVisible}
-        setCreateModalVisibility={setCreateModalVisibility}
-        refetch={refetch}
-        collectionData={collection}
-      />
-      <UpdateCollectionItemModal />
+        <CreateCollectionItemModal
+          isCreateModalVisible={isCreateModalVisible}
+          setCreateModalVisibility={setCreateModalVisibility}
+          refetch={refetch}
+          collectionData={collection}
+        />
+        <UpdateCollectionItemModal />
         <div className={styles.itemsGrid}>
           {collection.items.map((item: ICollectionItem) => (
-            <div className={styles.itemContainer} key={item.id}>
-              <CollectionItem item={item} />
-            </div>
+            <CollectionItem key={item.id} item={item} />
           ))}
         </div>
       </>

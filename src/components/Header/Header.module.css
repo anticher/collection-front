@@ -5,7 +5,6 @@
   position: absolute;
   top: 0;
   left: 0;
-  font-size: 0.8em;
   background-color: var(--secondary-back-color);
   box-shadow: 0 0 4px var(--base-font-color);
   overflow: hidden;

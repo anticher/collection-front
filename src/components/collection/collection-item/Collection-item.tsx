@@ -1,12 +1,12 @@
 import styles from "./Collection-item.module.css";
 import Card from "react-bootstrap/Card";
-import { NoImageSwg } from "../No-image-swg";
+import { NoImageSwg } from "../../common/no-image/No-image-swg";
 import { ICollectionItem } from "../../../models/ICollectionItem";
 import { Badge, Button } from "react-bootstrap";
 import RouteButton from "../../common/route-button/Route-button";
 import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";
 import { setCollectionItemUpdateModalVisibility, setUpdatedCollectionItemId } from "../../../app/collection-items/collection-items.slice";
-import { badgeVariant } from "../../../constants/bootstrap-constants";
+import { badgeVariant, buttonVariant } from "../../../constants/bootstrap-constants";
 
 type CollectionsItemProps = {
   item: ICollectionItem;
@@ -45,11 +45,11 @@ function CollectionItem({ item }: CollectionsItemProps) {
         </div>
         <div className={styles.buttons}>
           <RouteButton
-            text="View"
+            text="Show"
             route={`/collections/${item.ownerName}/${item.collectionId}/${item.id}`}
           />
           {isUserOwnerOrAdmin && (
-            <Button onClick={onEditClickHandler}>Edit</Button>
+            <Button variant={buttonVariant} onClick={onEditClickHandler}>Edit</Button>
           )}
         </div>
       </Card.Body>

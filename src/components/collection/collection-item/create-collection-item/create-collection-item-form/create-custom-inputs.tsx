@@ -1,3 +1,4 @@
+import styles from "./Create-custom-inputs.module.css";
 import { InputGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { UseFormRegister } from "react-hook-form";
@@ -20,75 +21,69 @@ export const createCustomInputs = ({
   return (
     <>
       <Form.Label className="mb-2">Custom fields</Form.Label>
-      {customFieldsTitles.map(({ id, fieldName, fieldType }) => {
-        switch (fieldType) {
-          case customFieldTypeEnum.integer:
-            return (
-              <InputGroup key={id} className="mb-3">
-                <InputGroup.Text>{fieldName}</InputGroup.Text>
-                <Form.Control
-                  type="number"
-                  autoComplete="off"
-                  {...register(`customFields.${id}`, {
-                    required: true,
-                  })}
-                />
-              </InputGroup>
-            );
-          case customFieldTypeEnum.checkbox:
-            return (
-              <InputGroup key={id} className="mb-3">
-                <Form.Control defaultValue={fieldName} disabled />
-                <Form.Check
-                type="checkbox"
-                  {...register(`customFields.${id}`, {
-                    required: true,
-                  })}
-                />
-              </InputGroup>
-            );
-          case customFieldTypeEnum.date:
-            return (
-              <InputGroup key={id} className="mb-3">
-                <InputGroup.Text>{fieldName}</InputGroup.Text>
-                <Form.Control
-                  type="date"
-                  autoComplete="off"
-                  {...register(`customFields.${id}`, {
-                    required: true,
-                  })}
-                />
-              </InputGroup>
-            );
-          case customFieldTypeEnum.textarea:
-            return (
-              <InputGroup key={id} className="mb-3">
-                <InputGroup.Text>{fieldName}</InputGroup.Text>
-                <Form.Control
-                  as="textarea"
-                  rows={1}
-                  autoComplete="off"
-                  {...register(`customFields.${id}`, {
-                    required: true,
-                  })}
-                />
-              </InputGroup>
-            );
-          default:
-            return (
-              <InputGroup key={id} className="mb-3">
-                <InputGroup.Text>{fieldName}</InputGroup.Text>
-                <Form.Control
-                  type="text"
-                  autoComplete="off"
-                  {...register(`customFields.${id}`, {
-                    required: true,
-                  })}
-                />
-              </InputGroup>
-            );
-        }
-      })}
+      {[...customFieldsTitles]
+        .sort((a, b) => a.fieldIndex - b.fieldIndex)
+        .map(({ id, fieldName, fieldType }) => {
+          switch (fieldType) {
+            case customFieldTypeEnum.integer:
+              return (
+                <InputGroup key={id} className="mb-3">
+                  <Form.Control disabled value={fieldName} />
+                  <Form.Control
+                    type="number"
+                    autoComplete="off"
+                    {...register(`customFields.${id}`, {})}
+                  />
+                </InputGroup>
+              );
+            case customFieldTypeEnum.checkbox:
+              return (
+                <InputGroup key={id} className="mb-3">
+                  <Form.Control defaultValue={fieldName} disabled />
+                  <div className={styles.checkWrapper}>
+                    <Form.Check
+                      type="checkbox"
+                      {...register(`customFields.${id}`, {})}
+                    />
+                  </div>
+                </InputGroup>
+              );
+            case customFieldTypeEnum.date:
+              return (
+                <InputGroup key={id} className="mb-3">
+                  <Form.Control disabled value={fieldName} />
+                  <Form.Control
+                    type="date"
+                    autoComplete="off"
+                    {...register(`customFields.${id}`, {})}
+                  />
+                </InputGroup>
+              );
+            case customFieldTypeEnum.textarea:
+              return (
+                <InputGroup key={id} className="mb-3">
+                  <Form.Control disabled value={fieldName} />
+                  <Form.Control
+                    as="textarea"
+                    rows={1}
+                    autoComplete="off"
+                    {...register(`customFields.${id}`, {})}
+                  />
+                </InputGroup>
+              );
+            default:
+              return (
+                <InputGroup key={id} className="mb-3">
+                  <Form.Control disabled value={fieldName} />
+                  <Form.Control
+                    type="text"
+                    autoComplete="off"
+                    {...register(`customFields.${id}`, {})}
+                  />
+                </InputGroup>
+              );
+          }
+        })}
     </>
   );
 };

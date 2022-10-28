@@ -7,6 +7,7 @@ export interface ICustomFieldTitle {
     fieldType: customFieldTypeEnum;
     creatorName: string;
     createDate: string;
+    fieldIndex: number;
     updateDate: string | null;
     updatedBy: string | null;
 }

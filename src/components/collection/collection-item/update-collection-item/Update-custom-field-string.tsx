@@ -1,3 +1,4 @@
+import styles from "./Update-custom-field-string.module.css";
 import { useSnackbar } from "notistack";
 import { useState, useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
@@ -98,6 +99,7 @@ function UpdateCollectionItemCustomFieldString({ index }: { index: number }) {
     case customFieldTypeEnum.checkbox:
       control = (
         <Form.Check
+        className={styles.checkWrapper}
           type="checkbox"
           autoComplete="off"
           value={value}
@@ -134,12 +136,6 @@ function UpdateCollectionItemCustomFieldString({ index }: { index: number }) {
           defaultValue={customField.customFieldTitle.fieldName}
           disabled
         ></Form.Control>
-        {/* <Form.Control
-          type="text"
-          autoComplete="off"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        /> */}
         {control}
       </InputGroup>
       <div className="d-flex flex-row-reverse">

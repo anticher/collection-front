@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import { buttonVariant } from "../../../constants/bootstrap-constants";
 import CollectionsItemDescriptionModal from "./collections-item-description-modal/Collections-item-description-modal";
 import { useState } from "react";
-import { NoImageSwg } from "../../collection/No-image-swg";
+import { NoImageSwg } from "../../common/no-image/No-image-swg";
 import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";
 import { setCollectionUpdateModalVisibility, setUpdatedCollectionId } from "../../../app/collections/collections.slice";
 

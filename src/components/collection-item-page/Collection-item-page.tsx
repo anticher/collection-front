@@ -9,19 +9,18 @@ import LikesBlock from "./likes-block/Likes-block";
 function CollectionItemPage() {
   const pathname = useLocation().pathname;
   const collectionItemId = pathname.substring(pathname.lastIndexOf("/") + 1);
-  const {
-    data: collectionItem,
-    isLoading,
-    isSuccess,
-    isError,
-    refetch,
-  } = useGetCollectionItemByIdQuery(collectionItemId);
-  // console.log(CollectionItem)
+  const { data: collectionItem } =
+    useGetCollectionItemByIdQuery(collectionItemId);
   if (!collectionItem) return null;
+  const customFieldValues = [...collectionItem.customFieldValues];
   return (
     <Container>
       <Card>
-        <Card.Img  className={styles.image} variant="top" src={collectionItem.image || undefined} />
+        <Card.Img
+          className={styles.image}
+          variant="top"
+          src={collectionItem.image || undefined}
+        />
         <Card.Body>
           <Card.Title>{collectionItem.name}</Card.Title>
           <Card.Text>
@@ -29,18 +28,26 @@ function CollectionItemPage() {
           </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
-          {collectionItem.customFieldValues.map((customFieldValue) => {
-            return (
-              <ListGroup.Item key={customFieldValue.id}>
-                {customFieldValue.customFieldTitle.fieldName +
-                  ": " +
-                  customFieldValue.fieldValue}
-              </ListGroup.Item>
-            );
-          })}
+          {customFieldValues
+            .sort(
+              (a, b) =>
+                a.customFieldTitle.fieldIndex - b.customFieldTitle.fieldIndex
+            )
+            .map((customFieldValue) => {
+              return (
+                <ListGroup.Item key={customFieldValue.id}>
+                  {customFieldValue.customFieldTitle.fieldName +
+                    ": " +
+                    customFieldValue.fieldValue}
+                </ListGroup.Item>
+              );
+            })}
         </ListGroup>
-        <Card.Body>
-          <RouteButton text="Back" route={`/collections/${collectionItem?.ownerName}/${collectionItem?.collectionId}`} />
+        <Card.Body className={styles.buttons}>
+          <RouteButton
+            text="Back"
+            route={`/collections/${collectionItem?.ownerName}/${collectionItem?.collectionId}`}
+          />
           <LikesBlock />
         </Card.Body>
         <Card.Body>

@@ -1,0 +1,10 @@
+.checkWrapper {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--secondary-back-color);
+  border: 1px solid var(--primary-accent-color);
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+}

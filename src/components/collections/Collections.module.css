@@ -29,6 +29,9 @@
   color: var(--primary-color);
 }
 
+.title::first-letter {
+  text-transform: uppercase;
+}
 
 @media (max-width: 1200px) {
   .itemsGrid {

@@ -33,6 +33,7 @@ function LikesBlock() {
 
   useEffect(() => {
     if (isDataError || isSendError || isDeleteError) {
+      console.log(isSendError)
       enqueueSnackbar("Server error", { variant: "error" });
     }
   }, [enqueueSnackbar, isDataError, isSendError, isDeleteError]);

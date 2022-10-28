@@ -6,17 +6,20 @@
   /* filter: grayscale(10%); */
 }
 
-.form-control,
-.form-select,
 .form-select:focus,
 .form-control:focus {
   color: var(--base-font-color);
   background-color: var(--secondary-back-color);
+  border-color: var(--base-font-color);
 }
 
-
-.form-select option {
-  background-color: blue;
+.form-select,
+.form-control,
+.form-control:disabled,
+.list-group-item {
+  color: var(--base-font-color);
+  background-color: var(--secondary-back-color);
+  border-color: var(--primary-accent-color);
 }
 
 .form-control:focus,
@@ -59,7 +62,7 @@
   border: 1px solid var(--primary-accent-color);
 }
 
-.list-group-item {
-  color: var(--base-font-color);
-  background-color: var(--base-back-color);
+header .btn,
+header .form-control {
+  font-size: 0.8em;
 }

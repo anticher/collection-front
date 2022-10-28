@@ -6,6 +6,7 @@ import {
   useCreateCommentMutation,
   useGetCommentsByCollectionItemQuery,
 } from "../../../app/comments/comments.api-slice";
+import { buttonVariant } from "../../../constants/bootstrap-constants";
 
 function CommentInput() {
   const pathname = useLocation().pathname;
@@ -14,11 +15,10 @@ function CommentInput() {
 
   const {
     isLoading: isDataLoading,
-    isError: isDataError,
     refetch,
   } = useGetCommentsByCollectionItemQuery(collectionItemId);
 
-  const [sendNewComment, { isLoading: isSendLoading, error: isSendError }] =
+  const [sendNewComment, { isLoading: isSendLoading }] =
     useCreateCommentMutation();
 
   const [inputText, setInputText] = useState("");
@@ -40,16 +40,19 @@ function CommentInput() {
   return (
     <>
       <Form.Control
+        className="mb-2"
         as="textarea"
         rows={3}
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
       />
-      {isDataLoading || isSendLoading ? (
-        <div>loading</div>
-      ) : (
-        <Button onClick={onSendHandler}>Send</Button>
-      )}
+      <Button
+        disabled={isDataLoading || isSendLoading ? true : false}
+        variant={buttonVariant}
+        onClick={onSendHandler}
+      >
+        Send
+      </Button>
     </>
   );
 }

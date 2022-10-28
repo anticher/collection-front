@@ -1,12 +1,11 @@
 import styles from "./Create-collection-item-form.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { ICollection } from "../../../../../models/ICollection";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CreateCollectionItemFormInput } from "../../../../collections/create-collection/models/create-collection-item-form-input";
 import { useCreateCollectionItemMutation } from "../../../../../app/collection-items/collection-items.api-slice";
-
 import CustomMultiSelect from "../../../../common/custom-select/Custom-multi-select";
 import { useGetCredentialsForCreate } from "../../../../../app/hooks/use-get-creadentials-for-create";
 import { createCustomInputs } from "./create-custom-inputs";
@@ -15,7 +14,8 @@ import { useGetTagsQuery } from "../../../../../app/tags/tags.api-slice";
 import { ICollectionItemCreate } from "../../../../../models/ICollectionItemCreate";
 import { transformImageToFormdata } from "../../../../../app/image-upload/transform-image-to-formdata";
 import { useSendImageMutation } from "../../../../../app/image-upload/image-upload.api-slice";
-import { InputGroup } from "react-bootstrap";
+import { buttonVariant } from "../../../../../constants/bootstrap-constants";
+import { useSnackbar } from "notistack";
 
 type CreateCollectionItemFormProps = {
   setCreateModalVisibility: Dispatch<SetStateAction<boolean>>;
@@ -30,10 +30,17 @@ function CreateCollectionItemForm({
 }: CreateCollectionItemFormProps) {
   const [
     sendCollectionItemCredentials,
-    { isLoading: isCollectionItemSendLoading },
+    {
+      isLoading: isCollectionItemSendLoading,
+      isError: isCollectionItemSendError,
+    },
   ] = useCreateCollectionItemMutation();
 
-  const { data: tags = [], isLoading } = useGetTagsQuery();
+  const {
+    data: tags = [],
+    isLoading: isTagsLodaing,
+    isError: isTagsError,
+  } = useGetTagsQuery();
   const options = tags.length
     ? tags.map((tag) => {
         return { value: tag.name, label: tag.name };
@@ -47,7 +54,26 @@ function CreateCollectionItemForm({
   const [selectedOption, setSelectedOption] = useState<string[]>([]);
   const selectRef = useRef(null);
 
-  const [sendImage] = useSendImageMutation();
+  const [
+    sendImage,
+    { isLoading: isSendImageLoading, isError: isSendImageError },
+  ] = useSendImageMutation();
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    if (isTagsError || isSendImageError || isCollectionItemSendError) {
+      enqueueSnackbar("Server error", { variant: "error" });
+    }
+  }, [
+    enqueueSnackbar,
+    isTagsError,
+    isCollectionItemSendError,
+    isSendImageError,
+  ]);
+
+  const isLoading =
+    isTagsLodaing || isSendImageLoading || isCollectionItemSendLoading;
 
   const { register, handleSubmit, setValue } =
     useForm<CreateCollectionItemFormInput>();
@@ -81,7 +107,7 @@ function CreateCollectionItemForm({
     }
   };
 
-  const content = !isLoading ? (
+  return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Form.Group className="mb-3">
         <Form.Label>Item name</Form.Label>
@@ -131,15 +157,11 @@ function CreateCollectionItemForm({
 
       {createCustomInputs({ customFieldsTitles, register })}
 
-      <Button variant="primary" type="submit">
+      <Button disabled={isLoading} variant={buttonVariant} type="submit">
         Submit
       </Button>
     </Form>
-  ) : (
-    <Form></Form>
   );
-
-  return content;
 }
 
 export default CreateCollectionItemForm;
