@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IComment } from "../../models/IComment";
 import { ICommentCreate } from "../../models/ICommentCreate";
+import { ICommentSearch } from "../../models/ISearchComment";
 
 export const CommentsApiSlice = createApi({
   reducerPath: "comments-api",
@@ -15,7 +16,7 @@ export const CommentsApiSlice = createApi({
     getCommentsByCollectionItem: builder.query<IComment[], string | null>({
       query: (id: string) => `by-collection-item-id/${id}`,
     }),
-    searchComment: builder.query<IComment[], string>({
+    searchComment: builder.query<ICommentSearch[], string>({
       query: (credentials) => ({
         url: `/search/${credentials}`,
         method: "GET",

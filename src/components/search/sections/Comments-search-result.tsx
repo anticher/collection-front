@@ -1,10 +1,9 @@
-import { Card } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDebounce } from "usehooks-ts";
 import { useSearchCommentQuery } from "../../../app/comments/comments.api-slice";
+import SearchResultItem from "../search-result-item/Search-result-item";
 
 function CommentsSearchResult() {
-  const navigate = useNavigate();
   const { searchString } = useParams();
 
   const debouncedValue = useDebounce<string>(searchString || "", 500);
@@ -15,17 +14,12 @@ function CommentsSearchResult() {
       {searchCommentResult && searchCommentResult.length
         ? searchCommentResult.map((comment) => {
             return (
-              <Card key={comment.id}>
-                <Card.Body
-                  onClick={() =>
-                    navigate(
-                      `/collections/${comment.item.ownerName}/${comment.item.collectionId}/${comment.item.id}`
-                    )
-                  }
-                >
-                  {comment.message}
-                </Card.Body>
-              </Card>
+              <SearchResultItem
+                key={comment.id}
+                navigateUrl={`/collections/${comment.ownerName}/${comment.collectionId}/${comment.itemId}`}
+                name={comment.ownerName}
+                type="Comment"
+              />
             );
           })
         : null}

@@ -55,6 +55,7 @@
 }
 
 .card {
+  overflow: hidden;
   border: 1px solid var(--primary-accent-color);
 }
 

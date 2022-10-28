@@ -7,13 +7,11 @@ import ItemsSearchResult from "../sections/Items-search-result";
 function SearchResultsPage() {
   return (
     <Container>
+      <h3>Search results</h3>
       <ItemsSearchResult />
-      <hr></hr>
-      <CollectionsSearchResult />
-      <hr></hr>
-      <CommentsSearchResult />
-      <hr></hr>
       <ItemsByTagSearchResult isDebounce={true} />
+      <CollectionsSearchResult />
+      <CommentsSearchResult />
     </Container>
   );
 }

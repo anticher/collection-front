@@ -1,10 +1,9 @@
-import { Card } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDebounce } from "usehooks-ts";
 import { useSearchCollectionQuery } from "../../../app/collections/collections.api-slice";
+import SearchResultItem from "../search-result-item/Search-result-item";
 
 function CollectionsSearchResult() {
-  const navigate = useNavigate();
   const { searchString } = useParams();
 
   const debouncedValue = useDebounce<string>(searchString || "", 500);
@@ -16,17 +15,12 @@ function CollectionsSearchResult() {
       {searchCollectionResult && searchCollectionResult.length
         ? searchCollectionResult.map((collection) => {
             return (
-              <Card key={collection.id}>
-                <Card.Body
-                  onClick={() =>
-                    navigate(
-                      `/collections/${collection.ownerName}/${collection.id}`
-                    )
-                  }
-                >
-                  {collection.name}
-                </Card.Body>
-              </Card>
+              <SearchResultItem
+                key={collection.id}
+                navigateUrl={`/collections/${collection.ownerName}/${collection.id}`}
+                name={collection.name}
+                type="Collection"
+              />
             );
           })
         : null}
