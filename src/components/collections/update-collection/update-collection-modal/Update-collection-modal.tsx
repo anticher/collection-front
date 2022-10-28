@@ -5,7 +5,6 @@ import {
   setCollectionUpdateModalVisibility,
   setUpdatedCollectionId,
 } from "../../../../app/collections/collections.slice";
-import { buttonVariant } from "../../../../constants/bootstrap-constants";
 import ModalSpinner from "../../../common/spinners/Modal-spinner";
 
 function UpdateCollectionModal() {

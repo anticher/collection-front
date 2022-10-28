@@ -16,7 +16,7 @@ function CollectionsItemDescriptionModal(
     <Modal
       show={props.showDescription}
       onHide={() => props.setShowDescription(false)}
-      fullscreen
+      size="xl"
       aria-labelledby="example-custom-modal-styling-title"
     >
       <Modal.Header closeButton>
