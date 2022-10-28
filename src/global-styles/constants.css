@@ -23,3 +23,9 @@
   --secondary-accent-color: #E24C0B;
   --base-danger-color: #FF0021;
 }
+
+@media (max-width: 576px) {
+  :root {
+    --header-heigth: 80px;
+  }
+}

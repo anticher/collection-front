@@ -16,10 +16,15 @@
 .form-select,
 .form-control,
 .form-control:disabled,
-.list-group-item {
+.list-group-item
+{
   color: var(--base-font-color);
   background-color: var(--secondary-back-color);
   border-color: var(--primary-accent-color);
+}
+
+.nav-tabs .nav-link.active {
+  background-color: var(--primary-accent-color);
 }
 
 .form-control:focus,
@@ -65,4 +70,18 @@
 header .btn,
 header .form-control {
   font-size: 0.8em;
+}
+
+.table {
+  color: var(--base-font-color);
+  background-color: var(--secondary-back-color);
+  border-color: var(--primary-accent-color);
+}
+
+.nav-tabs {
+  border-color: var(--secondary-back-color);
+}
+
+.nav-tabs .nav-link {
+  background-color: var(--primary-accent-color);
 }

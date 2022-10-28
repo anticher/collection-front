@@ -8,6 +8,7 @@ import {
   useSetUnblockedUsersMutation,
   useSetUsersAdminRoleMutation,
 } from "../../app/users/users.api-slice";
+import { buttonVariant } from "../../constants/bootstrap-constants";
 
 function AdminUsers() {
   const {
@@ -74,14 +75,14 @@ function AdminUsers() {
 
   return (
     <>
-      <div>
-        <Button onClick={onSetAdminHandler}>Set admin</Button>
-        <Button onClick={onRemoveAdminHandler}>Remove admin role</Button>
-        <Button onClick={onBlockHandler}>Block</Button>
-        <Button onClick={onUnblockHandler}>Unblock</Button>
-        <Button onClick={onDeleteHandler}>Delete</Button>
+      <div className="mb-2 d-flex gap-1">
+        <Button variant={buttonVariant} onClick={onSetAdminHandler}>Set admin</Button>
+        <Button variant={buttonVariant} onClick={onRemoveAdminHandler}>Remove admin role</Button>
+        <Button variant={buttonVariant} onClick={onBlockHandler}>Block</Button>
+        <Button variant={buttonVariant} onClick={onUnblockHandler}>Unblock</Button>
+        <Button variant={buttonVariant} onClick={onDeleteHandler}>Delete</Button>
       </div>
-      <Table striped bordered hover size="sm" responsive>
+      <Table bordered size="sm" responsive>
         <thead>
           <tr>
             <th></th>
