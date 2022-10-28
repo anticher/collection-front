@@ -1,8 +1,10 @@
 import { Badge, ListGroup } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useGetLargestCollectionsQuery } from "../../app/collections/collections.api-slice";
 import { badgeVariant } from "../../constants/bootstrap-constants";
 
 function LargestCollectionsSection() {
+  const navigate = useNavigate();
   const { data: collections = [] } = useGetLargestCollectionsQuery(5);
   if (!collections || !collections.length) return null;
   return (
@@ -13,7 +15,8 @@ function LargestCollectionsSection() {
           <ListGroup.Item
             key={collection.id}
             as="li"
-            className="d-flex justify-content-between align-items-start"
+            className="d-flex justify-content-between align-items-start cursor-pointer"
+            onClick={() => navigate(`/collections/${collection.ownerName}/${collection.id}`)}
           >
             <div className="ms-2 me-auto">
               <div className="fw-bold">{collection.name}</div>

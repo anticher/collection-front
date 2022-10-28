@@ -58,7 +58,7 @@ function Collection() {
   return (
     <Container className={styles.collection}>
       <h2 className={styles.title}>
-        {collection && collection.ownerName + " collection"}
+        {collection && collection.name}
       </h2>
       <div className={styles.buttonsRow}>
         <RouteButton

@@ -31,3 +31,7 @@ h6,
 p {
   margin: 0;
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}
