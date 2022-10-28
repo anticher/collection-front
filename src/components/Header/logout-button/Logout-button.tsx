@@ -1,13 +1,10 @@
-import styles from "./Logout-button.module.css";
 import Button from "react-bootstrap/Button";
-import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../app/app-hooks";
 import { useTranslation } from "react-i18next";
 import { useSendLogoutMutation } from "../../../app/auth/auth.api-slice";
 import { initialState, setAuthData } from "../../../app/auth/auth.slice";
-import { buttonVariant, spinnerVariant } from "../../../constants/bootstrap-constants";
-
+import { buttonVariant } from "../../../constants/bootstrap-constants";
 
 function LogoutButton() {
   const navigate = useNavigate();
@@ -24,13 +21,13 @@ function LogoutButton() {
   };
 
   return (
-      <Button
-        className={styles.button}
-        variant={buttonVariant}
-        onClick={onClickHandler}
-      >
-        {isLoading ? <Spinner animation="border" variant={spinnerVariant} /> : t("header:logOut")}
-      </Button>
+    <Button
+      variant={buttonVariant}
+      onClick={onClickHandler}
+      disabled={isLoading}
+    >
+      {t("header:logOut")}
+    </Button>
   );
 }
 

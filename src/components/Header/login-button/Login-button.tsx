@@ -1,4 +1,3 @@
-import styles from "./Login-button.module.css";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -13,7 +12,6 @@ function LoginButton() {
   return (
     <>
       <Button
-        className={styles.button}
         variant={buttonVariant}
         onClick={onClickHandler}
       >

@@ -20,11 +20,11 @@ function Header() {
         <Col className={`${styles.column} ${styles.logo}`} lg={1} xs={2}><Link className={styles.logoLink} to={"/"}></Link></Col>
         <Col className={styles.column} lg={{ span: 5, offset: 0 }} xs={{ span: 10, offset: 2, order: 'last' }}>
           <SearchInput />
+          {auth.role === 'admin' && <RouteButton text="Admin" route="/admin-menu"/>}
         </Col>
         <Col className={`${styles.column} ${styles.buttons}`} lg={{ span: 6, offset: 0, order: 'last'}} xs={{ span: 10, offset: 2 }}>
           <SetThemeButton />
           <SetLocalizationButton />
-          {auth.role === 'admin' && <RouteButton text="admin" route="/admin-menu"/>}
           {auth.username ? (
             <>
               <MyCollectionsButton />

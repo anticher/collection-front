@@ -1,4 +1,3 @@
-import styles from "./My-collections-button.module.css";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -17,7 +16,6 @@ function MyCollectionsButton() {
   return (
     <>
       <Button
-        className={styles.button}
         variant={buttonVariant}
         onClick={onClickHandler}
       >

@@ -1,4 +1,3 @@
-import styles from "./Set-localization-button.module.css";
 import { useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
@@ -33,7 +32,6 @@ function SetLocalizationButton() {
       <ButtonGroup>
         {localRadios.map((radio, idx) => (
           <ToggleButton
-            className={styles.button}
             key={idx}
             id={`local-radio-${idx}`}
             type="radio"
