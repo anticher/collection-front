@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ITheme } from "../../models/ITheme";
+import { ITheme } from "../models/theme/theme.model";
 
 export const ThemesApiSlice = createApi({
   reducerPath: "themes-api",

@@ -1,7 +1,7 @@
 import styles from "./Collection-item.module.css";
 import Card from "react-bootstrap/Card";
 import { NoImageSwg } from "../../common/no-image/No-image-swg";
-import { ICollectionItem } from "../../../models/ICollectionItem";
+import { ICollectionItem } from "../../../app/models/collection-item/collection-item.model";
 import { Badge, Button } from "react-bootstrap";
 import RouteButton from "../../common/route-button/Route-button";
 import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";

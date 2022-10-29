@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IAuthResponse } from "../../models/IAuthResponse";
+import { IAuthResponse } from "../models/auth/auth-response.model";
 import type { RootState } from "../store";
 
 export interface IAuthState {

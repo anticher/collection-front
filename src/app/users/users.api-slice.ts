@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IUser } from "../../models/IUser";
+import { IUser } from "../models/user/user.model";
 
 export const UsersApiSlice = createApi({
   reducerPath: "users-api",

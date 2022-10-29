@@ -1,6 +1,6 @@
-import { ICustomFieldValue } from "./ICustomFieldValue";
-import { ILike } from "./ILike";
-import { ITag } from "./ITag";
+import { ICustomFieldValue } from "../collection-item-custom-field/custom-field-value.model";
+import { ILike } from "../like/like.model";
+import { ITag } from "../tag/tag.model";
 
 export interface ICollectionItem {
     id: string;
@@ -9,11 +9,9 @@ export interface ICollectionItem {
     comments: string; 
     collectionId: string;
     customFieldValues: ICustomFieldValue[];
-    image: string;
+    image: string | null;
     likes: ILike[];
     ownerName: string;
     creatorName: string;
     createDate: string;
-    updateDate: any;
-    updatedBy: any;
 }

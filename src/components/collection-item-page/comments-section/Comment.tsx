@@ -1,5 +1,5 @@
 import { Card } from "react-bootstrap";
-import { IComment } from "../../../models/IComment";
+import { IComment } from "../../../app/models/comment/comment.model";
 import { format } from 'date-fns'
 
 type CommentProps = {

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ILikeCreate } from "../../models/ILikeCreate";
+import { ILikeCreate } from "../models/like/create.model";
 
 export const LikesApiSlice = createApi({
   reducerPath: "likes-api",

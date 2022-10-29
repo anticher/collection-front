@@ -1,14 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ICollectionNameUpdate } from "../../models/ICollectionNameUpdate";
-import { ICollection } from "../../models/ICollection";
-import { ICollectionCreate } from "../../models/ICollectionCreate";
-import { ICollectionDescriptionUpdate } from "../../models/ICollectionDescriptionUpdate";
-import { ICollectionCustomFieldTitleUpdate } from "../../models/ICollectionCustomFieldTitleUpdate";
-import { ICollectionCustomFieldDelete } from "../../models/ICollectionCustomFieldDelete";
-import { ICollectionThemeUpdate } from "../../models/ICollectionThemeUpdate";
-import { ICollectionDelete } from "../../models/ICollectionDelete";
-import { ICollectionImageUpdate } from "../../models/ICollectionImageUpdate";
-import { ICollectionLargest } from "../../models/ICollectionLargest";
+import { ICollectionCustomFieldTitleUpdate } from "../models/collection-custom-field/custom-field-title-update.model";
+import { ICollectionCustomFieldDelete } from "../models/collection-custom-field/delete.model";
+import { ICollectionLargest } from "../models/collection/collection-largest.model";
+import { ICollection } from "../models/collection/collection.model";
+import { ICollectionCreate } from "../models/collection/create.model";
+import { ICollectionDelete } from "../models/collection/delete.model";
+import { ICollectionDescriptionUpdate } from "../models/collection/description-update.model";
+import { ICollectionImageUpdate } from "../models/collection/image-update.model";
+import { ICollectionNameUpdate } from "../models/collection/name-update.model";
+import { ICollectionThemeUpdate } from "../models/collection/theme-update.model";
 
 export const CollectionsApiSlice = createApi({
   reducerPath: "collections-api",

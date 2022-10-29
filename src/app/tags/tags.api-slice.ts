@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ITag } from "../../models/ITag";
+import { ITag } from "../models/tag/tag.model";
 
 export const TagsApiSlice = createApi({
   reducerPath: "tags-api",

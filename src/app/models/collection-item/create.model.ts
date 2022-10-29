@@ -1,4 +1,4 @@
-import { CustomFieldValue } from "../components/collections/create-collection/models/custom-field-value";
+import { CustomFieldValue } from "../../../components/collections/create-collection/models/custom-field-value";
 
 export interface ICollectionItemCreate {
   ownerName: string;

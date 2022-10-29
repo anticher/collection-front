@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import ReactMarkdown from 'react-markdown'
 import Modal from "react-bootstrap/Modal";
-import { ICollection } from "../../../../models/ICollection";
+import { ICollection } from "../../../../app/models/collection/collection.model";
 
 interface CollectionsItemDescriptionModalProps {
   showDescription: boolean;

@@ -9,7 +9,7 @@ import { setCollectionItemModalSpinnerVisibility } from "../../../../app/collect
 import { useGetCollectionByIdQuery } from "../../../../app/collections/collections.api-slice";
 import { useGetTagsQuery } from "../../../../app/tags/tags.api-slice";
 import { buttonVariant } from "../../../../constants/bootstrap-constants";
-import { IOption } from "../../../../models/IOption";
+import { IOption } from "../../../../app/models/tag/option.model";
 
 function UpdateCollectionItemTagsGroup() {
   const pathname = useLocation().pathname;

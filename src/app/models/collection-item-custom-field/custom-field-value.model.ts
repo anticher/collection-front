@@ -1,5 +1,5 @@
-import { ICollectionItem } from "./ICollectionItem";
-import { ICustomFieldTitle } from "./ICustomFieldTitle";
+import { ICollectionItem } from "../collection-item/collection-item.model";
+import { ICustomFieldTitle } from "../collection-custom-field/custom-field-titile.model";
 
 export interface ICustomFieldValue {
     id: string;
@@ -9,6 +9,4 @@ export interface ICustomFieldValue {
     item: ICollectionItem;
     creatorName: string;
     createDate: string;
-    updateDate: string | null;
-    updatedBy: string | null;
 }

@@ -1,6 +1,6 @@
-import { ICollectionItem } from "./ICollectionItem";
-import { ICustomFieldTitle } from "./ICustomFieldTitle";
-import { ITheme } from "./ITheme";
+import { ICollectionItem } from "../collection-item/collection-item.model";
+import { ICustomFieldTitle } from "../collection-custom-field/custom-field-titile.model";
+import { ITheme } from "../theme/theme.model";
 
 export interface ICollection {
     id: string;
@@ -10,8 +10,6 @@ export interface ICollection {
     ownerName: string;
     creatorName: string;
     createDate: string;
-    updateDate: string | null;
-    updatedBy: string | null;
     customFieldTitles: ICustomFieldTitle[];
     items: ICollectionItem[];
     theme: ITheme;

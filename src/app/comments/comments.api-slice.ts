@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IComment } from "../../models/IComment";
-import { ICommentCreate } from "../../models/ICommentCreate";
-import { ICommentSearch } from "../../models/ISearchComment";
+import { IComment } from "../models/comment/comment.model";
+import { ICommentCreate } from "../models/comment/create.model";
+import { ICommentSearch } from "../models/comment/search.model";
 
 export const CommentsApiSlice = createApi({
   reducerPath: "comments-api",

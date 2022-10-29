@@ -1,6 +1,6 @@
 import { Dispatch, MutableRefObject, SetStateAction } from "react";
 import Select, { OnChangeValue } from "react-select";
-import { IOption } from "../../../models/IOption";
+import { IOption } from "../../../app/models/tag/option.model";
 
 type CustomMultiSelectProps = {
   selectRef: MutableRefObject<null>;

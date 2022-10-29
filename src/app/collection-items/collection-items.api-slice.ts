@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ICollectionItem } from "../../models/ICollectionItem";
-import { ICollectionItemCreate } from "../../models/ICollectionItemCreate";
-import { ICollectionItemCustomFieldUpdate } from "../../models/ICollectionItemCustomFieldUpdate";
-import { ICollectionItemDelete } from "../../models/ICollectionItemDelete";
-import { ICollectionItemImageUpdate } from "../../models/ICollectionItemImageUpdate";
-import { ICollectionItemNameUpdate } from "../../models/ICollectionItemNameUpdate";
-import { ICollectionItemTagsUpdate } from "../../models/ICollectionItemTagsUpdate";
+import { ICollectionItemCustomFieldUpdate } from "../models/collection-item-custom-field/update.model";
+import { ICollectionItem } from "../models/collection-item/collection-item.model";
+import { ICollectionItemCreate } from "../models/collection-item/create.model";
+import { ICollectionItemDelete } from "../models/collection-item/delete.model";
+import { ICollectionItemImageUpdate } from "../models/collection-item/image-update.model";
+import { ICollectionItemNameUpdate } from "../models/collection-item/name-update.model";
+import { ICollectionItemTagsUpdate } from "../models/collection-item/tags-update.model";
 
 export const CollectionItemsApiSlice = createApi({
   reducerPath: "collection-items-api",

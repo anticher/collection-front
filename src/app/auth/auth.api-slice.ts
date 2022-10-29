@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IAuthResponse } from "../../models/IAuthResponse";
-import { IRegistrationResponse } from "../../models/IRegistrationResponse";
+import { IAuthResponse } from "../models/auth/auth-response.model";
+import { IRegistrationResponse } from "../models/auth/registration-response.model";
 
 export const AuthApiSlice = createApi({
   reducerPath: "auth-api",

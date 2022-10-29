@@ -1,4 +1,4 @@
-import { customFieldTypeEnum } from "../components/collections/create-collection/enum/custom-field-type.enum";
+import { customFieldTypeEnum } from "../../../components/collections/create-collection/enum/custom-field-type.enum";
 
 export interface ICustomFieldTitle {
     id: string;
@@ -8,6 +8,4 @@ export interface ICustomFieldTitle {
     creatorName: string;
     createDate: string;
     fieldIndex: number;
-    updateDate: string | null;
-    updatedBy: string | null;
 }

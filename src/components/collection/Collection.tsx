@@ -2,7 +2,7 @@ import styles from "./Collection.module.css";
 import Container from "react-bootstrap/Container";
 import { useGetCollectionByIdQuery } from "../../app/collections/collections.api-slice";
 import { useLocation } from "react-router-dom";
-import { ICollectionItem } from "../../models/ICollectionItem";
+import { ICollectionItem } from "../../app/models/collection-item/collection-item.model";
 import RouteButton from "../common/route-button/Route-button";
 import CreateCollectionItemButton from "./create-collection-item-button/Create-collection-item-button";
 import { useState } from "react";

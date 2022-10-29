@@ -1,4 +1,4 @@
-import { ICollection } from "../../../models/ICollection";
+import { ICollection } from "../../../app/models/collection/collection.model";
 import styles from "./Collections-item.module.css";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";

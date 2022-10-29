@@ -1,4 +1,4 @@
-import { ICollectionItem } from "./ICollectionItem";
+import { ICollectionItem } from "../collection-item/collection-item.model";
 
 export interface ITag {
   id: string;
