@@ -2,12 +2,11 @@ import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
-import { useUpdateCollectionItemNameMutation } from "../../../../app/collection-items/collection-items.api-slice";
-import { setCollectionItemModalSpinnerVisibility } from "../../../../app/collection-items/collection-items.slice";
-import { useGetCollectionByIdQuery } from "../../../../app/collections/collections.api-slice";
-import { buttonVariant } from "../../../../constants/bootstrap-constants";
-
+import { useAppDispatch, useAppSelector } from "../../../../../../app/app-hooks";
+import { useUpdateCollectionItemNameMutation } from "../../../../../../app/collection-items/collection-items.api-slice";
+import { setCollectionItemModalSpinnerVisibility } from "../../../../../../app/collection-items/collection-items.slice";
+import { useGetCollectionByIdQuery } from "../../../../../../app/collections/collections.api-slice";
+import { buttonVariant } from "../../../../../../constants/bootstrap-constants";
 
 function UpdateCollectionItemNameGroup() {
   const pathname = useLocation().pathname;

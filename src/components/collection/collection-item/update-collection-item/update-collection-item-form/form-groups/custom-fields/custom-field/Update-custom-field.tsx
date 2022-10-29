@@ -1,14 +1,14 @@
-import styles from "./Update-custom-field-string.module.css";
+import styles from "./Update-custom-field.module.css";
 import { useSnackbar } from "notistack";
 import { useState, useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
-import { useUpdateCollectionItemCustomFieldMutation } from "../../../../app/collection-items/collection-items.api-slice";
-import { setCollectionItemModalSpinnerVisibility } from "../../../../app/collection-items/collection-items.slice";
-import { useGetCollectionByIdQuery } from "../../../../app/collections/collections.api-slice";
-import { buttonVariant } from "../../../../constants/bootstrap-constants";
-import { customFieldTypeEnum } from "../../../collections/create-collection/enum/custom-field-type.enum";
+import { useAppDispatch, useAppSelector } from "../../../../../../../../app/app-hooks";
+import { useGetCollectionByIdQuery } from "../../../../../../../../app/collections/collections.api-slice";
+import { customFieldTypeEnum } from "../../../../../../../../app/enum/custom-field-type.enum";
+import { buttonVariant } from "../../../../../../../../constants/bootstrap-constants";
+import { useUpdateCollectionItemCustomFieldMutation } from "../../../../../../../../app/collection-items/collection-items.api-slice";
+import { setCollectionItemModalSpinnerVisibility } from "../../../../../../../../app/collection-items/collection-items.slice";
 
 function UpdateCollectionItemCustomField({ index }: { index: number }) {
   const pathname = useLocation().pathname;

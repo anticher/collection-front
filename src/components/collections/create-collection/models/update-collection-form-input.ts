@@ -1,4 +1,4 @@
-import { customFieldTypeEnum } from "../enum/custom-field-type.enum";
+import { customFieldTypeEnum } from "../../../../app/enum/custom-field-type.enum";
 
 export type UpdatedCustomField = {
     fieldType: customFieldTypeEnum,

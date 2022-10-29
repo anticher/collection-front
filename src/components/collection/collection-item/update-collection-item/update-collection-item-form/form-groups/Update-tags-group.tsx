@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import Select, { OnChangeValue } from "react-select";
-import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
-import { useUpdateCollectionItemTagsMutation } from "../../../../app/collection-items/collection-items.api-slice";
-import { setCollectionItemModalSpinnerVisibility } from "../../../../app/collection-items/collection-items.slice";
-import { useGetCollectionByIdQuery } from "../../../../app/collections/collections.api-slice";
-import { useGetTagsQuery } from "../../../../app/tags/tags.api-slice";
-import { buttonVariant } from "../../../../constants/bootstrap-constants";
-import { IOption } from "../../../../app/models/tag/option.model";
+import { useAppDispatch, useAppSelector } from "../../../../../../app/app-hooks";
+import { useUpdateCollectionItemTagsMutation } from "../../../../../../app/collection-items/collection-items.api-slice";
+import { setCollectionItemModalSpinnerVisibility } from "../../../../../../app/collection-items/collection-items.slice";
+import { useGetCollectionByIdQuery } from "../../../../../../app/collections/collections.api-slice";
+import { IOption } from "../../../../../../app/models/tag/option.model";
+import { useGetTagsQuery } from "../../../../../../app/tags/tags.api-slice";
+import { buttonVariant } from "../../../../../../constants/bootstrap-constants";
 
 function UpdateCollectionItemTagsGroup() {
   const pathname = useLocation().pathname;

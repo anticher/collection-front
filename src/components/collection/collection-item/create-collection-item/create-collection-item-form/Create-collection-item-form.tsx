@@ -1,8 +1,7 @@
 import styles from "./Create-collection-item-form.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import { ICollection } from "../../../../../app/models/collection/collection.model";
+import { useEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CreateCollectionItemFormInput } from "../../../../collections/create-collection/models/create-collection-item-form-input";
 import { useCreateCollectionItemMutation } from "../../../../../app/collection-items/collection-items.api-slice";
@@ -16,18 +15,22 @@ import { useSendImageMutation } from "../../../../../app/image-upload/image-uplo
 import { buttonVariant } from "../../../../../constants/bootstrap-constants";
 import { useSnackbar } from "notistack";
 import { ICollectionItemCreate } from "../../../../../app/models/collection-item/create.model";
+import { useLocation } from "react-router-dom";
+import { useGetCollectionByIdQuery } from "../../../../../app/collections/collections.api-slice";
+import { useAppDispatch } from "../../../../../app/app-hooks";
+import { setCollectionItemCreateModalVisibility } from "../../../../../app/collection-items/collection-items.slice";
 
-type CreateCollectionItemFormProps = {
-  setCreateModalVisibility: Dispatch<SetStateAction<boolean>>;
-  collectionData: ICollection;
-  refetch: () => void;
-};
+function CreateCollectionItemForm() {
+  const pathname = useLocation().pathname;
+  const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
-function CreateCollectionItemForm({
-  collectionData,
-  setCreateModalVisibility,
-  refetch,
-}: CreateCollectionItemFormProps) {
+  const {
+    data: collection,
+    isLoading: isDataLoading,
+    isError: isDataError,
+    refetch,
+  } = useGetCollectionByIdQuery(collectionId);
+
   const [
     sendCollectionItemCredentials,
     {
@@ -47,8 +50,8 @@ function CreateCollectionItemForm({
       })
     : [];
 
-  const customFieldsTitles = collectionData.customFieldTitles;
-  const ownerName = collectionData.ownerName;
+  const customFieldsTitles = collection?.customFieldTitles || [];
+  const ownerName = collection?.ownerName || "";
   const [username, creatorRole] = useGetCredentialsForCreate();
 
   const [selectedOption, setSelectedOption] = useState<string[]>([]);
@@ -59,10 +62,12 @@ function CreateCollectionItemForm({
     { isLoading: isSendImageLoading, isError: isSendImageError },
   ] = useSendImageMutation();
 
+  const dispatch = useAppDispatch();
+
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    if (isTagsError || isSendImageError || isCollectionItemSendError) {
+    if (isTagsError || isSendImageError || isCollectionItemSendError || isDataError) {
       enqueueSnackbar("Server error", { variant: "error" });
     }
   }, [
@@ -70,13 +75,16 @@ function CreateCollectionItemForm({
     isTagsError,
     isCollectionItemSendError,
     isSendImageError,
+    isDataError,
   ]);
 
   const isLoading =
-    isTagsLodaing || isSendImageLoading || isCollectionItemSendLoading;
+    isTagsLodaing || isSendImageLoading || isCollectionItemSendLoading || isDataLoading;
 
   const { register, handleSubmit, setValue } =
     useForm<CreateCollectionItemFormInput>();
+
+  if (!collection) return null
 
   const onSubmit: SubmitHandler<CreateCollectionItemFormInput> = async (
     data
@@ -87,7 +95,7 @@ function CreateCollectionItemForm({
       tagNames: data.tagNames.join(","),
       ownerName,
       username,
-      collectionId: collectionData.id,
+      collectionId: collection.id,
     };
     if (
       checkItemCreateData(
@@ -102,7 +110,7 @@ function CreateCollectionItemForm({
         : null;
       newCollectionItem.image = imageUrl;
       await sendCollectionItemCredentials(newCollectionItem).unwrap();
-      setCreateModalVisibility(false);
+      dispatch(setCollectionItemCreateModalVisibility(false));
       refetch();
     }
   };

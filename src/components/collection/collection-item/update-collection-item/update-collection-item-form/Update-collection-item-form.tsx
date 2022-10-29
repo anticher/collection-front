@@ -9,10 +9,10 @@ import { setCollectionItemUpdateModalVisibility } from "../../../../../app/colle
 import { useGetCollectionByIdQuery } from "../../../../../app/collections/collections.api-slice";
 import { setCollectionModalSpinnerVisibility } from "../../../../../app/collections/collections.slice";
 import { buttonDanger } from "../../../../../constants/bootstrap-constants";
-import UpdateCollectionItemCustomFields from "../Update-custom-fields";
-import UpdateCollectionItemImageGroup from "../Update-image-group";
-import UpdateCollectionItemNameGroup from "../Update-name-group";
-import UpdateCollectionItemTagsGroup from "../Update-tags-group";
+import UpdateCollectionItemCustomFields from "./form-groups/custom-fields/Update-custom-fields";
+import UpdateCollectionItemImageGroup from "./form-groups/Update-image-group";
+import UpdateCollectionItemNameGroup from "./form-groups/Update-name-group";
+import UpdateCollectionItemTagsGroup from "./form-groups/Update-tags-group";
 
 function UpdateCollectionItemForm() {
   const pathname = useLocation().pathname;

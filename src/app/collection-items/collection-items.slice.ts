@@ -19,7 +19,7 @@ export const collectionItemSlice = createSlice({
   name: "collection-items",
   initialState,
   reducers: {
-    setCollectionItemModalVisibility: (state, action: PayloadAction<boolean>) => {
+    setCollectionItemCreateModalVisibility: (state, action: PayloadAction<boolean>) => {
       state.isCreateModalVisible = action.payload;
     },
     setCollectionItemUpdateModalVisibility: (
@@ -41,15 +41,15 @@ export const collectionItemSlice = createSlice({
 });
 
 export const {
-  setCollectionItemModalVisibility,
+  setCollectionItemCreateModalVisibility,
   setCollectionItemUpdateModalVisibility,
   setCollectionItemModalSpinnerVisibility,
   setUpdatedCollectionItemId,
 } = collectionItemSlice.actions;
 
-export const selectCollectionModalVisibility = (state: RootState) =>
+export const selectCollectionItemCreateModalVisibility = (state: RootState) =>
   state.collectionItems.isCreateModalVisible;
-export const selectCollectionUpdateModalVisibility = (state: RootState) =>
+export const selectCollectionItemUpdateModalVisibility = (state: RootState) =>
   state.collectionItems.isUpdateModalVisible;
 export const selectCollectionModalSpinnerVisibility = (state: RootState) =>
   state.collectionItems.isModalSpinnerVisible;

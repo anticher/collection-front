@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FieldErrorsImpl, UseFormRegister } from "react-hook-form";
 import { CreateCollectionFormInput } from "../models/create-collection-form-input";
-import { customFieldTypeEnum } from "../enum/custom-field-type.enum";
+import { customFieldTypeEnum } from "../../../../app/enum/custom-field-type.enum";
 
 interface CreateCollectionCustomInputProps {
   register: UseFormRegister<CreateCollectionFormInput>;

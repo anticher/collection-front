@@ -1,8 +1,8 @@
 import { Form } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import { useAppSelector } from "../../../../app/app-hooks";
-import { useGetCollectionByIdQuery } from "../../../../app/collections/collections.api-slice";
-import UpdateCollectionItemCustomFieldString from "./Update-custom-field";
+import { useAppSelector } from "../../../../../../../app/app-hooks";
+import { useGetCollectionByIdQuery } from "../../../../../../../app/collections/collections.api-slice";
+import UpdateCollectionItemCustomField from "./custom-field/Update-custom-field";
 
 function UpdateCollectionItemCustomFields() {
   const pathname = useLocation().pathname;
@@ -32,7 +32,7 @@ function UpdateCollectionItemCustomFields() {
       )
       .map((customField) => {
         return (
-          <UpdateCollectionItemCustomFieldString
+          <UpdateCollectionItemCustomField
             key={customField.id}
             index={customField.customFieldTitle.fieldIndex}
           />
