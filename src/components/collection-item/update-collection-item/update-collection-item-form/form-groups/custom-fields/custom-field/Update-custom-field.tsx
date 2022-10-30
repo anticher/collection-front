@@ -6,12 +6,12 @@ import { useLocation } from "react-router-dom";
 import {
   useAppDispatch,
   useAppSelector,
-} from "../../../../../../../../app/app-hooks";
-import { useGetCollectionByIdQuery } from "../../../../../../../../app/collections/collections.api-slice";
-import { customFieldTypeEnum } from "../../../../../../../../app/enum/custom-field-type.enum";
-import { buttonVariant } from "../../../../../../../../constants/bootstrap-constants";
-import { useUpdateCollectionItemCustomFieldMutation } from "../../../../../../../../app/collection-items/collection-items.api-slice";
-import { setCollectionItemModalSpinnerVisibility } from "../../../../../../../../app/collection-items/collection-items.slice";
+} from "../../../../../../../app/app-hooks";
+import { useGetCollectionByIdQuery } from "../../../../../../../app/collections/collections.api-slice";
+import { customFieldTypeEnum } from "../../../../../../../app/enum/custom-field-type.enum";
+import { buttonVariant } from "../../../../../../../constants/bootstrap-constants";
+import { useUpdateCollectionItemCustomFieldMutation } from "../../../../../../../app/collection-items/collection-items.api-slice";
+import { setCollectionItemModalSpinnerVisibility } from "../../../../../../../app/collection-items/collection-items.slice";
 import { useTranslation } from "react-i18next";
 
 function UpdateCollectionItemCustomField({ index }: { index: number }) {

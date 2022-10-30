@@ -3,13 +3,13 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../../../app/app-hooks";
-import { useUpdateCollectionItemImageMutation } from "../../../../../../app/collection-items/collection-items.api-slice";
-import { useGetCollectionByIdQuery } from "../../../../../../app/collections/collections.api-slice";
-import { setCollectionModalSpinnerVisibility } from "../../../../../../app/collections/collections.slice";
-import { useSendImageMutation } from "../../../../../../app/image-upload/image-upload.api-slice";
-import { transformImageToFormdata } from "../../../../../../app/image-upload/transform-image-to-formdata";
-import { buttonDanger, buttonVariant } from "../../../../../../constants/bootstrap-constants";
+import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
+import { useUpdateCollectionItemImageMutation } from "../../../../../app/collection-items/collection-items.api-slice";
+import { useGetCollectionByIdQuery } from "../../../../../app/collections/collections.api-slice";
+import { setCollectionModalSpinnerVisibility } from "../../../../../app/collections/collections.slice";
+import { useSendImageMutation } from "../../../../../app/image-upload/image-upload.api-slice";
+import { transformImageToFormdata } from "../../../../../app/image-upload/transform-image-to-formdata";
+import { buttonDanger, buttonVariant } from "../../../../../constants/bootstrap-constants";
 
 
 function UpdateCollectionItemImageGroup() {

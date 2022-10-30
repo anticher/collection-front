@@ -1,8 +1,8 @@
 import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
-import { setCollectionItemCreateModalVisibility } from "../../../../../app/collection-items/collection-items.slice";
-import ModalSpinner from "../../../../common/spinners/Modal-spinner";
+import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
+import { setCollectionItemCreateModalVisibility } from "../../../../app/collection-items/collection-items.slice";
+import ModalSpinner from "../../../common/spinners/Modal-spinner";
 import CreateCollectionItemForm from "../create-collection-item-form/Create-collection-item-form";
 
 function CreateCollectionItemModal() {

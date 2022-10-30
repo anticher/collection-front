@@ -1,6 +1,6 @@
 import styles from "./Collections.module.css";
 import Container from "react-bootstrap/Container";
-import CollectionsItem from "./collections-item/Collections-item";
+import CollectionsItem from "../collections-item/Collections-item";
 import { useGetCollectionsByUserQuery } from "../../app/collections/collections.api-slice";
 import { ICollection } from "../../app/models/collection/collection.model";
 import { useLocation } from "react-router-dom";

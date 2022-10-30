@@ -1,11 +1,11 @@
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
 import {
   setCollectionItemUpdateModalVisibility,
   setUpdatedCollectionItemId,
-} from "../../../../../app/collection-items/collection-items.slice";
-import ModalSpinner from "../../../../common/spinners/Modal-spinner";
+} from "../../../../app/collection-items/collection-items.slice";
+import ModalSpinner from "../../../common/spinners/Modal-spinner";
 import UpdateCollectionItemForm from "../update-collection-item-form/Update-collection-item-form";
 
 function UpdateCollectionItemModal() {

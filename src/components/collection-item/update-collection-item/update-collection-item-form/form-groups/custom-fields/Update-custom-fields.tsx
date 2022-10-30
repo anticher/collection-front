@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import { useAppSelector } from "../../../../../../../app/app-hooks";
-import { useGetCollectionByIdQuery } from "../../../../../../../app/collections/collections.api-slice";
+import { useAppSelector } from "../../../../../../app/app-hooks";
+import { useGetCollectionByIdQuery } from "../../../../../../app/collections/collections.api-slice";
 import UpdateCollectionItemCustomField from "./custom-field/Update-custom-field";
 
 function UpdateCollectionItemCustomFields() {

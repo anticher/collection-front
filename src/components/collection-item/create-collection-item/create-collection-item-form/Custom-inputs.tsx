@@ -2,9 +2,9 @@ import styles from "./Custom-inputs.module.css";
 import { InputGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { UseFormRegister } from "react-hook-form";
-import { ICustomFieldTitle } from "../../../../../app/models/collection-custom-field/custom-field-titile.model";
-import { customFieldTypeEnum } from "../../../../../app/enum/custom-field-type.enum";
-import { CreateCollectionItemFormInput } from "../../../../collections/create-collection/models/create-collection-item-form-input";
+import { ICustomFieldTitle } from "../../../../app/models/collection-custom-field/custom-field-titile.model";
+import { customFieldTypeEnum } from "../../../../app/enum/custom-field-type.enum";
+import { CreateCollectionItemFormInput } from "../../../collections/create-collection/models/create-collection-item-form-input";
 import { useTranslation } from "react-i18next";
 
 type createCustomInputsProps = {

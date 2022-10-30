@@ -8,7 +8,6 @@ import SetTopicButton from "./set-topic-button/Set-topic-button";
 import SearchInput from "./search-input/Search-input";
 import { useAppSelector } from "../../app/app-hooks";
 import LogoutButton from "./logout-button/Logout-button";
-import MyCollectionsButton from "./my-collections-button/My-collections-button";
 import { Link } from "react-router-dom";
 import RouteButton from "../common/route-button/Route-button";
 import { useTranslation } from "react-i18next";
@@ -31,7 +30,7 @@ function Header() {
           <SetLocalizationButton />
           {auth.username ? (
             <>
-              <MyCollectionsButton />
+              <RouteButton text={t("header:home")} route={`/collections/${auth.username}`} />
               <LogoutButton />
             </>
           ) : (

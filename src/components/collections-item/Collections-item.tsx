@@ -1,17 +1,17 @@
-import { ICollection } from "../../../app/models/collection/collection.model";
+import { ICollection } from "../../app/models/collection/collection.model";
 import styles from "./Collections-item.module.css";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { buttonVariant } from "../../../constants/bootstrap-constants";
+import { buttonVariant } from "../../constants/bootstrap-constants";
 import CollectionsItemDescriptionModal from "./collections-item-description-modal/Collections-item-description-modal";
 import { useState } from "react";
-import { NoImageSwg } from "../../common/no-image/No-image-swg";
-import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";
+import { NoImageSwg } from "../common/no-image/No-image-swg";
+import { useAppDispatch, useAppSelector } from "../../app/app-hooks";
 import {
   setCollectionUpdateModalVisibility,
   setUpdatedCollectionId,
-} from "../../../app/collections/collections.slice";
+} from "../../app/collections/collections.slice";
 import { useTranslation } from "react-i18next";
 
 type CollectionsItemProps = {
