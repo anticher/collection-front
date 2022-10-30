@@ -59,7 +59,6 @@ function UpdateNameGroup() {
   }
 
   const submitHandler = async () => {
-    console.log("d");
     const { name } = collection;
     if (name !== nameValue && nameValue.length) {
       await sendNewName({

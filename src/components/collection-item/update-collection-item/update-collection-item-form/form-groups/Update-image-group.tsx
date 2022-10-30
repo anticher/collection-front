@@ -73,7 +73,6 @@ function UpdateCollectionItemImageGroup() {
 
   const submitHandler = async () => {
     if (image) {
-      console.log(image);
       const imageUrl = (
         await getImageUrl(transformImageToFormdata(image)).unwrap()
       ).secure_url;
@@ -83,7 +82,6 @@ function UpdateCollectionItemImageGroup() {
         ownerName: collectionItem.ownerName,
         username: auth.username,
       });
-      console.log(imageUrl)
       refetch();
     }
   };

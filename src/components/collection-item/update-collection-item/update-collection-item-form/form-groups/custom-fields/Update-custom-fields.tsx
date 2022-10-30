@@ -23,8 +23,6 @@ function UpdateCollectionItemCustomFields() {
   }
   const customFieldValues = [...collectionItem.customFieldValues];
 
-  console.log(customFieldValues);
-
   const createCustomInputGroup = () => {
     return customFieldValues
       .sort(

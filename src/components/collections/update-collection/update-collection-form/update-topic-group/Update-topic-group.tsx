@@ -69,7 +69,6 @@ function UpdateTopicGroup() {
 
   const submitHandler = async () => {
     const { name } = collection.topic;
-    console.log(topicValue);
     if (name !== topicValue && topicValue.length) {
       await sendNewTopicId({
         id: collection.id,

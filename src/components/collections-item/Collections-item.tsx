@@ -41,7 +41,6 @@ function CollectionsItem({ data }: CollectionsItemProps) {
   };
 
   const onShowClickHandler = () => {
-    console.log("card trigger");
     navigate(`${data.id}`);
   };
 

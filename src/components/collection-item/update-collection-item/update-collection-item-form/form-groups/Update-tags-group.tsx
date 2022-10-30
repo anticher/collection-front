@@ -92,14 +92,6 @@ function UpdateCollectionItemTagsGroup() {
   };
 
   const submitHandler = async () => {
-    console.log(
-      JSON.stringify({
-        id: collectionItem.id,
-        tags: selectedOption,
-        ownerName: collectionItem.ownerName,
-        username: auth.username,
-      })
-    );
     if (selectedOption.length) {
       await sendNewTags({
         id: collectionItem.id,

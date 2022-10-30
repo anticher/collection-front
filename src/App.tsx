@@ -43,7 +43,6 @@ function App() {
 
   useEffect(() => {
     if (isError) {
-      console.log("error");
       dispatch(setAuthData(initialState));
     } else if (isSuccess) {
       if (userState) dispatch(setAuthData(userState));
