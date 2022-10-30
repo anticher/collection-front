@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import CreateCollectionCustomInput from "../create-collection-custom-input/Create-collection-custom-input";
 import { CreateCollectionFormInput } from "../models/create-collection-form-input";
-import { useGetThemesQuery } from "../../../../app/themes/themes.api-slice";
+import { useGetTopicsQuery } from "../../../../app/topics/topics.api-slice";
 import {
   useCreateCollectionMutation,
   useGetCollectionsByUserQuery,
@@ -24,10 +24,10 @@ function CreateCollectionForm() {
   const [customInputs, setCustomInputs] = useState([] as string[]);
 
   const {
-    data: themes = [],
-    isLoading: isThemesLoading,
-    isError: isThemesError,
-  } = useGetThemesQuery("");
+    data: topics = [],
+    isLoading: isTopicsLoading,
+    isError: isTopicsError,
+  } = useGetTopicsQuery("");
 
   const { refetch } = useGetCollectionsByUserQuery(ownerName);
 
@@ -48,12 +48,12 @@ function CreateCollectionForm() {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    if (isThemesError || isSendImageError || isCollectionCreateError) {
+    if (isTopicsError || isSendImageError || isCollectionCreateError) {
       enqueueSnackbar("Server error", { variant: "error" });
     }
-  }, [enqueueSnackbar, isThemesError, isCollectionCreateError, isSendImageError]);
+  }, [enqueueSnackbar, isTopicsError, isCollectionCreateError, isSendImageError]);
 
-  const isLoading = isCollectionCreateLoading || isSendImageLoading || isThemesLoading;
+  const isLoading = isCollectionCreateLoading || isSendImageLoading || isTopicsLoading;
 
   const {
     register,
@@ -63,8 +63,8 @@ function CreateCollectionForm() {
   } = useForm<CreateCollectionFormInput>();
   const onSubmit: SubmitHandler<CreateCollectionFormInput> = async (data) => {
     const canSend =
-      [data.name, data.description, data.theme].every(Boolean) &&
-      !isThemesLoading &&
+      [data.name, data.description, data.topic].every(Boolean) &&
+      !isTopicsLoading &&
       !isCollectionCreateLoading &&
       ownerName &&
       username &&
@@ -139,24 +139,24 @@ function CreateCollectionForm() {
         />
       </Form.Group>
 
-      {isThemesLoading ? (
+      {isTopicsLoading ? (
         "loading"
       ) : (
         <Form.Group className="mb-3">
-          <Form.Label>Colection theme</Form.Label>
+          <Form.Label>Colection topic</Form.Label>
           <Form.Select
             className="mb-3"
-            aria-label="Collection theme select"
-            {...register("theme", {
+            aria-label="Collection topic select"
+            {...register("topic", {
               required: true,
             })}
           >
-            <option value="">Choose collection theme</option>
-            {themes.length
-              ? themes.map((theme) => {
+            <option value="">Choose collection topic</option>
+            {topics.length
+              ? topics.map((topic) => {
                   return (
-                    <option key={theme.id} value={theme.name}>
-                      {theme.name}
+                    <option key={topic.id} value={topic.name}>
+                      {topic.name}
                     </option>
                   );
                 })
@@ -175,7 +175,7 @@ function CreateCollectionForm() {
       {(errors.customFields ||
         errors.description ||
         errors.image ||
-        errors.theme ||
+        errors.topic ||
         errors.name) && <Form.Text>all fields are required</Form.Text>}
 
       <div className={styles.buttons}>

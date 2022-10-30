@@ -7,5 +7,5 @@ export interface ICollectionLargest {
   creatorName: string;
   createDate: string;
   itemsCount: string;
-  themeId: string;
+  topicId: string;
 }

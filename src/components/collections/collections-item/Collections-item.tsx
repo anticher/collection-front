@@ -61,7 +61,7 @@ function CollectionsItem({data}: CollectionsItemProps) {
 
       <Card.Body className={styles.body}>
         <Card.Title>{data.name || "no name"}</Card.Title>
-        <Card.Text>{data.theme?.name || "empty theme"}</Card.Text>
+        <Card.Text>{data.topic?.name || ""}</Card.Text>
         {/* <Card.Text>{data.description || "no description"}</Card.Text> */}
         <div className={styles.buttons}>
           <Button

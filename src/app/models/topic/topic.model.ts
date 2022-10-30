@@ -1,4 +1,4 @@
-export interface ITheme {
+export interface ITopic {
     id: string;
     name: string;
     createDate: string;

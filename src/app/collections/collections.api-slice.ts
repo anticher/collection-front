@@ -8,7 +8,7 @@ import { ICollectionDelete } from "../models/collection/delete.model";
 import { ICollectionDescriptionUpdate } from "../models/collection/description-update.model";
 import { ICollectionImageUpdate } from "../models/collection/image-update.model";
 import { ICollectionNameUpdate } from "../models/collection/name-update.model";
-import { ICollectionThemeUpdate } from "../models/collection/theme-update.model";
+import { ICollectionTopicUpdate } from "../models/collection/topic-update.model";
 
 export const CollectionsApiSlice = createApi({
   reducerPath: "collections-api",
@@ -66,9 +66,9 @@ export const CollectionsApiSlice = createApi({
         body: credentials,
       }),
     }),
-    updateCollectionTheme: builder.mutation<number, ICollectionThemeUpdate>({
+    updateCollectionTopic: builder.mutation<number, ICollectionTopicUpdate>({
       query: (credentials) => ({
-        url: "/update-collection-theme",
+        url: "/update-collection-topic",
         method: "PATCH",
         body: credentials,
       }),
@@ -108,7 +108,7 @@ export const {
   useUpdateCollectionNameMutation,
   useUpdateCollectionCustomFieldTitleMutation,
   useDeleteCollectionCustomFieldMutation,
-  useUpdateCollectionThemeMutation,
+  useUpdateCollectionTopicMutation,
   useDeleteCollectionMutation,
   useUpdateCollectionImageMutation,
 } = CollectionsApiSlice;

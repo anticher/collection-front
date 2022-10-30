@@ -1,6 +1,6 @@
-export interface ICollectionThemeUpdate {
+export interface ICollectionTopicUpdate {
     id: string;
-    themeName: string;
+    topicName: string;
     ownerName: string;
     username: string;
   }

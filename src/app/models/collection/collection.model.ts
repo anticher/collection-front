@@ -1,6 +1,6 @@
 import { ICollectionItem } from "../collection-item/collection-item.model";
 import { ICustomFieldTitle } from "../collection-custom-field/custom-field-titile.model";
-import { ITheme } from "../theme/theme.model";
+import { ITopic } from "../topic/topic.model";
 
 export interface ICollection {
     id: string;
@@ -12,5 +12,5 @@ export interface ICollection {
     createDate: string;
     customFieldTitles: ICustomFieldTitle[];
     items: ICollectionItem[];
-    theme: ITheme;
+    topic: ITopic;
 }

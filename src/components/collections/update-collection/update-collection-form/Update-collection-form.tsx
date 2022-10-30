@@ -18,7 +18,7 @@ import UpdateCustomFieldGroup from "./update-custom-field-group/Update-custom-fi
 import UpdateDescriptionGroup from "./update-description-group/Update-description-group";
 import UpdateImageGroup from "./update-image-group/Update-image-group";
 import UpdateNameGroup from "./update-name-group/Update-name-group";
-import UpdateThemeGroup from "./update-theme-group/Update-theme-group";
+import UpdateTopicGroup from "./update-topic-group/Update-topic-group";
 
 function UpdateCollectionForm() {
   const pathname = useLocation().pathname;
@@ -97,7 +97,7 @@ function UpdateCollectionForm() {
 
       <UpdateDescriptionGroup />
 
-      <UpdateThemeGroup />
+      <UpdateTopicGroup />
 
       <UpdateImageGroup />
 

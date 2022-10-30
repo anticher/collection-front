@@ -8,7 +8,7 @@ export type UpdatedCustomField = {
 export interface UpdateCollectionFormInput {
   name: string;
   description: string;
-  theme: string;
+  topic: string;
   image: FileList;
   customFields: {[key: string]: UpdatedCustomField; };
 }

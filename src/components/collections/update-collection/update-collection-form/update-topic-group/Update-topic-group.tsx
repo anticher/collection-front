@@ -5,13 +5,13 @@ import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
 import {
   useGetCollectionsByUserQuery,
-  useUpdateCollectionThemeMutation,
+  useUpdateCollectionTopicMutation,
 } from "../../../../../app/collections/collections.api-slice";
 import { setCollectionModalSpinnerVisibility } from "../../../../../app/collections/collections.slice";
-import { useGetThemesQuery } from "../../../../../app/themes/themes.api-slice";
+import { useGetTopicsQuery } from "../../../../../app/topics/topics.api-slice";
 import { buttonVariant } from "../../../../../constants/bootstrap-constants";
 
-function UpdateThemeGroup() {
+function UpdateTopicGroup() {
   const pathname = useLocation().pathname;
   const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -27,51 +27,51 @@ function UpdateThemeGroup() {
   const auth = useAppSelector((state) => state.auth);
 
   const {
-    data: themes = [],
-    isLoading: isThemesLoading,
-    isError: isThemesError,
-  } = useGetThemesQuery("");
+    data: topics = [],
+    isLoading: isTopicsLoading,
+    isError: isTopicsError,
+  } = useGetTopicsQuery("");
 
-  const [sendNewThemeId, { isLoading: isSendLoading, error: isSendError }] =
-    useUpdateCollectionThemeMutation();
+  const [sendNewTopicId, { isLoading: isSendLoading, error: isSendError }] =
+    useUpdateCollectionTopicMutation();
 
-  const [themeValue, setThemeValue] = useState(collection?.theme.name || "");
+  const [topicValue, setTopicValue] = useState(collection?.topic.name || "");
 
   const { enqueueSnackbar } = useSnackbar();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isThemesLoading || isSendLoading) {
+    if (isTopicsLoading || isSendLoading) {
       dispatch(setCollectionModalSpinnerVisibility(true));
     } else {
       dispatch(setCollectionModalSpinnerVisibility(false));
     }
-  }, [dispatch, isThemesLoading, isSendLoading]);
+  }, [dispatch, isTopicsLoading, isSendLoading]);
 
   useEffect(() => {
-    if (isThemesError || isSendError) {
+    if (isTopicsError || isSendError) {
       enqueueSnackbar("Server error", { variant: "error" });
     }
-  }, [enqueueSnackbar, isSendError, isThemesError]);
+  }, [enqueueSnackbar, isSendError, isTopicsError]);
 
   if (!collection) {
     return null;
   }
 
-  const options = themes.length
-    ? themes.map((theme) => {
-        return theme.name;
+  const options = topics.length
+    ? topics.map((topic) => {
+        return topic.name;
       })
     : [];
 
   const submitHandler = async () => {
-    const { name } = collection.theme;
-    console.log(themeValue);
-    if (name !== themeValue && themeValue.length) {
-      await sendNewThemeId({
+    const { name } = collection.topic;
+    console.log(topicValue);
+    if (name !== topicValue && topicValue.length) {
+      await sendNewTopicId({
         id: collection.id,
-        themeName: themeValue,
+        topicName: topicValue,
         ownerName: collection.ownerName,
         username: auth.username,
       });
@@ -83,7 +83,7 @@ function UpdateThemeGroup() {
     <>
       <InputGroup className="mb-3">
         <Form.Select
-          onChange={(e) => setThemeValue(e.target.value)}
+          onChange={(e) => setTopicValue(e.target.value)}
         >
           {options.map((option) => (
             <option key={option}>{option}</option>
@@ -97,4 +97,4 @@ function UpdateThemeGroup() {
   );
 }
 
-export default UpdateThemeGroup;
+export default UpdateTopicGroup;
