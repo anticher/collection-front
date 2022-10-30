@@ -1,0 +1,15 @@
+{
+    "admin-menu": "Admin",
+    "user": "User",
+    "users": "Users",
+    "username": "Username",
+    "email": "Email",
+    "role": "Role",
+    "block-status": "Block status",
+    "create-date": "Create date",
+    "make-admin": "Make admin",
+    "make-user": "Make user",
+    "block": "Block",
+    "unblock": "Unblock",
+    "delete": "Delete"
+}

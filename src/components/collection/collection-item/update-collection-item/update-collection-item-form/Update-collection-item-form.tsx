@@ -2,6 +2,7 @@ import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
 import { useDeleteCollectionItemMutation } from "../../../../../app/collection-items/collection-items.api-slice";
@@ -15,6 +16,7 @@ import UpdateCollectionItemNameGroup from "./form-groups/Update-name-group";
 import UpdateCollectionItemTagsGroup from "./form-groups/Update-tags-group";
 
 function UpdateCollectionItemForm() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -82,16 +84,16 @@ function UpdateCollectionItemForm() {
       <UpdateCollectionItemImageGroup />
       <UpdateCollectionItemCustomFields />
       <Form onSubmit={handleSubmit(onDeleteSubmit)}>
-        <Form.Label>Delete collection</Form.Label>
+        <Form.Label>{t("collections:delete-item")}</Form.Label>
         <InputGroup className="mb-3">
           <Form.Control
-            placeholder="Type item name to confirm"
+            placeholder={t("collections:enter-item-name")}
             {...register("collectionItemName", {
               required: true,
             })}
           />
           <Button variant={buttonDanger} type="submit">
-            Delete collection
+          {t("collections:delete-item")}
           </Button>
         </InputGroup>
       </Form>

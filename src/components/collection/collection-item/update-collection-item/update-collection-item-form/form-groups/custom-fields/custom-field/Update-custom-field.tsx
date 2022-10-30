@@ -3,14 +3,19 @@ import { useSnackbar } from "notistack";
 import { useState, useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../../../../../app/app-hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../../../../app/app-hooks";
 import { useGetCollectionByIdQuery } from "../../../../../../../../app/collections/collections.api-slice";
 import { customFieldTypeEnum } from "../../../../../../../../app/enum/custom-field-type.enum";
 import { buttonVariant } from "../../../../../../../../constants/bootstrap-constants";
 import { useUpdateCollectionItemCustomFieldMutation } from "../../../../../../../../app/collection-items/collection-items.api-slice";
 import { setCollectionItemModalSpinnerVisibility } from "../../../../../../../../app/collection-items/collection-items.slice";
+import { useTranslation } from "react-i18next";
 
 function UpdateCollectionItemCustomField({ index }: { index: number }) {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -34,7 +39,9 @@ function UpdateCollectionItemCustomField({ index }: { index: number }) {
   const [sendNewValue, { isLoading: isSendLoading, error: isSendError }] =
     useUpdateCollectionItemCustomFieldMutation();
 
-  const customField = collectionItem?.customFieldValues.find((field) => field.customFieldTitle.fieldIndex === index);
+  const customField = collectionItem?.customFieldValues.find(
+    (field) => field.customFieldTitle.fieldIndex === index
+  );
 
   const [value, setValue] = useState(customField?.fieldValue || "");
 
@@ -99,7 +106,7 @@ function UpdateCollectionItemCustomField({ index }: { index: number }) {
     case customFieldTypeEnum.checkbox:
       control = (
         <Form.Check
-        className={styles.checkWrapper}
+          className={styles.checkWrapper}
           type="checkbox"
           autoComplete="off"
           value={value}
@@ -140,7 +147,7 @@ function UpdateCollectionItemCustomField({ index }: { index: number }) {
       </InputGroup>
       <div className="d-flex flex-row-reverse">
         <Button variant={buttonVariant} type="button" onClick={submitHandler}>
-          Submit
+          {t("collections:apply")}
         </Button>
       </div>
     </Form.Group>

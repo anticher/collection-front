@@ -1,10 +1,11 @@
-import styles from "./Create-collection-modal.module.css";
 import Modal from "react-bootstrap/Modal";
 import CreateCollectionForm from "../create-collection-form/Create-collection-form";
 import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
 import { setCollectionModalVisibility } from "../../../../app/collections/collections.slice";
+import { useTranslation } from "react-i18next";
 
 function CreateCollectionModal() {
+  const { t } = useTranslation();
   const isCreateModalVisible = useAppSelector(
     (state) => state.collections.isCreateModalVisible
   );
@@ -21,11 +22,10 @@ function CreateCollectionModal() {
       size="xl"
       show={isCreateModalVisible}
       onHide={onHideHandler}
-      aria-labelledby="example-modal-sizes-title-lg"
     >
       <Modal.Header closeButton>
-        <Modal.Title id="example-modal-sizes-title-lg">
-          Create new collection
+        <Modal.Title>
+          {t("collections:create-new-collection")}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

@@ -2,6 +2,7 @@ import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
 import {
@@ -21,6 +22,7 @@ import UpdateNameGroup from "./update-name-group/Update-name-group";
 import UpdateTopicGroup from "./update-topic-group/Update-topic-group";
 
 function UpdateCollectionForm() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -81,7 +83,7 @@ function UpdateCollectionForm() {
     if (!collection || collection.customFieldTitles.length === 0) return null;
     return (
       <>
-        <Form.Label>Colection custom fields</Form.Label>
+        <Form.Label>{t("collections:custom-inputs")}</Form.Label>
         {collection.customFieldTitles.map((customField, index) => {
           return <UpdateCustomFieldGroup key={customField.id} index={index} />;
         })}
@@ -104,16 +106,16 @@ function UpdateCollectionForm() {
       {createCustomInputs()}
 
       <Form onSubmit={handleSubmit(onDeleteSubmit)}>
-        <Form.Label>Delete collection</Form.Label>
+        <Form.Label>{t("collections:delete-collection")}</Form.Label>
         <InputGroup className="mb-3">
           <Form.Control
-            placeholder="Type collection name to confirm"
+            placeholder={t("collections:enter-collection-name")}
             {...register("collectionName", {
               required: true,
             })}
           />
           <Button variant={buttonDanger} type="submit">
-            Delete collection
+            {t("collections:delete-collection")}
           </Button>
         </InputGroup>
       </Form>

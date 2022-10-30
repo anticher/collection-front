@@ -1,6 +1,7 @@
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
 import {
@@ -16,6 +17,7 @@ type UpdateCustomFieldGroupProps = {
 };
 
 function UpdateCustomFieldGroup({ index }: UpdateCustomFieldGroupProps) {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -89,22 +91,19 @@ function UpdateCustomFieldGroup({ index }: UpdateCustomFieldGroupProps) {
     <Form.Group className="mb-3">
       <InputGroup className="mb-3">
         <Form.Control
-          aria-label="Default select example"
           defaultValue={collection.customFieldTitles[index].fieldType}
           disabled
         ></Form.Control>
         <Form.Control
-          aria-label="Text input with dropdown button"
           value={nameValue}
           onChange={(e) => setNameValue(e.target.value)}
         />
       </InputGroup>
       <div className="d-flex flex-row-reverse gap-1">
         <Button variant={buttonDanger} type="button" onClick={deleteHandler}>
-          Delete field
-        </Button>
+        {t("collections:delete-field")}</Button>
         <Button variant={buttonVariant} type="button" onClick={submitHandler}>
-          Submit
+        {t("collections:apply")}
         </Button>
       </div>
     </Form.Group>

@@ -2,7 +2,6 @@ import { useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";
-import { useTranslation } from 'react-i18next'
 import { setLocalization } from "../../../app/settings/settings.slice";
 import { useBeforeunload } from 'react-beforeunload';
 import { buttonOutlineVariant } from "../../../constants/bootstrap-constants";
@@ -10,7 +9,6 @@ import { buttonOutlineVariant } from "../../../constants/bootstrap-constants";
 function SetLocalizationButton() {
   const dispatch = useAppDispatch();
   const appLocalization = useAppSelector((state) => state.settings.localization);
-  const { i18n } = useTranslation()
   const [localRadioValue, setLocalRadioValue] = useState(appLocalization);
   
   const localRadios = [
@@ -22,7 +20,6 @@ function SetLocalizationButton() {
 
   const onClickHandler = (e: React.ChangeEvent<EventTarget>) => {
     let target = e.target as HTMLInputElement;
-    i18n.changeLanguage(target.value)
     dispatch(setLocalization(target.value));
     setLocalRadioValue(target.value);
   };

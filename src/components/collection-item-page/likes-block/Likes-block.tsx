@@ -1,6 +1,7 @@
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { Badge, Button } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/app-hooks";
 import { useGetCollectionItemByIdQuery } from "../../../app/collection-items/collection-items.api-slice";
@@ -11,6 +12,7 @@ import {
 import { buttonVariant } from "../../../constants/bootstrap-constants";
 
 function LikesBlock() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionItemId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -64,8 +66,8 @@ function LikesBlock() {
       variant={buttonVariant}
       onClick={onClickHandler}
     >
-      Like <Badge bg="secondary">{collectionItem.likes.length}</Badge>
-      <span className="visually-hidden">Likes counter</span>
+      {t("collections:like")} <Badge bg="secondary">{collectionItem.likes.length}</Badge>
+      <span className="visually-hidden">{t("collections:likes-counter")}</span>
     </Button>
   );
 }

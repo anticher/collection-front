@@ -1,6 +1,7 @@
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import Select, { OnChangeValue } from "react-select";
 import { useAppDispatch, useAppSelector } from "../../../../../../app/app-hooks";
@@ -12,6 +13,7 @@ import { useGetTagsQuery } from "../../../../../../app/tags/tags.api-slice";
 import { buttonVariant } from "../../../../../../constants/bootstrap-constants";
 
 function UpdateCollectionItemTagsGroup() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -111,19 +113,19 @@ function UpdateCollectionItemTagsGroup() {
 
   return (
     <Form.Group className="mb-3">
-      <Form.Label>Item tags</Form.Label>
+      <Form.Label>{t("collections:item-tags")}</Form.Label>
       <Select
         className="mb-1"
         classNamePrefix="custom-select"
         value={getValue()}
         onChange={onChange}
         options={options}
-        placeholder="Enter collection tags"
+        placeholder={t("collections:item-tags")}
         isMulti
       />
       <div className="d-flex flex-row-reverse">
         <Button variant={buttonVariant} type="button" onClick={submitHandler}>
-          Submit
+        {t("collections:apply")}
         </Button>
       </div>
     </Form.Group>

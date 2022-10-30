@@ -1,6 +1,7 @@
 import { useSnackbar } from "notistack";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../../app/app-hooks";
 import { useUpdateCollectionItemImageMutation } from "../../../../../../app/collection-items/collection-items.api-slice";
@@ -12,6 +13,7 @@ import { buttonDanger, buttonVariant } from "../../../../../../constants/bootstr
 
 
 function UpdateCollectionItemImageGroup() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -98,7 +100,7 @@ function UpdateCollectionItemImageGroup() {
 
   return (
     <Form.Group className="mb-3">
-      <Form.Label>Item image</Form.Label>
+      <Form.Label>{t("collections:item-image")}</Form.Label>
       <Form.Control
         className="mb-1"
         type="file"
@@ -108,10 +110,10 @@ function UpdateCollectionItemImageGroup() {
       />
       <div className="d-flex flex-row-reverse gap-1">
         <Button variant={buttonDanger} type="button" onClick={deleteHandler}>
-          Delete image
+        {t("collections:delete-image")}
         </Button>
         <Button variant={buttonVariant} type="button" onClick={submitHandler}>
-          Submit
+        {t("collections:apply")}
         </Button>
       </div>
     </Form.Group>

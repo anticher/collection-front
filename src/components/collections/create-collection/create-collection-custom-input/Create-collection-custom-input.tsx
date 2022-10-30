@@ -1,9 +1,9 @@
-import styles from "./Create-collection-form.module.css";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FieldErrorsImpl, UseFormRegister } from "react-hook-form";
 import { CreateCollectionFormInput } from "../models/create-collection-form-input";
 import { customFieldTypeEnum } from "../../../../app/enum/custom-field-type.enum";
+import { useTranslation } from "react-i18next";
 
 interface CreateCollectionCustomInputProps {
   register: UseFormRegister<CreateCollectionFormInput>;
@@ -14,6 +14,7 @@ interface CreateCollectionCustomInputProps {
 const customFieldTypeOptions = Object.keys(customFieldTypeEnum);
 
 function CreateCollectionCustomInput(props: CreateCollectionCustomInputProps) {
+  const { t } = useTranslation();
   const createCustomInputOptions = () => {
     return customFieldTypeOptions.map((option) => {
       return (
@@ -23,7 +24,8 @@ function CreateCollectionCustomInput(props: CreateCollectionCustomInputProps) {
             customFieldTypeEnum[option as keyof typeof customFieldTypeEnum]
           }
         >
-          {customFieldTypeEnum[option as keyof typeof customFieldTypeEnum]}
+          {/* {customFieldTypeEnum[option as keyof typeof customFieldTypeEnum]} */}
+          {t(`collections:${option}`)}
         </option>
       );
     });
@@ -32,16 +34,14 @@ function CreateCollectionCustomInput(props: CreateCollectionCustomInputProps) {
   return (
     <InputGroup key={props.index} className="mb-3">
       <Form.Select
-        aria-label="Default select example"
         {...props.register(`customFields.${props.index}.fieldType`, {
           required: true,
         })}
       >
-        <option value="">Field type</option>
+        <option value="">{t("collections:field-type")}</option>
         {createCustomInputOptions()}
       </Form.Select>
       <Form.Control
-        aria-label="Text input with dropdown button"
         {...props.register(`customFields.${props.index}.title`, {
           required: true,
         })}

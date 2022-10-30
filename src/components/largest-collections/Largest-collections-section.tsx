@@ -1,15 +1,17 @@
 import { Badge, ListGroup } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useGetLargestCollectionsQuery } from "../../app/collections/collections.api-slice";
 import { badgeVariant } from "../../constants/bootstrap-constants";
 
 function LargestCollectionsSection() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { data: collections = [] } = useGetLargestCollectionsQuery(5);
   if (!collections || !collections.length) return null;
   return (
     <>
-      <h4>Largest collections</h4>
+      <h4>{t("main:largest-collections")}</h4>
       <ListGroup as="ol" numbered>
         {collections.map((collection) => (
           <ListGroup.Item

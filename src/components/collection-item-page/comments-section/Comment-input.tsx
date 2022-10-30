@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/app-hooks";
 import {
@@ -9,6 +10,7 @@ import {
 import { buttonVariant } from "../../../constants/bootstrap-constants";
 
 function CommentInput() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionItemId = pathname.substring(pathname.lastIndexOf("/") + 1);
   const auth = useAppSelector((state) => state.auth);
@@ -51,7 +53,7 @@ function CommentInput() {
         variant={buttonVariant}
         onClick={onSendHandler}
       >
-        Send
+        {t("collections:send")}
       </Button>
     </>
   );

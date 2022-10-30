@@ -11,16 +11,20 @@ import LogoutButton from "./logout-button/Logout-button";
 import MyCollectionsButton from "./my-collections-button/My-collections-button";
 import { Link } from "react-router-dom";
 import RouteButton from "../common/route-button/Route-button";
+import { useTranslation } from "react-i18next";
 
 function Header() {
+  const { t } = useTranslation();
+
   const auth = useAppSelector((state) => state.auth);
+  
   return (
     <header className={styles.header}>
       <Row className={styles.row}>
         <Col className={`${styles.column} ${styles.logo}`} lg={1} xs={2}><Link className={styles.logoLink} to={"/"}></Link></Col>
         <Col className={styles.column} lg={{ span: 5, offset: 0 }} xs={{ span: 10, offset: 2, order: 'last' }}>
           <SearchInput />
-          {auth.role === 'admin' && <RouteButton text="Admin" route="/admin-menu"/>}
+          {auth.role === 'admin' && <RouteButton text={t("admin:admin-menu")} route="/admin-menu"/>}
         </Col>
         <Col className={`${styles.column} ${styles.buttons}`} lg={{ span: 6, offset: 0, order: 'last'}} xs={{ span: 10, offset: 2 }}>
           <SetTopicButton />

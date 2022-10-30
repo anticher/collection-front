@@ -1,26 +1,28 @@
-import styles from "./Create-custom-inputs.module.css";
+import styles from "./Custom-inputs.module.css";
 import { InputGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { UseFormRegister } from "react-hook-form";
 import { ICustomFieldTitle } from "../../../../../app/models/collection-custom-field/custom-field-titile.model";
 import { customFieldTypeEnum } from "../../../../../app/enum/custom-field-type.enum";
 import { CreateCollectionItemFormInput } from "../../../../collections/create-collection/models/create-collection-item-form-input";
+import { useTranslation } from "react-i18next";
 
 type createCustomInputsProps = {
   customFieldsTitles: ICustomFieldTitle[];
   register: UseFormRegister<CreateCollectionItemFormInput>;
 };
 
-export const createCustomInputs = ({
+function CustomInputs ({
   customFieldsTitles,
   register,
-}: createCustomInputsProps) => {
+}: createCustomInputsProps) {
+  const { t } = useTranslation();
   if (!customFieldsTitles || customFieldsTitles.length === 0) {
     return null;
   }
   return (
     <>
-      <Form.Label className="mb-2">Custom fields</Form.Label>
+      <Form.Label className="mb-2">{t("collections:custom-inputs")}</Form.Label>
       {[...customFieldsTitles]
         .sort((a, b) => a.fieldIndex - b.fieldIndex)
         .map(({ id, fieldName, fieldType }) => {
@@ -87,3 +89,5 @@ export const createCustomInputs = ({
     </>
   );
 };
+
+export default CustomInputs;

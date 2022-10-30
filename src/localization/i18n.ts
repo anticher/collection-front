@@ -1,18 +1,32 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import loginComponentDictionaryEn from "./locales/en/login-component.dictionary.json";
-import headerComponentDictionaryEn from "./locales/en/header-component.dictionary.json";
-import headerComponentDictionaryRu from "./locales/ru/header-component.dictionary.json";
-import loginComponentDictionaryRu from "./locales/ru/login-component.dictionary.json";
+
+import loginPageDictionaryEn from "./locales/en/login-page.dictionary.json";
+import loginPageDictionaryRu from "./locales/ru/login-page.dictionary.json";
+import mainPageDictionaryEn from "./locales/en/main-page.dictionary.json";
+import mainPageDictionaryRu from "./locales/ru/main-page.dictionary.json";
+import collectionsDictionaryEn from "./locales/en/collections.dictionary.json";
+import collectionsDictionaryRu from "./locales/ru/collections.dictionary.json";
+import headerDictionaryEn from "./locales/en/header.dictionary.json";
+import headerDictionaryRu from "./locales/ru/header.dictionary.json";
+import adminDictionaryEn from "./locales/en/admin.dictionary.json";
+import adminDictionaryRu from "./locales/ru/admin.dictionary.json";
 
 const resources = {
   en: {
-    login: loginComponentDictionaryEn,
-    header: headerComponentDictionaryEn
+    login: loginPageDictionaryEn,
+    main: mainPageDictionaryEn,
+    collections: collectionsDictionaryEn,
+    header: headerDictionaryEn,
+    admin: adminDictionaryEn
   },
   ru: {
-    login: loginComponentDictionaryRu,
-    header: headerComponentDictionaryRu
+    login: loginPageDictionaryRu,
+    main: mainPageDictionaryRu,
+    collections: collectionsDictionaryRu,
+    header: headerDictionaryRu,
+    admin: adminDictionaryRu
+
   },
 };
 

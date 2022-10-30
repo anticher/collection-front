@@ -7,12 +7,14 @@ import RouteButton from "../../common/route-button/Route-button";
 import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";
 import { setCollectionItemUpdateModalVisibility, setUpdatedCollectionItemId } from "../../../app/collection-items/collection-items.slice";
 import { badgeVariant, buttonVariant } from "../../../constants/bootstrap-constants";
+import { useTranslation } from "react-i18next";
 
 type CollectionsItemProps = {
   item: ICollectionItem;
 };
 
 function CollectionItem({ item }: CollectionsItemProps) {
+  const { t } = useTranslation();
   const auth = useAppSelector((state) => state.auth);
 
   const isUserOwnerOrAdmin =
@@ -45,11 +47,11 @@ function CollectionItem({ item }: CollectionsItemProps) {
         </div>
         <div className={styles.buttons}>
           <RouteButton
-            text="Show"
+            text={t("collections:show")}
             route={`/collections/${item.ownerName}/${item.collectionId}/${item.id}`}
           />
           {isUserOwnerOrAdmin && (
-            <Button variant={buttonVariant} onClick={onEditClickHandler}>Edit</Button>
+            <Button variant={buttonVariant} onClick={onEditClickHandler}>{t("collections:edit")}</Button>
           )}
         </div>
       </Card.Body>

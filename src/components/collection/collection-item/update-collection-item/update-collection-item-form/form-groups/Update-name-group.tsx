@@ -1,6 +1,7 @@
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../../app/app-hooks";
 import { useUpdateCollectionItemNameMutation } from "../../../../../../app/collection-items/collection-items.api-slice";
@@ -9,6 +10,7 @@ import { useGetCollectionByIdQuery } from "../../../../../../app/collections/col
 import { buttonVariant } from "../../../../../../constants/bootstrap-constants";
 
 function UpdateCollectionItemNameGroup() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -71,18 +73,18 @@ function UpdateCollectionItemNameGroup() {
 
   return (
     <Form.Group className="mb-3">
-      <Form.Label>Item title</Form.Label>
+      <Form.Label>{t("collections:item-name")}</Form.Label>
       <InputGroup>
         <Form.Control
           type="text"
-          placeholder="Enter title"
+          placeholder={t("collections:enter-item-name")}
           value={nameValue}
           onChange={(e) => {
             setNameValue(e.target.value);
           }}
         />
         <Button variant={buttonVariant} type="button" onClick={submitHandler}>
-          Submit
+        {t("collections:apply")}
         </Button>
       </InputGroup>
     </Form.Group>

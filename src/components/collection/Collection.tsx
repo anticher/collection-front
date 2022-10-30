@@ -14,8 +14,10 @@ import { sortCollectionItems } from "./collection-sort/sort-collection";
 import { filterCollectionItems } from "./collection-filter/filter-collection";
 import CollectionSortSelect from "./collection-sort/Collection-sort-select";
 import CollectionFilterInput from "./collection-filter/Collection-filter-input";
+import { useTranslation } from "react-i18next";
 
 function Collection() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
   const {
@@ -61,7 +63,7 @@ function Collection() {
       <div className={styles.buttonsRow}>
         <RouteButton
           route={pathname.substring(0, pathname.lastIndexOf("/"))}
-          text="Back to collections"
+          text={t("collections:back-to-collections")}
         />
         <CollectionSortSelect />
         <CollectionFilterInput />

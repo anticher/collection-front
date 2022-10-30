@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react";
-import { Button, Form, InputGroup, Tab, Table, Tabs } from "react-bootstrap";
+import { Button, Form, Table } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import {
   useGetUsersQuery,
   useRemoveUsersAdminRoleMutation,
@@ -11,13 +12,9 @@ import {
 import { buttonVariant } from "../../constants/bootstrap-constants";
 
 function AdminUsers() {
-  const {
-    data: users = [],
-    isLoading,
-    isSuccess,
-    isError,
-    refetch,
-  } = useGetUsersQuery();
+  const { t } = useTranslation();
+
+  const { data: users = [], refetch } = useGetUsersQuery();
 
   const [setBlockUsers] = useSetBlockedUsersMutation();
   const [setUnblockUsers] = useSetUnblockedUsersMutation();
@@ -26,8 +23,6 @@ function AdminUsers() {
   const [removeUsers] = useRemoveUsersMutation();
 
   const [checkedIds, setCheckedIds] = useState<string[]>([]);
-
-  console.log(users);
 
   if (!users.length) return null;
 
@@ -76,22 +71,32 @@ function AdminUsers() {
   return (
     <>
       <div className="mb-2 d-flex gap-1">
-        <Button variant={buttonVariant} onClick={onSetAdminHandler}>Set admin</Button>
-        <Button variant={buttonVariant} onClick={onRemoveAdminHandler}>Remove admin role</Button>
-        <Button variant={buttonVariant} onClick={onBlockHandler}>Block</Button>
-        <Button variant={buttonVariant} onClick={onUnblockHandler}>Unblock</Button>
-        <Button variant={buttonVariant} onClick={onDeleteHandler}>Delete</Button>
+        <Button variant={buttonVariant} onClick={onSetAdminHandler}>
+        {t("admin:make-admin")}
+        </Button>
+        <Button variant={buttonVariant} onClick={onRemoveAdminHandler}>
+        {t("admin:make-user")}
+        </Button>
+        <Button variant={buttonVariant} onClick={onBlockHandler}>
+        {t("admin:block")}
+        </Button>
+        <Button variant={buttonVariant} onClick={onUnblockHandler}>
+        {t("admin:unblock")}
+        </Button>
+        <Button variant={buttonVariant} onClick={onDeleteHandler}>
+        {t("admin:delete")}
+        </Button>
       </div>
       <Table bordered size="sm" responsive>
         <thead>
           <tr>
             <th></th>
             <th>uuid</th>
-            <th>username</th>
-            <th>email</th>
-            <th>role</th>
-            <th>block status</th>
-            <th>create date</th>
+            <th>{t("admin:username")}</th>
+            <th>{t("admin:email")}</th>
+            <th>{t("admin:role")}</th>
+            <th>{t("admin:block-status")}</th>
+            <th>{t("admin:create-date")}</th>
           </tr>
         </thead>
         <tbody>

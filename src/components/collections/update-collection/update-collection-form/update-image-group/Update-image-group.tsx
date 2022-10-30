@@ -8,11 +8,16 @@ import {
   useUpdateCollectionImageMutation,
 } from "../../../../../app/collections/collections.api-slice";
 import { setCollectionModalSpinnerVisibility } from "../../../../../app/collections/collections.slice";
-import { buttonDanger, buttonVariant } from "../../../../../constants/bootstrap-constants";
+import {
+  buttonDanger,
+  buttonVariant,
+} from "../../../../../constants/bootstrap-constants";
 import { transformImageToFormdata } from "../../../../../app/image-upload/transform-image-to-formdata";
 import { useSendImageMutation } from "../../../../../app/image-upload/image-upload.api-slice";
+import { useTranslation } from "react-i18next";
 
 function UpdateImageGroup() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -83,19 +88,19 @@ function UpdateImageGroup() {
     }
   };
 
-  const deleteHandler = async() => {
+  const deleteHandler = async () => {
     await sendNewImage({
       id: collection.id,
-      image: '',
+      image: "",
       ownerName: collection.ownerName,
       username: auth.username,
     });
     refetch();
-  }
+  };
 
   return (
     <Form.Group className="mb-3">
-      <Form.Label>Colection image</Form.Label>
+      <Form.Label>{t("collections:collection-image")}</Form.Label>
       <Form.Control
         className="mb-1"
         type="file"
@@ -104,11 +109,11 @@ function UpdateImageGroup() {
         onChange={onChangeHandler}
       />
       <div className="d-flex flex-row-reverse gap-1">
-      <Button variant={buttonDanger} type="button" onClick={deleteHandler}>
-          Delete image
+        <Button variant={buttonDanger} type="button" onClick={deleteHandler}>
+          {t("collections:delete-image")}
         </Button>
         <Button variant={buttonVariant} type="button" onClick={submitHandler}>
-          Submit
+          {t("collections:apply")}
         </Button>
       </div>
     </Form.Group>

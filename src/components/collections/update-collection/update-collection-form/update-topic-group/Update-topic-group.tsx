@@ -1,6 +1,7 @@
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
 import {
@@ -12,6 +13,7 @@ import { useGetTopicsQuery } from "../../../../../app/topics/topics.api-slice";
 import { buttonVariant } from "../../../../../constants/bootstrap-constants";
 
 function UpdateTopicGroup() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -80,7 +82,8 @@ function UpdateTopicGroup() {
   };
 
   return (
-    <>
+    <Form.Group className="mb-3">
+      <Form.Label>{t("collections:collection-topic")}</Form.Label>
       <InputGroup className="mb-3">
         <Form.Select
           onChange={(e) => setTopicValue(e.target.value)}
@@ -90,10 +93,10 @@ function UpdateTopicGroup() {
           ))}
         </Form.Select>
         <Button variant={buttonVariant} type="button" onClick={submitHandler}>
-            Submit
+            {t("collections:apply")}
           </Button>
       </InputGroup>
-    </>
+    </Form.Group>
   );
 }
 

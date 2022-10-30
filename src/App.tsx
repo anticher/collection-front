@@ -14,19 +14,21 @@ import AdminPage from "./components/admin/Admin-page";
 import SearchResultsPage from "./components/search/pages/Search-results-page";
 import Main from "./components/main/Main";
 import TagSearchResultsPage from "./components/search/pages/Tag-search-results-page";
+import i18n from "./localization/i18n";
 
 function App() {
-  const appTheme = useAppSelector((state) => state.settings.theme);
+  const { theme: appTheme, localization: appLocalization } =
+    useAppSelector((state) => state.settings);
   const dispatch = useAppDispatch();
 
   const {
     data: userState,
     isSuccess,
     isError,
-  } = useCheckAuthQuery('', {
+  } = useCheckAuthQuery("", {
     pollingInterval: 60000,
   });
-  
+
   useEffect(() => {
     const appThemeClass = `app-theme-${appTheme}`;
     document.body.classList.add(appThemeClass);
@@ -36,15 +38,18 @@ function App() {
   }, [appTheme]);
 
   useEffect(() => {
+    i18n.changeLanguage(appLocalization);
+  }, [appLocalization]);
 
-  if (isError) {
-    console.log('error')
-    dispatch(setAuthData(initialState));
-  } else if (isSuccess) {
-    if (userState) dispatch(setAuthData(userState));
-    else dispatch(setAuthData(initialState))
-  }
-  })
+  useEffect(() => {
+    if (isError) {
+      console.log("error");
+      dispatch(setAuthData(initialState));
+    } else if (isSuccess) {
+      if (userState) dispatch(setAuthData(userState));
+      else dispatch(setAuthData(initialState));
+    }
+  });
 
   return (
     <div className={styles.app}>
@@ -55,9 +60,15 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/admin-menu" element={<AdminPage />} />
           <Route path="/search/:searchString" element={<SearchResultsPage />} />
-          <Route path="/search-by-tag/:searchString" element={<TagSearchResultsPage />} />
+          <Route
+            path="/search-by-tag/:searchString"
+            element={<TagSearchResultsPage />}
+          />
           <Route path="/" element={<Main />} />
-          <Route path="collections/:username/:id/:id" element={<CollectionItemPage />} />
+          <Route
+            path="collections/:username/:id/:id"
+            element={<CollectionItemPage />}
+          />
           <Route path="collections/:username/:id" element={<Collection />} />
           <Route path="collections/:username" element={<Collections />} />
         </Routes>

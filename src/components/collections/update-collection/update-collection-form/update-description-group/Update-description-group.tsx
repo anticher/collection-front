@@ -1,6 +1,7 @@
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
 import {
@@ -11,6 +12,7 @@ import { setCollectionModalSpinnerVisibility } from "../../../../../app/collecti
 import { buttonVariant } from "../../../../../constants/bootstrap-constants";
 
 function UpdateDescriptionGroup() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -73,13 +75,13 @@ function UpdateDescriptionGroup() {
 
   return (
     <Form.Group className="mb-3">
-      <Form.Label>Colection description</Form.Label>
+      <Form.Label>{t("collections:collection-description")}</Form.Label>
       <Form.Control
         className="mb-1"
         as="textarea"
         rows={3}
         type="text"
-        placeholder="Enter collection description"
+        placeholder={t("collections:enter-collection-description")}
         value={descriptionValue}
         onChange={(e) => {
           setDescriptionValue(e.target.value);
@@ -87,7 +89,7 @@ function UpdateDescriptionGroup() {
       />
       <div className="d-flex flex-row-reverse">
         <Button variant={buttonVariant} type="button" onClick={submitHandler}>
-          Submit
+        {t("collections:apply")}
         </Button>
       </div>
     </Form.Group>

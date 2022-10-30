@@ -17,8 +17,10 @@ import { useSendImageMutation } from "../../../../app/image-upload/image-upload.
 import { transformImageToFormdata } from "../../../../app/image-upload/transform-image-to-formdata";
 import { setCollectionModalVisibility } from "../../../../app/collections/collections.slice";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 
 function CreateCollectionForm() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const ownerName = pathname.substring(pathname.lastIndexOf("/") + 1);
   const [customInputs, setCustomInputs] = useState([] as string[]);
@@ -116,10 +118,10 @@ function CreateCollectionForm() {
   return (
     <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <Form.Group className="mb-3">
-        <Form.Label>Colection title</Form.Label>
+        <Form.Label>{t("collections:collection-name")}</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Enter collection title"
+          placeholder={t("collections:enter-collection-name")}
           {...register("name", {
             required: true,
           })}
@@ -127,12 +129,12 @@ function CreateCollectionForm() {
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label>Colection description</Form.Label>
+        <Form.Label>{t("collections:collection-description")}</Form.Label>
         <Form.Control
           as="textarea"
           rows={3}
           type="text"
-          placeholder="Enter collection description"
+          placeholder={t("collections:enter-collection-description")}
           {...register("description", {
             required: true,
           })}
@@ -143,7 +145,7 @@ function CreateCollectionForm() {
         "loading"
       ) : (
         <Form.Group className="mb-3">
-          <Form.Label>Colection topic</Form.Label>
+          <Form.Label> {t("collections:collection-topic")}</Form.Label>
           <Form.Select
             className="mb-3"
             aria-label="Collection topic select"
@@ -151,7 +153,7 @@ function CreateCollectionForm() {
               required: true,
             })}
           >
-            <option value="">Choose collection topic</option>
+            <option value=""> {t("collections:choose-collection-topic")}</option>
             {topics.length
               ? topics.map((topic) => {
                   return (
@@ -166,7 +168,7 @@ function CreateCollectionForm() {
       )}
 
       <Form.Group className="mb-3">
-        <Form.Label>Collection image</Form.Label>
+        <Form.Label>{t("collections:collection-image")}</Form.Label>
         <Form.Control type="file" {...register("image")} />
       </Form.Group>
 
@@ -176,7 +178,7 @@ function CreateCollectionForm() {
         errors.description ||
         errors.image ||
         errors.topic ||
-        errors.name) && <Form.Text>all fields are required</Form.Text>}
+        errors.name) && <Form.Text>{t("collections:all-fields-are-required")}</Form.Text>}
 
       <div className={styles.buttons}>
         <Button
@@ -184,7 +186,7 @@ function CreateCollectionForm() {
           variant={buttonVariant}
           type="submit"
         >
-          Submit
+          {t("collections:create")}
         </Button>
         <Button
           disabled={isLoading}
@@ -192,7 +194,7 @@ function CreateCollectionForm() {
           type="button"
           onClick={onAddFieldClickHandler}
         >
-          Add field
+          {t("collections:add-field")}
         </Button>
         <Button
           disabled={isLoading}
@@ -200,7 +202,7 @@ function CreateCollectionForm() {
           type="button"
           onClick={onRemoveFieldClickHandler}
         >
-          Remove field
+          {t("collections:remove-field")}
         </Button>
       </div>
     </Form>

@@ -1,6 +1,7 @@
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
 import {
@@ -11,6 +12,7 @@ import { setCollectionModalSpinnerVisibility } from "../../../../../app/collecti
 import { buttonVariant } from "../../../../../constants/bootstrap-constants";
 
 function UpdateNameGroup() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
 
@@ -72,18 +74,18 @@ function UpdateNameGroup() {
 
   return (
     <Form.Group className="mb-3">
-      <Form.Label>Colection title</Form.Label>
+      <Form.Label>{t("collections:collection-name")}</Form.Label>
       <InputGroup>
         <Form.Control
           type="text"
-          placeholder="Enter collection title"
+          placeholder={t("collections:enter-collection-name")}
           value={nameValue}
           onChange={(e) => {
             setNameValue(e.target.value);
           }}
         />
         <Button variant={buttonVariant} type="button" onClick={submitHandler}>
-          Submit
+          {t("collections:apply")}
         </Button>
       </InputGroup>
     </Form.Group>

@@ -1,14 +1,16 @@
 import { ListGroup } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useGetLatestCollectionItemsQuery } from "../../app/collection-items/collection-items.api-slice";
 
 function LatestCollectionItemsSection() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { data: items = [] } = useGetLatestCollectionItemsQuery(5);
   if (!items || !items.length) return null;
   return (
     <>
-      <h4>Latest items</h4>
+      <h4>{t("main:latest-items")}</h4>
       <ListGroup as="ol" numbered>
         {items.map((item) => (
           <ListGroup.Item

@@ -6,8 +6,11 @@ import {
   setUpdatedCollectionId,
 } from "../../../../app/collections/collections.slice";
 import ModalSpinner from "../../../common/spinners/Modal-spinner";
+import { useTranslation } from "react-i18next";
 
 function UpdateCollectionModal() {
+  const { t } = useTranslation();
+
   const isUpdateModalVisible = useAppSelector(
     (state) => state.collections.isUpdateModalVisible
   );
@@ -28,11 +31,10 @@ function UpdateCollectionModal() {
       size="xl"
       show={isUpdateModalVisible}
       onHide={onHideHandler}
-      aria-labelledby="example-modal-sizes-title-lg"
     >
       <Modal.Header closeButton>
-        <Modal.Title id="example-modal-sizes-title-lg">
-          Update collection
+        <Modal.Title>
+        {t("collections:update-collection")}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

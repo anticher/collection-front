@@ -1,8 +1,9 @@
 import { Dispatch, MutableRefObject, SetStateAction } from "react";
+import { useTranslation } from "react-i18next";
 import Select, { OnChangeValue } from "react-select";
-import { IOption } from "../../../app/models/tag/option.model";
+import { IOption } from "../../../../../app/models/tag/option.model";
 
-type CustomMultiSelectProps = {
+type ItemTagMultiSelectProps = {
   selectRef: MutableRefObject<null>;
   options: { value: string; label: string }[];
   setValue: (newSelectedOption: string[]) => void;
@@ -10,7 +11,8 @@ type CustomMultiSelectProps = {
   setSelectedOption: Dispatch<SetStateAction<string[]>>;
 };
 
-function CustomMultiSelect(props: CustomMultiSelectProps) {
+function ItemTagMultiSelect(props: ItemTagMultiSelectProps) {
+  const { t } = useTranslation();
   const getValue = () => {
     return props.selectedOption
       ? props.options.filter(
@@ -34,11 +36,11 @@ function CustomMultiSelect(props: CustomMultiSelectProps) {
         value={getValue()}
         onChange={onChange}
         options={props.options}
-        placeholder="Enter collection tags"
+        placeholder={t("collections:enter-item-tags")}
         isMulti
       />
     </>
   );
 }
 
-export default CustomMultiSelect;
+export default ItemTagMultiSelect;

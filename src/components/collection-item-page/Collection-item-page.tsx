@@ -1,4 +1,5 @@
 import { Card, Container, ListGroup } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useGetCollectionItemByIdQuery } from "../../app/collection-items/collection-items.api-slice";
 import RouteButton from "../common/route-button/Route-button";
@@ -7,6 +8,7 @@ import CommentsSection from "./comments-section/Comments-section";
 import LikesBlock from "./likes-block/Likes-block";
 
 function CollectionItemPage() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionItemId = pathname.substring(pathname.lastIndexOf("/") + 1);
   const { data: collectionItem } =
@@ -45,7 +47,7 @@ function CollectionItemPage() {
         </ListGroup>
         <Card.Body className={styles.buttons}>
           <RouteButton
-            text="Back"
+            text={t("collections:back")}
             route={`/collections/${collectionItem?.ownerName}/${collectionItem?.collectionId}`}
           />
           <LikesBlock />

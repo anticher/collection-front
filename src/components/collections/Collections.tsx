@@ -11,8 +11,10 @@ import { Alert, Spinner } from "react-bootstrap";
 import { spinnerVariant } from "../../constants/bootstrap-constants";
 import { useAppSelector } from "../../app/app-hooks";
 import UpdateCollectionModal from "./update-collection/update-collection-modal/Update-collection-modal";
+import { useTranslation } from "react-i18next";
 
 function Collections() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
   const {
@@ -49,10 +51,10 @@ function Collections() {
   return (
     <Container className={styles.collections}>
       <h2 className={styles.title}>
-        {pathname.substring(pathname.lastIndexOf("/") + 1) + " collections"}
+        {pathname.substring(pathname.lastIndexOf("/") + 1)}
       </h2>
       <div className={styles.buttonsRow}>
-        <RouteButton route={`/`} text="Main page" />
+        <RouteButton route={`/`} text={t("collections:main-page")} />
         {isUserOwnerOrAdmin && <CreateCollectionButton />}
       </div>
       <CreateCollectionModal />

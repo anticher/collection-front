@@ -8,26 +8,32 @@ import CollectionsItemDescriptionModal from "./collections-item-description-moda
 import { useState } from "react";
 import { NoImageSwg } from "../../common/no-image/No-image-swg";
 import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";
-import { setCollectionUpdateModalVisibility, setUpdatedCollectionId } from "../../../app/collections/collections.slice";
+import {
+  setCollectionUpdateModalVisibility,
+  setUpdatedCollectionId,
+} from "../../../app/collections/collections.slice";
+import { useTranslation } from "react-i18next";
 
 type CollectionsItemProps = {
   data: ICollection;
 };
 
-function CollectionsItem({data}: CollectionsItemProps) {
+function CollectionsItem({ data }: CollectionsItemProps) {
+  const { t } = useTranslation();
   const [showDescription, setShowDescription] = useState(false);
 
   const navigate = useNavigate();
 
   const auth = useAppSelector((state) => state.auth);
 
-  const isUserOwnerOrAdmin = data.ownerName === auth.username || auth.role === 'admin' || false;
+  const isUserOwnerOrAdmin =
+    data.ownerName === auth.username || auth.role === "admin" || false;
 
   const dispatch = useAppDispatch();
-  
+
   const onEditClickHandler = () => {
-    dispatch(setUpdatedCollectionId(data.id))
-    dispatch(setCollectionUpdateModalVisibility(true))
+    dispatch(setUpdatedCollectionId(data.id));
+    dispatch(setCollectionUpdateModalVisibility(true));
   };
 
   const onDescriptionClickHandler = (e: React.MouseEvent<EventTarget>) => {
@@ -48,13 +54,11 @@ function CollectionsItem({data}: CollectionsItemProps) {
       />
 
       {data.image ? (
-        // <div className={styles.imageContainer}>
-          <Card.Img
-            className={styles.image}
-            src={data.image}
-            alt="collection-image"
-          />
-        // </div>
+        <Card.Img
+          className={styles.image}
+          src={data.image}
+          alt="collection-image"
+        />
       ) : (
         <NoImageSwg color={"#8054A0"} />
       )}
@@ -62,29 +66,30 @@ function CollectionsItem({data}: CollectionsItemProps) {
       <Card.Body className={styles.body}>
         <Card.Title>{data.name || "no name"}</Card.Title>
         <Card.Text>{data.topic?.name || ""}</Card.Text>
-        {/* <Card.Text>{data.description || "no description"}</Card.Text> */}
         <div className={styles.buttons}>
           <Button
             className={styles.button}
             variant={buttonVariant}
             onClick={onShowClickHandler}
           >
-            Show
+            {t("collections:show")}
           </Button>
           <Button
             className={styles.button}
             variant={buttonVariant}
             onClick={onDescriptionClickHandler}
           >
-            Description
+            {t("collections:description")}
           </Button>
-          {isUserOwnerOrAdmin && <Button
-            className={styles.button}
-            variant={buttonVariant}
-            onClick={onEditClickHandler}
-          >
-            Edit
-          </Button>}
+          {isUserOwnerOrAdmin && (
+            <Button
+              className={styles.button}
+              variant={buttonVariant}
+              onClick={onEditClickHandler}
+            >
+              {t("collections:edit")}
+            </Button>
+          )}
         </div>
       </Card.Body>
     </Card>
