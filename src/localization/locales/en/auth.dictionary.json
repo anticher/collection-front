@@ -1,0 +1,23 @@
+{
+  "username": "Username",
+  "password": "Password",
+  "enter-username": "Enter username",
+  "enter-password": "Enter password",
+  "login": "Login",
+  "username-is-required": "Username is required",
+  "maximum-length-is": "Maximum length is",
+  "minimum-length-is": "Minimum length is",
+  "characters": "Characters",
+  "email": "Email",
+  "enter-email": "Enter email",
+  "email-is-required": "Email is required",
+  "it-should-be-with-@-and-domain-name": "It should be with @ and domain name",
+  "example": "example",
+  "password-is-required": "Password is required",
+  "confirm-password": "Confirm password",
+  "password-confirmation-is-required": "Password confirmation is required",
+  "passwords-should-match": "Passwords should match",
+  "register": "Register",
+  "wrong-username-or-password": "Wrong username or password",
+  "user-with-the-same-name-or-email-already-exists": "User with the same name or email already exists"
+}

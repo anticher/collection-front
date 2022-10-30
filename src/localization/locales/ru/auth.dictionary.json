@@ -1,0 +1,23 @@
+{
+  "username": "Имя пользователя",
+  "password": "Пароль",
+  "enter-username": "Введите имя пользователя",
+  "enter-password": "Введите пароль",
+  "login": "Войти",
+  "username-is-required": "Необходимо имя пользователя",
+  "maximum-length-is": "Максимальная длина",
+  "minimum-length-is": "Минимальная длина",
+  "characters": "cимволов",
+  "email": "Эл. почта",
+  "enter-email": "Ввведите адрес эл. почты",
+  "email-is-required": "Необходим адрес эл. почты",
+  "it-should-be-with-@-and-domain-name": "Должен быть символ @ и доменное имя",
+  "example": "пример",
+  "password-is-required": "Необходим пароль",
+  "confirm-password": "Подтверждение пароля",
+  "password-confirmation-is-required": "Необходимо подтверждение пароля",
+  "passwords-should-match": "Пароли должны совпадать",
+  "register": "Зарегистрироваться",
+  "wrong-username-or-password": "Неверное имя пользователя или пароль",
+  "user-with-the-same-name-or-email-already-exists": "Пользователь с таким именем или эл. почтой уже существует"
+}

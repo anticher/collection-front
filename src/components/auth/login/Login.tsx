@@ -43,47 +43,47 @@ function Login() {
   useEffect(() => {
     if (error) {
       "status" in error && error.status === 400
-        ? enqueueSnackbar("Wrong username or password", { variant: 'error' })
-        : enqueueSnackbar("Server error", { variant: 'error' });
+        ? enqueueSnackbar(t("auth:wrong-username-or-password"), { variant: 'error' })
+        : enqueueSnackbar(t("common:server-error"), { variant: 'error' });
     }
-  }, [enqueueSnackbar, error]);
+  }, [enqueueSnackbar, error, t]);
 
   return (
     <>
       <Form className={styles.login} onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3" controlId="loginFromUsername">
-          <Form.Label>{t("login:username")}</Form.Label>
+          <Form.Label>{t("auth:username")}</Form.Label>
           <Form.Control
             className={styles.control}
             type="text"
-            placeholder={t("login:enter-username")}
+            placeholder={t("auth:enter-username")}
             autoComplete="off"
             {...register("username", {
               required: true,
             })}
           />
           {errors.username?.type === "required" && (
-            <Form.Text>Username required</Form.Text>
+            <Form.Text>{t("auth:username-is-required")}</Form.Text>
           )}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="loginFromPassword">
-          <Form.Label>{t("login:password")}</Form.Label>
+          <Form.Label>{t("auth:password")}</Form.Label>
           <Form.Control
             className={styles.control}
             type="password"
-            placeholder={t("login:enter-password")}
+            placeholder={t("auth:enter-password")}
             {...register("password", {
               required: true,
             })}
           />
           {errors.password?.type === "required" && (
-            <Form.Text>Password required</Form.Text>
+            <Form.Text>{t("auth:password-is-required")}</Form.Text>
           )}
         </Form.Group>
 
         <Button variant={buttonVariant} type="submit">
-          {t("login:login")}
+          {t("auth:login")}
         </Button>
       </Form>
     </>
