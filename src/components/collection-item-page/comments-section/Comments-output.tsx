@@ -7,7 +7,9 @@ function CommentsOutput() {
   const collectionItemId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
   const { data: comments } =
-    useGetCommentsByCollectionItemQuery(collectionItemId);
+    useGetCommentsByCollectionItemQuery(collectionItemId, {
+      pollingInterval: 5000,
+    });
 
   return (
     <div>
