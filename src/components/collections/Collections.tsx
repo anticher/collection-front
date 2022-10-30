@@ -12,11 +12,15 @@ import { spinnerVariant } from "../../constants/bootstrap-constants";
 import { useAppSelector } from "../../app/app-hooks";
 import UpdateCollectionModal from "./update-collection/update-collection-modal/Update-collection-modal";
 import { useTranslation } from "react-i18next";
+import { useGetUserByNameQuery } from "../../app/users/users.api-slice";
 
 function Collections() {
   const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { isError: isUserError } = useGetUserByNameQuery(collectionsOwner);
+
   const {
     data: collections = [],
     isLoading,
@@ -33,6 +37,8 @@ function Collections() {
 
   if (isLoading) {
     content = <Spinner animation="border" variant={spinnerVariant} />;
+  } else if (isError || isUserError) {
+    content = <Alert variant="danger">Failed to load data</Alert>;
   } else if (isSuccess) {
     content = (
       <>
@@ -45,8 +51,6 @@ function Collections() {
         </div>
       </>
     );
-  } else if (isError) {
-    content = <Alert variant="danger">Failed to load data</Alert>;
   }
   return (
     <Container className={styles.collections}>

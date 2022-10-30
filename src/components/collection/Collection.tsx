@@ -20,6 +20,7 @@ function Collection() {
   const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
+  
   const {
     data: collection,
     isLoading,

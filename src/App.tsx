@@ -21,13 +21,13 @@ function App() {
     useAppSelector((state) => state.settings);
   const dispatch = useAppDispatch();
 
-  // const {
-  //   data: userState,
-  //   isSuccess,
-  //   isError,
-  // } = useCheckAuthQuery("", {
-  //   pollingInterval: 600000,
-  // });
+  const {
+    data: userState,
+    isSuccess,
+    isError,
+  } = useCheckAuthQuery("", {
+    pollingInterval: 10000,
+  });
 
   useEffect(() => {
     const appThemeClass = `app-theme-${appTheme}`;
@@ -41,15 +41,15 @@ function App() {
     i18n.changeLanguage(appLocalization);
   }, [appLocalization]);
 
-  // useEffect(() => {
-  //   if (isError) {
-  //     console.log("error");
-  //     dispatch(setAuthData(initialState));
-  //   } else if (isSuccess) {
-  //     if (userState) dispatch(setAuthData(userState));
-  //     else dispatch(setAuthData(initialState));
-  //   }
-  // });
+  useEffect(() => {
+    if (isError) {
+      console.log("error");
+      dispatch(setAuthData(initialState));
+    } else if (isSuccess) {
+      if (userState) dispatch(setAuthData(userState));
+      else dispatch(setAuthData(initialState));
+    }
+  });
 
   return (
     <div className={styles.app}>

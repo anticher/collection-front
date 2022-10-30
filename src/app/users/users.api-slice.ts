@@ -14,6 +14,9 @@ export const UsersApiSlice = createApi({
     getUsers: builder.query<IUser[], void>({
       query: () => "/",
     }),
+    getUserByName: builder.query<IUser, string | null>({
+      query: (name: string) => `one-by-name/${name}`,
+    }),
     setBlockedUsers: builder.mutation<void, { ids: string[] }>({
       query: (credentials) => ({
         url: "/set-block-status",
@@ -54,6 +57,7 @@ export const UsersApiSlice = createApi({
 
 export const {
   useGetUsersQuery,
+  useGetUserByNameQuery,
   useSetBlockedUsersMutation,
   useSetUnblockedUsersMutation,
   useSetUsersAdminRoleMutation,
