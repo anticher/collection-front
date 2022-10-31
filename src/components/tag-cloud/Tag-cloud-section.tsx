@@ -1,4 +1,3 @@
-import styles from "./Tag-cloud-section.module.css";
 import { TagCloud } from "react-tagcloud";
 import { useGetTagsQuery } from "../../app/tags/tags.api-slice";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +26,6 @@ function TagCloudSection() {
     <>
       {tags && tags.length ? (
         <TagCloud
-          className={styles.tagCloud}
           minSize={24}
           maxSize={24}
           colorOptions={options}
