@@ -4,10 +4,10 @@ import Form from "react-bootstrap/Form";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useSendRegistrationCredentialsMutation } from "../../../app/auth/auth.api-slice";
-import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { buttonVariant } from "../../../constants/bootstrap-constants";
 import { useTranslation } from "react-i18next";
+import { useErrorSnack } from "../../../utils/useErrorSnack";
 
 interface RegistrationFormInput {
   username: string;
@@ -37,8 +37,6 @@ function Registration() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const [sendCredentials, { isLoading, error }] =
     useSendRegistrationCredentialsMutation();
 
@@ -50,13 +48,12 @@ function Registration() {
     watch
   } = useForm<RegistrationFormInput>();
 
-  useEffect(() => {
-    if (error) {
-      "status" in error && error.status === 400
-        ? enqueueSnackbar(t("auth:user-with-the-same-name-or-email-already-exists"), { variant: 'error' })
-        : enqueueSnackbar(t("common:server-error"), { variant: 'error' });
-    }
-  }, [enqueueSnackbar, error, t]);
+  useErrorSnack(
+    Boolean(error),
+    error && "status" in error && error.status === 400
+      ? t("auth:user-with-the-same-name-or-email-already-exists")
+      : t("common:server-error")
+  );
 
   useEffect(() => {
     setFocus("username");

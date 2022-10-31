@@ -1,7 +1,7 @@
 import styles from "./Create-collection-item-form.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CreateCollectionItemFormInput } from "../../../collections/create-collection/models/create-collection-item-form-input";
 import { useCreateCollectionItemMutation } from "../../../../app/collection-items/collection-items.api-slice";
@@ -11,7 +11,6 @@ import { useGetTagsQuery } from "../../../../app/tags/tags.api-slice";
 import { transformImageToFormdata } from "../../../../app/image-upload/transform-image-to-formdata";
 import { useSendImageMutation } from "../../../../app/image-upload/image-upload.api-slice";
 import { buttonVariant } from "../../../../constants/bootstrap-constants";
-import { useSnackbar } from "notistack";
 import { ICollectionItemCreate } from "../../../../app/models/collection-item/create.model";
 import { useLocation } from "react-router-dom";
 import { useGetCollectionByIdQuery } from "../../../../app/collections/collections.api-slice";
@@ -19,6 +18,7 @@ import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
 import { setCollectionItemCreateModalVisibility } from "../../../../app/collection-items/collection-items.slice";
 import { useTranslation } from "react-i18next";
 import CustomInputs from "./Custom-inputs";
+import { useErrorSnack } from "../../../../utils/useErrorSnack";
 
 function CreateCollectionItemForm() {
   const { t } = useTranslation();
@@ -65,24 +65,10 @@ function CreateCollectionItemForm() {
 
   const dispatch = useAppDispatch();
 
-  const { enqueueSnackbar } = useSnackbar();
-
-  useEffect(() => {
-    if (
-      isTagsError ||
-      isSendImageError ||
-      isCollectionItemSendError ||
-      isDataError
-    ) {
-      enqueueSnackbar("Server error", { variant: "error" });
-    }
-  }, [
-    enqueueSnackbar,
-    isTagsError,
-    isCollectionItemSendError,
-    isSendImageError,
-    isDataError,
-  ]);
+  useErrorSnack(isTagsError ||
+    isSendImageError ||
+    isCollectionItemSendError ||
+    isDataError, t('common:server-error'))
 
   const isLoading =
     isTagsLodaing ||

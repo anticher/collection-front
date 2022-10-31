@@ -1,4 +1,3 @@
-import { useSnackbar } from "notistack";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
@@ -15,6 +14,7 @@ import {
 import { transformImageToFormdata } from "../../../../../app/image-upload/transform-image-to-formdata";
 import { useSendImageMutation } from "../../../../../app/image-upload/image-upload.api-slice";
 import { useTranslation } from "react-i18next";
+import { useErrorSnack } from "../../../../../utils/useErrorSnack";
 
 function UpdateImageGroup() {
   const { t } = useTranslation();
@@ -46,8 +46,6 @@ function UpdateImageGroup() {
 
   const [image, setImage] = useState<File | null>(null);
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -57,12 +55,11 @@ function UpdateImageGroup() {
       dispatch(setCollectionModalSpinnerVisibility(false));
     }
   }, [dispatch, isDataLoading, isSendLoading, isGetImageUrlLoading]);
-
-  useEffect(() => {
-    if (isDataError || isSendError || isGetImageUrlError) {
-      enqueueSnackbar("Server error", { variant: "error" });
-    }
-  }, [enqueueSnackbar, isDataError, isSendError, isGetImageUrlError]);
+  
+  useErrorSnack(
+    Boolean(isDataError || isSendError || isGetImageUrlError),
+    "common:server-error"
+  );
 
   if (!collection) {
     return null;

@@ -1,4 +1,3 @@
-import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
@@ -11,6 +10,7 @@ import { useGetCollectionByIdQuery } from "../../../../../app/collections/collec
 import { IOption } from "../../../../../app/models/tag/option.model";
 import { useGetTagsQuery } from "../../../../../app/tags/tags.api-slice";
 import { buttonVariant } from "../../../../../constants/bootstrap-constants";
+import { useErrorSnack } from "../../../../../utils/useErrorSnack";
 
 function UpdateCollectionItemTagsGroup() {
   const { t } = useTranslation();
@@ -56,8 +56,6 @@ function UpdateCollectionItemTagsGroup() {
     SelectedOptionDefaultValue || []
   );
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -68,11 +66,10 @@ function UpdateCollectionItemTagsGroup() {
     }
   }, [dispatch, isDataLoading, isSendLoading, isTagsDataLoading]);
 
-  useEffect(() => {
-    if (isDataError || isSendError || isTagsDataDataError) {
-      enqueueSnackbar("Server error", { variant: "error" });
-    }
-  }, [enqueueSnackbar, isDataError, isSendError, isTagsDataDataError]);
+  useErrorSnack(
+    Boolean(isDataError || isSendError || isTagsDataDataError),
+    "common:server-error"
+  );
 
   if (!collectionItem) {
     return null;

@@ -1,4 +1,3 @@
-import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
@@ -11,6 +10,7 @@ import {
 import { setCollectionModalSpinnerVisibility } from "../../../../../app/collections/collections.slice";
 import { useGetTopicsQuery } from "../../../../../app/topics/topics.api-slice";
 import { buttonVariant } from "../../../../../constants/bootstrap-constants";
+import { useErrorSnack } from "../../../../../utils/useErrorSnack";
 
 function UpdateTopicGroup() {
   const { t } = useTranslation();
@@ -39,8 +39,6 @@ function UpdateTopicGroup() {
 
   const [topicValue, setTopicValue] = useState(collection?.topic.name || "");
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -51,11 +49,10 @@ function UpdateTopicGroup() {
     }
   }, [dispatch, isTopicsLoading, isSendLoading]);
 
-  useEffect(() => {
-    if (isTopicsError || isSendError) {
-      enqueueSnackbar("Server error", { variant: "error" });
-    }
-  }, [enqueueSnackbar, isSendError, isTopicsError]);
+  useErrorSnack(
+    Boolean(isTopicsError || isSendError),
+    "common:server-error"
+  );
 
   if (!collection) {
     return null;

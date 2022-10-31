@@ -1,5 +1,3 @@
-import { useSnackbar } from "notistack";
-import { useEffect } from "react";
 import { Badge, Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
@@ -10,6 +8,7 @@ import {
   useDeleteLikeMutation,
 } from "../../../app/likes/likes.api-slice";
 import { buttonVariant } from "../../../constants/bootstrap-constants";
+import { useErrorSnack } from "../../../utils/useErrorSnack";
 
 function LikesBlock() {
   const { t } = useTranslation();
@@ -31,13 +30,10 @@ function LikesBlock() {
   const [removeLike, { isLoading: isDeleteLoading, error: isDeleteError }] =
     useDeleteLikeMutation();
 
-  const { enqueueSnackbar } = useSnackbar();
-
-  useEffect(() => {
-    if (isDataError || isSendError || isDeleteError) {
-      enqueueSnackbar("Server error", { variant: "error" });
-    }
-  }, [enqueueSnackbar, isDataError, isSendError, isDeleteError]);
+  useErrorSnack(
+    Boolean(isDataError || isSendError || isDeleteError),
+    "common:server-error"
+  );
 
   if (!collectionItem) return null;
 

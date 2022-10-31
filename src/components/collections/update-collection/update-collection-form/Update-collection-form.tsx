@@ -1,4 +1,3 @@
-import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -14,6 +13,7 @@ import {
   setCollectionUpdateModalVisibility,
 } from "../../../../app/collections/collections.slice";
 import { buttonDanger } from "../../../../constants/bootstrap-constants";
+import { useErrorSnack } from "../../../../utils/useErrorSnack";
 import styles from "./Update-collection-form.module.css";
 import UpdateCustomFieldGroup from "./update-custom-field-group/Update-custom-field-group";
 import UpdateDescriptionGroup from "./update-description-group/Update-description-group";
@@ -46,9 +46,12 @@ function UpdateCollectionForm() {
     { isLoading: isDeleteLoading, error: isDeleteError },
   ] = useDeleteCollectionMutation();
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const dispatch = useAppDispatch();
+
+  useErrorSnack(
+    Boolean(isDataError || isDeleteError),
+    "common:server-error"
+  );
 
   useEffect(() => {
     if (isDataLoading || isDeleteLoading) {
@@ -57,12 +60,6 @@ function UpdateCollectionForm() {
       dispatch(setCollectionModalSpinnerVisibility(false));
     }
   }, [dispatch, isDataLoading, isDeleteLoading]);
-
-  useEffect(() => {
-    if (isDataError || isDeleteError) {
-      enqueueSnackbar("Server error", { variant: "error" });
-    }
-  }, [enqueueSnackbar, isDataError, isDeleteError]);
 
   const { register, handleSubmit } = useForm<{ collectionName: string }>();
   const onDeleteSubmit: SubmitHandler<{ collectionName: string }> = async (

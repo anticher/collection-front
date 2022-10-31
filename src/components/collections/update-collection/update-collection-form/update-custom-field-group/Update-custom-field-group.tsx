@@ -1,4 +1,3 @@
-import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
@@ -11,6 +10,7 @@ import {
 } from "../../../../../app/collections/collections.api-slice";
 import { setCollectionModalSpinnerVisibility } from "../../../../../app/collections/collections.slice";
 import { buttonDanger, buttonVariant } from "../../../../../constants/bootstrap-constants";
+import { useErrorSnack } from "../../../../../utils/useErrorSnack";
 
 type UpdateCustomFieldGroupProps = {
   index: number;
@@ -51,14 +51,11 @@ function UpdateCustomFieldGroup({ index }: UpdateCustomFieldGroupProps) {
       dispatch(setCollectionModalSpinnerVisibility(false));
     }
   }, [dispatch, isUpdateLoading, isDeleteLoading]);
-
-  const { enqueueSnackbar } = useSnackbar();
-
-  useEffect(() => {
-    if (isUpdateError || isDeleteError) {
-      enqueueSnackbar("Server error", { variant: "error" });
-    }
-  }, [enqueueSnackbar, isUpdateError, isDeleteError]);
+  
+  useErrorSnack(
+    Boolean(isUpdateError || isDeleteError),
+    "common:server-error"
+  );
 
   if (!collection) {
     return null;

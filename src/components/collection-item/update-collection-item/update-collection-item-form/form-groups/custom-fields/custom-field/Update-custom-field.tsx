@@ -1,5 +1,4 @@
 import styles from "./Update-custom-field.module.css";
-import { useSnackbar } from "notistack";
 import { useState, useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
@@ -13,6 +12,7 @@ import { buttonVariant } from "../../../../../../../constants/bootstrap-constant
 import { useUpdateCollectionItemCustomFieldMutation } from "../../../../../../../app/collection-items/collection-items.api-slice";
 import { setCollectionItemModalSpinnerVisibility } from "../../../../../../../app/collection-items/collection-items.slice";
 import { useTranslation } from "react-i18next";
+import { useErrorSnack } from "../../../../../../../utils/useErrorSnack";
 
 function UpdateCollectionItemCustomField({ index }: { index: number }) {
   const { t } = useTranslation();
@@ -45,8 +45,6 @@ function UpdateCollectionItemCustomField({ index }: { index: number }) {
 
   const [value, setValue] = useState(customField?.fieldValue || "");
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -57,11 +55,10 @@ function UpdateCollectionItemCustomField({ index }: { index: number }) {
     }
   }, [dispatch, isDataLoading, isSendLoading]);
 
-  useEffect(() => {
-    if (isDataError || isSendError) {
-      enqueueSnackbar("Server error", { variant: "error" });
-    }
-  }, [enqueueSnackbar, isDataError, isSendError]);
+  useErrorSnack(
+    Boolean(isDataError || isSendError),
+    "common:server-error"
+  );
 
   if (!collectionItem) {
     return null;

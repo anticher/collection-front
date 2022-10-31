@@ -7,9 +7,9 @@ import { useSendLoginCredentialsMutation } from "../../../app/auth/auth.api-slic
 import { useAppDispatch } from "../../../app/app-hooks";
 import { setAuthData } from "../../../app/auth/auth.slice";
 import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { buttonVariant } from "../../../constants/bootstrap-constants";
+import { useErrorSnack } from "../../../utils/useErrorSnack";
 
 interface LoginFormInput {
   username: string;
@@ -24,9 +24,12 @@ function Login() {
   const [sendCredentials, { isLoading, error }] =
     useSendLoginCredentialsMutation();
 
-  const { enqueueSnackbar } = useSnackbar();
-
-  const { register, handleSubmit, setFocus, formState: { errors }, } = useForm<LoginFormInput>();
+  const {
+    register,
+    handleSubmit,
+    setFocus,
+    formState: { errors },
+  } = useForm<LoginFormInput>();
   const onSubmit: SubmitHandler<LoginFormInput> = async (data) => {
     const canSend = [data.username, data.password].every(Boolean) && !isLoading;
     if (canSend) {
@@ -40,13 +43,12 @@ function Login() {
     setFocus("username");
   }, [setFocus]);
 
-  useEffect(() => {
-    if (error) {
-      "status" in error && error.status === 400
-        ? enqueueSnackbar(t("auth:wrong-username-or-password"), { variant: 'error' })
-        : enqueueSnackbar(t("common:server-error"), { variant: 'error' });
-    }
-  }, [enqueueSnackbar, error, t]);
+  useErrorSnack(
+    Boolean(error),
+    error && "status" in error && error.status === 400
+      ? t("auth:wrong-username-or-password")
+      : t("common:server-error")
+  );
 
   return (
     <>

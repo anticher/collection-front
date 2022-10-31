@@ -1,4 +1,3 @@
-import { useSnackbar } from "notistack";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
@@ -9,8 +8,11 @@ import { useGetCollectionByIdQuery } from "../../../../../app/collections/collec
 import { setCollectionModalSpinnerVisibility } from "../../../../../app/collections/collections.slice";
 import { useSendImageMutation } from "../../../../../app/image-upload/image-upload.api-slice";
 import { transformImageToFormdata } from "../../../../../app/image-upload/transform-image-to-formdata";
-import { buttonDanger, buttonVariant } from "../../../../../constants/bootstrap-constants";
-
+import {
+  buttonDanger,
+  buttonVariant,
+} from "../../../../../constants/bootstrap-constants";
+import { useErrorSnack } from "../../../../../utils/useErrorSnack";
 
 function UpdateCollectionItemImageGroup() {
   const { t } = useTranslation();
@@ -44,8 +46,6 @@ function UpdateCollectionItemImageGroup() {
 
   const [image, setImage] = useState<File | null>(null);
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -56,11 +56,10 @@ function UpdateCollectionItemImageGroup() {
     }
   }, [dispatch, isDataLoading, isSendLoading, isGetImageUrlLoading]);
 
-  useEffect(() => {
-    if (isDataError || isSendError || isGetImageUrlError) {
-      enqueueSnackbar("Server error", { variant: "error" });
-    }
-  }, [enqueueSnackbar, isDataError, isSendError, isGetImageUrlError]);
+  useErrorSnack(
+    Boolean(isDataError || isSendError || isGetImageUrlError),
+    "common:server-error"
+  );
 
   if (!collectionItem) {
     return null;
@@ -108,10 +107,10 @@ function UpdateCollectionItemImageGroup() {
       />
       <div className="d-flex flex-row-reverse gap-1">
         <Button variant={buttonDanger} type="button" onClick={deleteHandler}>
-        {t("collections:delete-image")}
+          {t("collections:delete-image")}
         </Button>
         <Button variant={buttonVariant} type="button" onClick={submitHandler}>
-        {t("collections:apply")}
+          {t("collections:apply")}
         </Button>
       </div>
     </Form.Group>

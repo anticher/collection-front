@@ -1,4 +1,3 @@
-import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
@@ -8,6 +7,7 @@ import { useUpdateCollectionItemNameMutation } from "../../../../../app/collecti
 import { setCollectionItemModalSpinnerVisibility } from "../../../../../app/collection-items/collection-items.slice";
 import { useGetCollectionByIdQuery } from "../../../../../app/collections/collections.api-slice";
 import { buttonVariant } from "../../../../../constants/bootstrap-constants";
+import { useErrorSnack } from "../../../../../utils/useErrorSnack";
 
 function UpdateCollectionItemNameGroup() {
   const { t } = useTranslation();
@@ -36,8 +36,6 @@ function UpdateCollectionItemNameGroup() {
 
   const [nameValue, setNameValue] = useState(collectionItem?.name || "");
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -48,11 +46,10 @@ function UpdateCollectionItemNameGroup() {
     }
   }, [dispatch, isDataLoading, isSendLoading]);
 
-  useEffect(() => {
-    if (isDataError || isSendError) {
-      enqueueSnackbar("Server error", { variant: "error" });
-    }
-  }, [enqueueSnackbar, isDataError, isSendError]);
+  useErrorSnack(
+    Boolean(isDataError || isSendError),
+    "common:server-error"
+  );
 
   if (!collectionItem) {
     return null;

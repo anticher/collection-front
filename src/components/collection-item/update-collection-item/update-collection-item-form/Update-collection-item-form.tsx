@@ -10,6 +10,7 @@ import { setCollectionItemUpdateModalVisibility } from "../../../../app/collecti
 import { useGetCollectionByIdQuery } from "../../../../app/collections/collections.api-slice";
 import { setCollectionModalSpinnerVisibility } from "../../../../app/collections/collections.slice";
 import { buttonDanger } from "../../../../constants/bootstrap-constants";
+import { useErrorSnack } from "../../../../utils/useErrorSnack";
 import UpdateCollectionItemCustomFields from "./form-groups/custom-fields/Update-custom-fields";
 import UpdateCollectionItemImageGroup from "./form-groups/Update-image-group";
 import UpdateCollectionItemNameGroup from "./form-groups/Update-name-group";
@@ -44,8 +45,6 @@ function UpdateCollectionItemForm() {
     { isLoading: isDeleteLoading, error: isDeleteError },
   ] = useDeleteCollectionItemMutation();
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -56,11 +55,7 @@ function UpdateCollectionItemForm() {
     }
   }, [dispatch, isDataLoading, isDeleteLoading]);
 
-  useEffect(() => {
-    if (isDataError || isDeleteError) {
-      enqueueSnackbar("Server error", { variant: "error" });
-    }
-  }, [enqueueSnackbar, isDataError, isDeleteError]);
+  useErrorSnack(Boolean(isDataError || isDeleteError), "common:server-error")
 
   const { register, handleSubmit } = useForm<{ collectionItemName: string }>();
   const onDeleteSubmit: SubmitHandler<{ collectionItemName: string }> = async (

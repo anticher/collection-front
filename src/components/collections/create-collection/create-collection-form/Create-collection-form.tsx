@@ -1,7 +1,7 @@
 import styles from "./Create-collection-form.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import CreateCollectionCustomInput from "../create-collection-custom-input/Create-collection-custom-input";
 import { CreateCollectionFormInput } from "../models/create-collection-form-input";
@@ -16,8 +16,8 @@ import { buttonVariant } from "../../../../constants/bootstrap-constants";
 import { useSendImageMutation } from "../../../../app/image-upload/image-upload.api-slice";
 import { transformImageToFormdata } from "../../../../app/image-upload/transform-image-to-formdata";
 import { setCollectionModalVisibility } from "../../../../app/collections/collections.slice";
-import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
+import { useErrorSnack } from "../../../../utils/useErrorSnack";
 
 function CreateCollectionForm() {
   const { t } = useTranslation();
@@ -44,14 +44,10 @@ function CreateCollectionForm() {
 
   const [sendImage, { isLoading: isSendImageLoading, isError: isSendImageError }] = useSendImageMutation();
 
-
-  const { enqueueSnackbar } = useSnackbar();
-
-  useEffect(() => {
-    if (isTopicsError || isSendImageError || isCollectionCreateError) {
-      enqueueSnackbar("Server error", { variant: "error" });
-    }
-  }, [enqueueSnackbar, isTopicsError, isCollectionCreateError, isSendImageError]);
+  useErrorSnack(
+    Boolean(isTopicsError || isSendImageError || isCollectionCreateError),
+    "common:server-error"
+  );
 
   const isLoading = isCollectionCreateLoading || isSendImageLoading || isTopicsLoading;
 
