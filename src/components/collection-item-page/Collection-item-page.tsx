@@ -30,7 +30,7 @@ function CollectionItemPage() {
             {collectionItem.tagNames
               .map((tagName) => tagName.name)
               .map((tag) => (
-                <Badge bg={badgeVariant}>{tag}</Badge>
+                <Badge key={tag} bg={badgeVariant}>{tag}</Badge>
               ))}
           </Card.Text>
         </Card.Body>

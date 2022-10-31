@@ -1,13 +1,9 @@
-import styles from "./Create-collection-item-form.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useRef, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { CreateCollectionItemFormInput } from "../../../collections/create-collection/models/create-collection-item-form-input";
 import { useCreateCollectionItemMutation } from "../../../../app/collection-items/collection-items.api-slice";
-import CustomMultiSelect from "./Tag-multi-select";
-import { checkItemCreateData } from "./check-item-create-data";
-import { useGetTagsQuery } from "../../../../app/tags/tags.api-slice";
+import { checkItemCreateData } from "./utils/check-item-create-data";
 import { transformImageToFormdata } from "../../../../app/image-upload/transform-image-to-formdata";
 import { useSendImageMutation } from "../../../../app/image-upload/image-upload.api-slice";
 import { buttonVariant } from "../../../../constants/bootstrap-constants";
@@ -17,8 +13,11 @@ import { useGetCollectionByIdQuery } from "../../../../app/collections/collectio
 import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
 import { setCollectionItemCreateModalVisibility } from "../../../../app/collection-items/collection-items.slice";
 import { useTranslation } from "react-i18next";
-import CustomInputs from "./Custom-inputs";
 import { useErrorSnack } from "../../../../utils/useErrorSnack";
+import ItemNameGroup from "./groups/Item-name-group";
+import ItemTagsGroup from "./groups/tags/Item-tags-group";
+import ItemImageGroup from "./groups/Item-image-group";
+import CustomGroups from "./groups/custom/Custom-groups";
 
 function CreateCollectionItemForm() {
   const { t } = useTranslation();
@@ -40,23 +39,9 @@ function CreateCollectionItemForm() {
     },
   ] = useCreateCollectionItemMutation();
 
-  const {
-    data: tags = [],
-    isLoading: isTagsLodaing,
-    isError: isTagsError,
-  } = useGetTagsQuery();
-  const options = tags.length
-    ? tags.map((tag) => {
-        return { value: tag.name, label: tag.name };
-      })
-    : [];
-
   const customFieldsTitles = collection?.customFieldTitles || [];
   const ownerName = collection?.ownerName || "";
-  const {username, role} = useAppSelector((state) => state.auth);
-
-  const [selectedOption, setSelectedOption] = useState<string[]>([]);
-  const selectRef = useRef(null);
+  const { username, role } = useAppSelector((state) => state.auth);
 
   const [
     sendImage,
@@ -65,19 +50,17 @@ function CreateCollectionItemForm() {
 
   const dispatch = useAppDispatch();
 
-  useErrorSnack(isTagsError ||
-    isSendImageError ||
-    isCollectionItemSendError ||
-    isDataError, t('common:server-error'))
+  useErrorSnack(
+    isSendImageError || isCollectionItemSendError || isDataError,
+    t("common:server-error")
+  );
 
   const isLoading =
-    isTagsLodaing ||
     isSendImageLoading ||
     isCollectionItemSendLoading ||
     isDataLoading;
 
-  const { register, handleSubmit, setValue } =
-    useForm<CreateCollectionItemFormInput>();
+  const methods = useForm<CreateCollectionItemFormInput>();
 
   if (!collection) return null;
 
@@ -93,11 +76,7 @@ function CreateCollectionItemForm() {
       collectionId: collection.id,
     };
     if (
-      checkItemCreateData(
-        newCollectionItem,
-        isCollectionItemSendLoading,
-        role
-      )
+      checkItemCreateData(newCollectionItem, isCollectionItemSendLoading, role)
     ) {
       const imageUrl = data.image.length
         ? (await sendImage(transformImageToFormdata(data.image["0"])).unwrap())
@@ -111,59 +90,19 @@ function CreateCollectionItemForm() {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <Form.Group className="mb-3">
-        <Form.Label>{t("collections:item-name")}</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder={t("collections:enter-item-name")}
-          autoComplete="off"
-          {...register("name", {
-            required: true,
-          })}
+    <FormProvider {...methods}>
+      <Form onSubmit={methods.handleSubmit(onSubmit)}>
+        <ItemNameGroup />
+        <ItemTagsGroup />
+        <ItemImageGroup />
+        <CustomGroups
+          customFieldsTitles={customFieldsTitles}
         />
-      </Form.Group>
-
-      <Form.Group className={styles.tagNamesInputGroup}>
-        <Form.Control
-          type="text"
-          value={selectedOption}
-          autoComplete="off"
-          {...register("tagNames", {
-            required: true,
-          })}
-          onFocus={() => {
-            if (selectRef && selectRef.current) {
-              (selectRef.current as HTMLSelectElement).focus();
-            }
-          }}
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Label>{t("collections:item-tags")}</Form.Label>
-        <CustomMultiSelect
-          selectRef={selectRef}
-          options={options}
-          setValue={(newSelectedOption: string[]) =>
-            setValue("tagNames", newSelectedOption)
-          }
-          selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Label>{t("collections:item-image")}</Form.Label>
-        <Form.Control type="file" {...register("image")} />
-      </Form.Group>
-
-      <CustomInputs customFieldsTitles={customFieldsTitles} register={register} />
-
-      <Button disabled={isLoading} variant={buttonVariant} type="submit">
-        {t("collections:create")}
-      </Button>
-    </Form>
+        <Button disabled={isLoading} variant={buttonVariant} type="submit">
+          {t("collections:create")}
+        </Button>
+      </Form>
+    </FormProvider>
   );
 }
 

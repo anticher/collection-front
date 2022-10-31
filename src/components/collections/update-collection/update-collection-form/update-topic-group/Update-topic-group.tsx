@@ -32,7 +32,7 @@ function UpdateTopicGroup() {
     data: topics = [],
     isLoading: isTopicsLoading,
     isError: isTopicsError,
-  } = useGetTopicsQuery("");
+  } = useGetTopicsQuery();
 
   const [sendNewTopicId, { isLoading: isSendLoading, error: isSendError }] =
     useUpdateCollectionTopicMutation();

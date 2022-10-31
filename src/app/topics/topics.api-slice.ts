@@ -11,7 +11,7 @@ export const TopicsApiSlice = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
-    getTopics: builder.query<ITopic[], string>({
+    getTopics: builder.query<ITopic[], void>({
       query: () => "/",
     }),
   }),

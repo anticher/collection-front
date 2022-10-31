@@ -1,20 +1,19 @@
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import { FieldErrorsImpl, UseFormRegister } from "react-hook-form";
-import { CreateCollectionFormInput } from "../models/create-collection-form-input";
-import { customFieldTypeEnum } from "../../../../app/enum/custom-field-type.enum";
+import { Form, InputGroup } from "react-bootstrap";
+import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { customFieldTypeEnum } from "../../../../../../app/enum/custom-field-type.enum";
 
-interface CreateCollectionCustomInputProps {
-  register: UseFormRegister<CreateCollectionFormInput>;
+interface CollectionCustomGroupProps {
   index: number;
-  errors: FieldErrorsImpl<CreateCollectionFormInput>;
 }
 
 const customFieldTypeOptions = Object.keys(customFieldTypeEnum);
 
-function CreateCollectionCustomInput(props: CreateCollectionCustomInputProps) {
+function CollectionCustomGroup(props: CollectionCustomGroupProps) {
   const { t } = useTranslation();
+
+  const { register } = useFormContext();
+
   const createCustomInputOptions = () => {
     return customFieldTypeOptions.map((option) => {
       return (
@@ -24,7 +23,6 @@ function CreateCollectionCustomInput(props: CreateCollectionCustomInputProps) {
             customFieldTypeEnum[option as keyof typeof customFieldTypeEnum]
           }
         >
-          {/* {customFieldTypeEnum[option as keyof typeof customFieldTypeEnum]} */}
           {t(`collections:${option}`)}
         </option>
       );
@@ -34,7 +32,7 @@ function CreateCollectionCustomInput(props: CreateCollectionCustomInputProps) {
   return (
     <InputGroup key={props.index} className="mb-3">
       <Form.Select
-        {...props.register(`customFields.${props.index}.fieldType`, {
+        {...register(`customFields.${props.index}.fieldType`, {
           required: true,
         })}
       >
@@ -42,7 +40,7 @@ function CreateCollectionCustomInput(props: CreateCollectionCustomInputProps) {
         {createCustomInputOptions()}
       </Form.Select>
       <Form.Control
-        {...props.register(`customFields.${props.index}.title`, {
+        {...register(`customFields.${props.index}.title`, {
           required: true,
         })}
       />
@@ -50,4 +48,4 @@ function CreateCollectionCustomInput(props: CreateCollectionCustomInputProps) {
   );
 }
 
-export default CreateCollectionCustomInput;
+export default CollectionCustomGroup;

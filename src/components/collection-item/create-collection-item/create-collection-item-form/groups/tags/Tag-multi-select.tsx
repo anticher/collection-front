@@ -1,7 +1,7 @@
 import { Dispatch, MutableRefObject, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import Select, { OnChangeValue } from "react-select";
-import { IOption } from "../../../../app/models/tag/option.model";
+import { IOption } from "../../../../../../app/models/tag/option.model";
 
 type ItemTagMultiSelectProps = {
   selectRef: MutableRefObject<null>;

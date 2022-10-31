@@ -2,10 +2,8 @@ import styles from "./Create-collection-form.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import CreateCollectionCustomInput from "../create-collection-custom-input/Create-collection-custom-input";
+import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { CreateCollectionFormInput } from "../models/create-collection-form-input";
-import { useGetTopicsQuery } from "../../../../app/topics/topics.api-slice";
 import {
   useCreateCollectionMutation,
   useGetCollectionsByUserQuery,
@@ -18,6 +16,11 @@ import { transformImageToFormdata } from "../../../../app/image-upload/transform
 import { setCollectionModalVisibility } from "../../../../app/collections/collections.slice";
 import { useTranslation } from "react-i18next";
 import { useErrorSnack } from "../../../../utils/useErrorSnack";
+import CollectionNameGroup from "./groups/Collection-name-group";
+import CollectionDescriptionGroup from "./groups/Collection-description-group";
+import CollectionTopisGroup from "./groups/Collection-topics-group";
+import CollectionImageGroup from "./groups/Collection-image-group";
+import CollectionCustomGroups from "./groups/custom/Collection-custom-groups";
 
 function CreateCollectionForm() {
   const { t } = useTranslation();
@@ -25,15 +28,9 @@ function CreateCollectionForm() {
   const ownerName = pathname.substring(pathname.lastIndexOf("/") + 1);
   const [customInputs, setCustomInputs] = useState([] as string[]);
 
-  const {
-    data: topics = [],
-    isLoading: isTopicsLoading,
-    isError: isTopicsError,
-  } = useGetTopicsQuery("");
-
   const { refetch } = useGetCollectionsByUserQuery(ownerName);
 
-  const {username, role} = useAppSelector((state) => state.auth);
+  const { username, role } = useAppSelector((state) => state.auth);
 
   const dispatch = useAppDispatch();
 
@@ -42,30 +39,26 @@ function CreateCollectionForm() {
     { isLoading: isCollectionCreateLoading, isError: isCollectionCreateError },
   ] = useCreateCollectionMutation();
 
-  const [sendImage, { isLoading: isSendImageLoading, isError: isSendImageError }] = useSendImageMutation();
+  const [
+    sendImage,
+    { isLoading: isSendImageLoading, isError: isSendImageError },
+  ] = useSendImageMutation();
 
   useErrorSnack(
-    Boolean(isTopicsError || isSendImageError || isCollectionCreateError),
+    Boolean(isSendImageError || isCollectionCreateError),
     "common:server-error"
   );
 
-  const isLoading = isCollectionCreateLoading || isSendImageLoading || isTopicsLoading;
+  const isLoading = isCollectionCreateLoading || isSendImageLoading;
 
-  const {
-    register,
-    unregister,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CreateCollectionFormInput>();
+  const methods = useForm<CreateCollectionFormInput>();
   const onSubmit: SubmitHandler<CreateCollectionFormInput> = async (data) => {
     const canSend =
       [data.name, data.description, data.topic].every(Boolean) &&
-      !isTopicsLoading &&
       !isCollectionCreateLoading &&
       ownerName &&
       username &&
-      (role === "admin" ||
-        (ownerName === username && role === "user"));
+      (role === "admin" || (ownerName === username && role === "user"));
     if (!data.customFields) data.customFields = [];
     if (canSend) {
       const imageUrl = data.image.length
@@ -92,114 +85,44 @@ function CreateCollectionForm() {
     if (!customInputs.length) return;
     const removeIndex = customInputs.length - 1;
     const newCustomInputs = customInputs.slice(0, removeIndex);
-    unregister(`customFields.${removeIndex}`);
+    methods.unregister(`customFields.${removeIndex}`);
     setCustomInputs([...newCustomInputs]);
   };
 
-  const createCustomInputs = () => {
-    return customInputs.map((customInput, index) => {
-      return (
-        <CreateCollectionCustomInput
-          key={index}
-          index={index}
-          register={register}
-          errors={errors}
-        />
-      );
-    });
-  };
-
   return (
-    <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <Form.Group className="mb-3">
-        <Form.Label>{t("collections:collection-name")}</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder={t("collections:enter-collection-name")}
-          {...register("name", {
-            required: true,
-          })}
-        />
-      </Form.Group>
+    <FormProvider {...methods}>
+      <Form className={styles.form} onSubmit={methods.handleSubmit(onSubmit)}>
+        <CollectionNameGroup />
+        <CollectionDescriptionGroup />
+        <CollectionTopisGroup />
+        <CollectionImageGroup />
+        {customInputs.length ? (
+          <CollectionCustomGroups customInputs={customInputs} />
+        ) : null}
 
-      <Form.Group className="mb-3">
-        <Form.Label>{t("collections:collection-description")}</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={3}
-          type="text"
-          placeholder={t("collections:enter-collection-description")}
-          {...register("description", {
-            required: true,
-          })}
-        />
-      </Form.Group>
-
-      {isTopicsLoading ? (
-        "loading"
-      ) : (
-        <Form.Group className="mb-3">
-          <Form.Label> {t("collections:collection-topic")}</Form.Label>
-          <Form.Select
-            className="mb-3"
-            aria-label="Collection topic select"
-            {...register("topic", {
-              required: true,
-            })}
+        <div className={styles.buttons}>
+          <Button disabled={isLoading} variant={buttonVariant} type="submit">
+            {t("collections:create")}
+          </Button>
+          <Button
+            disabled={isLoading}
+            variant={buttonVariant}
+            type="button"
+            onClick={onAddFieldClickHandler}
           >
-            <option value=""> {t("collections:choose-collection-topic")}</option>
-            {topics.length
-              ? topics.map((topic) => {
-                  return (
-                    <option key={topic.id} value={topic.name}>
-                      {topic.name}
-                    </option>
-                  );
-                })
-              : null}
-          </Form.Select>
-        </Form.Group>
-      )}
-
-      <Form.Group className="mb-3">
-        <Form.Label>{t("collections:collection-image")}</Form.Label>
-        <Form.Control type="file" {...register("image")} />
-      </Form.Group>
-
-      {customInputs.length ? createCustomInputs() : null}
-
-      {(errors.customFields ||
-        errors.description ||
-        errors.image ||
-        errors.topic ||
-        errors.name) && <Form.Text>{t("collections:all-fields-are-required")}</Form.Text>}
-
-      <div className={styles.buttons}>
-        <Button
-          disabled={isLoading}
-          variant={buttonVariant}
-          type="submit"
-        >
-          {t("collections:create")}
-        </Button>
-        <Button
-          disabled={isLoading}
-          variant={buttonVariant}
-          type="button"
-          onClick={onAddFieldClickHandler}
-        >
-          {t("collections:add-field")}
-        </Button>
-        <Button
-          disabled={isLoading}
-          variant={buttonVariant}
-          type="button"
-          onClick={onRemoveFieldClickHandler}
-        >
-          {t("collections:remove-field")}
-        </Button>
-      </div>
-    </Form>
+            {t("collections:add-field")}
+          </Button>
+          <Button
+            disabled={isLoading}
+            variant={buttonVariant}
+            type="button"
+            onClick={onRemoveFieldClickHandler}
+          >
+            {t("collections:remove-field")}
+          </Button>
+        </div>
+      </Form>
+    </FormProvider>
   );
 }
 
