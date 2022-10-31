@@ -31,7 +31,7 @@ function ItemsByTagSearchResult({ isDebounce, isVoid }: ItemsByTagSearchProps) {
           <SearchResultItem
             key={item.id}
             navigateUrl={`/collections/${item.ownerName}/${item.collectionId}/${item.id}`}
-            name={item.ownerName}
+            name={item.name}
             type="Item"
           />
         );
