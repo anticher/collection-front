@@ -13,13 +13,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    {/* <BrowserRouter basename="/collection-front/"> */}
-    <BrowserRouter>
-      <Provider store={store}>
-        <SnackbarProvider maxSnack={1}>
-          <App />
-        </SnackbarProvider>
-      </Provider>
+    <BrowserRouter basename="/collection-front">
+        <Provider store={store}>
+          <SnackbarProvider maxSnack={1}>
+            <App />
+          </SnackbarProvider>
+        </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

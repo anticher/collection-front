@@ -8,7 +8,7 @@ interface SettingsState {
 
 export const initialState: SettingsState = {
   theme: localStorage.getItem("theme") || "light",
-  localization: localStorage.getItem("localization") || "dark",
+  localization: localStorage.getItem("localization") || "en",
 };
 
 export const settingsSlice = createSlice({

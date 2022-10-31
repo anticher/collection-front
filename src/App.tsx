@@ -1,6 +1,6 @@
 import styles from "./App.module.css";
 import Header from "./components/header/Header";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./components/auth/login/Login";
 import Registration from "./components/auth/registration/Registration";
 import Collections from "./components/collections/Collections";
@@ -17,8 +17,9 @@ import TagSearchResultsPage from "./components/search/pages/Tag-search-results-p
 import i18n from "./localization/i18n";
 
 function App() {
-  const { theme: appTheme, localization: appLocalization } =
-    useAppSelector((state) => state.settings);
+  const { theme: appTheme, localization: appLocalization } = useAppSelector(
+    (state) => state.settings
+  );
   const dispatch = useAppDispatch();
 
   const {
@@ -45,10 +46,13 @@ function App() {
     if (isError) {
       dispatch(setAuthData(initialState));
     } else if (isSuccess) {
-      if (userState) dispatch(setAuthData(userState));
-      else dispatch(setAuthData(initialState));
+      if (userState) {
+        dispatch(setAuthData(userState));
+      } else {
+        dispatch(setAuthData(initialState));
+      }
     }
-  });
+  }, [dispatch, isError, isSuccess, userState]);
 
   return (
     <div className={styles.app}>
@@ -65,11 +69,13 @@ function App() {
           />
           <Route path="/" element={<Main />} />
           <Route
-            path="collections/:username/:id/:id"
+            path="/collections/:username/:id/:id"
             element={<CollectionItemPage />}
           />
-          <Route path="collections/:username/:id" element={<Collection />} />
-          <Route path="collections/:username" element={<Collections />} />
+          <Route path="/collections/:username/:id" element={<Collection />} />
+          <Route path="/collections/:username" element={<Collections />} />
+          <Route path="/404" element={<div>not found</div>} />
+          <Route path="*" element={<Navigate replace to="/404" />} />
         </Routes>
       </main>
     </div>

@@ -1,5 +1,3 @@
-// import styles from "./Main.module.css";
-
 import { Container, Row, Col } from "react-bootstrap";
 import LargestCollectionsSection from "../largest-collections/Largest-collections-section";
 import LatestCollectionItemsSection from "../latest-collection-items/Latest-collection-items-section";
