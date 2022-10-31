@@ -20,15 +20,6 @@ function App() {
   const { theme: appTheme, localization: appLocalization } = useAppSelector(
     (state) => state.settings
   );
-  const dispatch = useAppDispatch();
-
-  const {
-    data: userState,
-    isSuccess,
-    isError,
-  } = useCheckAuthQuery("", {
-    pollingInterval: 10000,
-  });
 
   useEffect(() => {
     const appThemeClass = `app-theme-${appTheme}`;
@@ -42,17 +33,21 @@ function App() {
     i18n.changeLanguage(appLocalization);
   }, [appLocalization]);
 
+  const {
+    data: userState,
+    isSuccess,
+  } = useCheckAuthQuery({
+    pollingInterval: Number(process.env.REACT_APP_AUTH_POLLING),
+  });
+
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    if (isError) {
+    if (isSuccess) {
+      dispatch(setAuthData(userState));
+    } else {
       dispatch(setAuthData(initialState));
-    } else if (isSuccess) {
-      if (userState) {
-        dispatch(setAuthData(userState));
-      } else {
-        dispatch(setAuthData(initialState));
-      }
     }
-  }, [dispatch, isError, isSuccess, userState]);
+  });
 
   return (
     <div className={styles.app}>
