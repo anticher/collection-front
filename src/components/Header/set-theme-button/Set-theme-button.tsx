@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import { useAppDispatch, useAppSelector } from "../../../app/app-hooks";
 import { setTheme } from "../../../app/settings/settings.slice";
-import { useBeforeunload } from 'react-beforeunload';
+import { useBeforeunload } from "react-beforeunload";
 import { buttonOutlineVariant } from "../../../constants/bootstrap-constants";
+import { moonChar, sunChar } from "../../../constants/char-code-constants";
 
 function SetThemeButton() {
   const dispatch = useAppDispatch();
@@ -12,13 +13,13 @@ function SetThemeButton() {
   const [themeRadioValue, setThemeRadioValue] = useState(appTheme);
 
   const themeRadios = [
-    { name: String.fromCharCode(9788), value: "light" },
-    { name: String.fromCharCode(9789), value: "dark" },
+    { name: sunChar, value: "light" },
+    { name: moonChar, value: "dark" },
   ];
 
-  useBeforeunload(() => localStorage.setItem("theme", appTheme))
+  useBeforeunload(() => localStorage.setItem("theme", appTheme));
 
-  const onClickHandler = (e: React.ChangeEvent<EventTarget>) => {
+  const onClickHandler = (e: ChangeEvent) => {
     let target = e.target as HTMLInputElement;
     dispatch(setTheme(target.value));
     setThemeRadioValue(target.value);

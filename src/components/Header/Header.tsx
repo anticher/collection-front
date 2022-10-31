@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import SetLocalizationButton from "./set-localization-button/Set-localization-button";
 import LoginButton from "./login-button/Login-button";
 import RegistrationButton from "./registration-button/Registration-button";
-import SetTopicButton from "./set-topic-button/Set-topic-button";
+import SetThemeButton from "./set-theme-button/Set-theme-button";
 import SearchInput from "./search-input/Search-input";
 import { useAppSelector } from "../../app/app-hooks";
 import LogoutButton from "./logout-button/Logout-button";
@@ -26,7 +26,7 @@ function Header() {
           {auth.role === 'admin' && <RouteButton text={t("admin:admin-menu")} route="/admin-menu"/>}
         </Col>
         <Col className={`${styles.column} ${styles.buttons}`} lg={{ span: 6, offset: 0, order: 'last'}} xs={{ span: 10, offset: 2 }}>
-          <SetTopicButton />
+          <SetThemeButton />
           <SetLocalizationButton />
           {auth.username ? (
             <>
