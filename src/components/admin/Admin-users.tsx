@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { ChangeEvent, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
@@ -116,7 +117,7 @@ function AdminUsers() {
                 <td>{user.email}</td>
                 <td>{user.role}</td>
                 <td>{user.isBlocked ? "true" : "false"}</td>
-                <td>{user.createDate}</td>
+                <td>{format(new Date(+user.createDate), 'HH:mm:ss yyyy-MM-dd')}</td>
               </tr>
             );
           })}
