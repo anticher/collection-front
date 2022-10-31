@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/anticher.github.io/collection-front/static/css/main.e8145b06.css",
-    "main.js": "/anticher.github.io/collection-front/static/js/main.545e0ee4.js",
-    "static/media/logo-no-background.svg": "/anticher.github.io/collection-front/static/media/logo-no-background.dbca4ff772226c067ebc.svg",
-    "index.html": "/anticher.github.io/collection-front/index.html",
-    "main.e8145b06.css.map": "/anticher.github.io/collection-front/static/css/main.e8145b06.css.map",
-    "main.545e0ee4.js.map": "/anticher.github.io/collection-front/static/js/main.545e0ee4.js.map"
+    "main.css": "/collection-front/static/css/main.88c26809.css",
+    "main.js": "/collection-front/static/js/main.545e0ee4.js",
+    "static/media/logo-no-background.svg": "/collection-front/static/media/logo-no-background.dbca4ff772226c067ebc.svg",
+    "index.html": "/collection-front/index.html",
+    "main.88c26809.css.map": "/collection-front/static/css/main.88c26809.css.map",
+    "main.545e0ee4.js.map": "/collection-front/static/js/main.545e0ee4.js.map"
   },
   "entrypoints": [
-    "static/css/main.e8145b06.css",
+    "static/css/main.88c26809.css",
     "static/js/main.545e0ee4.js"
   ]
 }
