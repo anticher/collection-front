@@ -24,7 +24,7 @@ function ItemsByTagSearchResult({ isDebounce, isVoid }: ItemsByTagSearchProps) {
 
   if (isLoading) {
     content = <Spinner animation="border" variant={spinnerVariant} />;
-  } else if (isSuccess && tag.collectionItems.length) {
+  } else if (isSuccess && tag && tag.collectionItems && tag.collectionItems.length) {
     content = (
       tag.collectionItems.map((item) => {
         return (
