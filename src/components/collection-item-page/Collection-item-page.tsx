@@ -1,7 +1,8 @@
-import { Card, Container, ListGroup } from "react-bootstrap";
+import { Badge, Card, Container, ListGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useGetCollectionItemByIdQuery } from "../../app/collection-items/collection-items.api-slice";
+import { badgeVariant } from "../../constants/bootstrap-constants";
 import RouteButton from "../common/route-button/Route-button";
 import styles from "./Collection-item-page.module.css";
 import CommentsSection from "./comments-section/Comments-section";
@@ -25,8 +26,12 @@ function CollectionItemPage() {
         />
         <Card.Body>
           <Card.Title>{collectionItem.name}</Card.Title>
-          <Card.Text>
-            {collectionItem.tagNames.map((tagName) => tagName.name).join(" ")}
+          <Card.Text className={styles.tags}>
+            {collectionItem.tagNames
+              .map((tagName) => tagName.name)
+              .map((tag) => (
+                <Badge bg={badgeVariant}>{tag}</Badge>
+              ))}
           </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
