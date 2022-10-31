@@ -6,7 +6,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { CreateCollectionItemFormInput } from "../../../collections/create-collection/models/create-collection-item-form-input";
 import { useCreateCollectionItemMutation } from "../../../../app/collection-items/collection-items.api-slice";
 import CustomMultiSelect from "./Tag-multi-select";
-import { useGetCredentialsForCreate } from "../../../../app/hooks/use-get-creadentials-for-create";
 import { checkItemCreateData } from "./check-item-create-data";
 import { useGetTagsQuery } from "../../../../app/tags/tags.api-slice";
 import { transformImageToFormdata } from "../../../../app/image-upload/transform-image-to-formdata";
@@ -16,7 +15,7 @@ import { useSnackbar } from "notistack";
 import { ICollectionItemCreate } from "../../../../app/models/collection-item/create.model";
 import { useLocation } from "react-router-dom";
 import { useGetCollectionByIdQuery } from "../../../../app/collections/collections.api-slice";
-import { useAppDispatch } from "../../../../app/app-hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
 import { setCollectionItemCreateModalVisibility } from "../../../../app/collection-items/collection-items.slice";
 import { useTranslation } from "react-i18next";
 import CustomInputs from "./Custom-inputs";
@@ -54,7 +53,7 @@ function CreateCollectionItemForm() {
 
   const customFieldsTitles = collection?.customFieldTitles || [];
   const ownerName = collection?.ownerName || "";
-  const [username, creatorRole] = useGetCredentialsForCreate();
+  const {username, role} = useAppSelector((state) => state.auth);
 
   const [selectedOption, setSelectedOption] = useState<string[]>([]);
   const selectRef = useRef(null);
@@ -111,7 +110,7 @@ function CreateCollectionItemForm() {
       checkItemCreateData(
         newCollectionItem,
         isCollectionItemSendLoading,
-        creatorRole
+        role
       )
     ) {
       const imageUrl = data.image.length

@@ -33,9 +33,7 @@ function CreateCollectionForm() {
 
   const { refetch } = useGetCollectionsByUserQuery(ownerName);
 
-  const auth = useAppSelector((state) => state.auth);
-  const username = auth?.username;
-  const creatorRole = auth?.role;
+  const {username, role} = useAppSelector((state) => state.auth);
 
   const dispatch = useAppDispatch();
 
@@ -70,8 +68,8 @@ function CreateCollectionForm() {
       !isCollectionCreateLoading &&
       ownerName &&
       username &&
-      (creatorRole === "admin" ||
-        (ownerName === username && creatorRole === "user"));
+      (role === "admin" ||
+        (ownerName === username && role === "user"));
     if (!data.customFields) data.customFields = [];
     if (canSend) {
       const imageUrl = data.image.length
