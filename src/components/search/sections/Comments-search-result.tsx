@@ -9,20 +9,20 @@ function CommentsSearchResult() {
   const debouncedValue = useDebounce<string>(searchString || "", 500);
   const { data: searchCommentResult } = useSearchCommentQuery(debouncedValue);
 
+  if (!searchCommentResult || !searchCommentResult.length) return null;
+
   return (
     <>
-      {searchCommentResult && searchCommentResult.length
-        ? searchCommentResult.map((comment) => {
-            return (
-              <SearchResultItem
-                key={comment.id}
-                navigateUrl={`/collections/${comment.ownerName}/${comment.collectionId}/${comment.itemId}`}
-                name={comment.ownerName}
-                type="Comment"
-              />
-            );
-          })
-        : null}
+      {searchCommentResult.map((comment) => {
+        return (
+          <SearchResultItem
+            key={comment.id}
+            navigateUrl={`/collections/${comment.ownerName}/${comment.collectionId}/${comment.itemId}`}
+            name={comment.ownerName}
+            type="Comment"
+          />
+        );
+      })}
     </>
   );
 }

@@ -10,20 +10,20 @@ function CollectionsSearchResult() {
   const { data: searchCollectionResult } =
     useSearchCollectionQuery(debouncedValue);
 
+  if (!searchCollectionResult || !searchCollectionResult.length) return null;
+
   return (
     <>
-      {searchCollectionResult && searchCollectionResult.length
-        ? searchCollectionResult.map((collection) => {
-            return (
-              <SearchResultItem
-                key={collection.id}
-                navigateUrl={`/collections/${collection.ownerName}/${collection.id}`}
-                name={collection.name}
-                type="Collection"
-              />
-            );
-          })
-        : null}
+      {searchCollectionResult.map((collection) => {
+        return (
+          <SearchResultItem
+            key={collection.id}
+            navigateUrl={`/collections/${collection.ownerName}/${collection.id}`}
+            name={collection.name}
+            type="Collection"
+          />
+        );
+      })}
     </>
   );
 }
