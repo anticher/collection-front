@@ -1,4 +1,3 @@
-import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -36,9 +35,7 @@ function UpdateCollectionItemForm() {
     (collectionItem) => collectionItem.id === collectionItemId
   );
 
-
   const auth = useAppSelector((state) => state.auth);
-
 
   const [
     deleteCollectionItem,

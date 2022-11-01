@@ -6,23 +6,25 @@ function CommentsOutput() {
   const pathname = useLocation().pathname;
   const collectionItemId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
-  const { data: comments } =
-    useGetCommentsByCollectionItemQuery(collectionItemId, {
-      pollingInterval: 5000,
-    });
+  const { data: comments } = useGetCommentsByCollectionItemQuery(
+    collectionItemId,
+    {
+      pollingInterval: Number(process.env.REACT_APP_COMMENTS_POLLING),
+    }
+  );
+
+  if (!comments || !comments.length) return null;
 
   return (
-    <div>
-      {comments && comments.length
-        ? comments.map((commentEntity) => {
-            return (
-              <div className="mb-2" key={commentEntity.id}>
-                <Comment data={commentEntity} />
-              </div>
-            );
-          })
-        : null}
-    </div>
+    <>
+      {comments.map((commentEntity) => {
+        return (
+          <div className="mb-2" key={commentEntity.id}>
+            <Comment data={commentEntity} />
+          </div>
+        );
+      })}
+    </>
   );
 }
 
