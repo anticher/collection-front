@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth/auth.slice";
+import adminReducer from "./admin/admin.slice";
 import settingsReducer from "./settings/settings.slice";
 import collectionsReducer from "./collections/collections.slice";
 import collectionItemsReducer from "./collection-items/collection-items.slice";
@@ -17,6 +18,7 @@ import { UsersApiSlice } from "./users/users.api-slice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    admin: adminReducer,
     settings: settingsReducer,
     collections: collectionsReducer,
     collectionItems: collectionItemsReducer,
