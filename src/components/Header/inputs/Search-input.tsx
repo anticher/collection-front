@@ -19,14 +19,12 @@ function SearchInput() {
   };
 
   return (
-    <>
-      <Form.Control
-        placeholder={t("header:search")}
-        aria-label="Search"
-        value={pathname.startsWith("/search/") ? value : ""}
-        onChange={(e) => changeHandle(e)}
-      />
-    </>
+    <Form.Control
+      placeholder={t("header:search")}
+      aria-label="Search"
+      value={pathname.startsWith("/search/") ? value : ""}
+      onChange={(e) => changeHandle(e)}
+    />
   );
 }
 

@@ -26,24 +26,22 @@ function SetThemeButton() {
   };
 
   return (
-    <>
-      <ButtonGroup>
-        {themeRadios.map((radio, idx) => (
-          <ToggleButton
-            key={idx}
-            id={`theme-radio-${idx}`}
-            type="radio"
-            variant={buttonOutlineVariant}
-            name="theme-radio"
-            value={radio.value}
-            checked={themeRadioValue === radio.value}
-            onChange={(e) => onClickHandler(e)}
-          >
-            {radio.name}
-          </ToggleButton>
-        ))}
-      </ButtonGroup>
-    </>
+    <ButtonGroup>
+      {themeRadios.map((radio, idx) => (
+        <ToggleButton
+          key={idx}
+          id={`theme-radio-${idx}`}
+          type="radio"
+          variant={buttonOutlineVariant}
+          name="theme-radio"
+          value={radio.value}
+          checked={themeRadioValue === radio.value}
+          onChange={(e) => onClickHandler(e)}
+        >
+          {radio.name}
+        </ToggleButton>
+      ))}
+    </ButtonGroup>
   );
 }
 
