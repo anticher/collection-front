@@ -1,7 +1,6 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { CreateCollectionItemFormInput } from "../../../collections/create-collection/models/create-collection-item-form-input";
 import { useCreateCollectionItemMutation } from "../../../../app/collection-items/collection-items.api-slice";
 import { checkItemCreateData } from "./utils/check-item-create-data";
 import { transformImageToFormdata } from "../../../../app/image-upload/transform-image-to-formdata";
@@ -18,6 +17,7 @@ import ItemNameGroup from "./groups/Item-name-group";
 import ItemTagsGroup from "./groups/tags/Item-tags-group";
 import ItemImageGroup from "./groups/Item-image-group";
 import CustomGroups from "./groups/custom/Custom-groups";
+import { CreateCollectionItemFormInput } from "./models/create-collection-item-form-input.model";
 
 function CreateCollectionItemForm() {
   const { t } = useTranslation();

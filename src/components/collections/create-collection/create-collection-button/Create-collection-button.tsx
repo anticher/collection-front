@@ -13,14 +13,9 @@ function CreateCollectionButton() {
   };
 
   return (
-    <>
-      <Button
-        variant={buttonVariant}
-        onClick={onClickHandler}
-      >
-        {t("collections:create-collection")}
-      </Button>
-    </>
+    <Button variant={buttonVariant} onClick={onClickHandler}>
+      {t("collections:create-collection")}
+    </Button>
   );
 }
 

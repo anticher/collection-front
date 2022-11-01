@@ -1,9 +1,8 @@
-import styles from "./Create-collection-form.module.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
-import { CreateCollectionFormInput } from "../models/create-collection-form-input";
+import { CreateCollectionFormInput } from "./models/create-collection-form-input.model";
 import {
   useCreateCollectionMutation,
   useGetCollectionsByUserQuery,
@@ -91,7 +90,7 @@ function CreateCollectionForm() {
 
   return (
     <FormProvider {...methods}>
-      <Form className={styles.form} onSubmit={methods.handleSubmit(onSubmit)}>
+      <Form onSubmit={methods.handleSubmit(onSubmit)}>
         <CollectionNameGroup />
         <CollectionDescriptionGroup />
         <CollectionTopisGroup />
@@ -100,7 +99,7 @@ function CreateCollectionForm() {
           <CollectionCustomGroups customInputs={customInputs} />
         ) : null}
 
-        <div className={styles.buttons}>
+        <div className="d-flex gap-2">
           <Button disabled={isLoading} variant={buttonVariant} type="submit">
             {t("collections:create")}
           </Button>
