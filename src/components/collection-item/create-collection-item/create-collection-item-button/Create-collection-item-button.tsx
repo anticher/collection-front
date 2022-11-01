@@ -13,11 +13,9 @@ function CreateCollectionItemButton() {
   };
 
   return (
-    <>
-      <Button variant={buttonVariant} onClick={onClickHandler}>
-        {t("collections:create-item")}
-      </Button>
-    </>
+    <Button variant={buttonVariant} onClick={onClickHandler}>
+      {t("collections:create-item")}
+    </Button>
   );
 }
 
