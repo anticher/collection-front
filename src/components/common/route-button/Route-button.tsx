@@ -1,4 +1,3 @@
-import styles from "./Route-button.module.css";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { buttonVariant } from "../../../constants/bootstrap-constants";
@@ -14,7 +13,6 @@ function RouteButton(props: RouteButtonProps) {
   return (
     <>
       <Button
-        className={styles.button}
         variant={buttonVariant}
         type="button"
         onClick={() => navigate(props.route)}
