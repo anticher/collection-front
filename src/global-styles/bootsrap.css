@@ -16,8 +16,7 @@
 .form-select,
 .form-control,
 .form-control:disabled,
-.list-group-item
-{
+.list-group-item {
   color: var(--base-font-color);
   background-color: var(--secondary-back-color);
   border-color: var(--primary-accent-color);

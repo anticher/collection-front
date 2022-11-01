@@ -33,10 +33,7 @@ function App() {
     i18n.changeLanguage(appLocalization);
   }, [appLocalization]);
 
-  const {
-    data: userState,
-    isSuccess,
-  } = useCheckAuthQuery({
+  const { data: userState, isSuccess } = useCheckAuthQuery({
     pollingInterval: Number(process.env.REACT_APP_AUTH_POLLING),
   });
 

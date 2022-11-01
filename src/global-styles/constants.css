@@ -3,25 +3,25 @@
 }
 
 .app-theme-light {
-  --base-back-color: #FAFAFA;
-  --secondary-back-color: #F0F1F2;
+  --base-back-color: #fafafa;
+  --secondary-back-color: #f0f1f2;
   --base-font-color: #000000;
-  --primary-color: #8054A0;
-  --secondary-color: #8E7AAE;
-  --primary-accent-color: #F7B617;
-  --secondary-accent-color: #FFF39F;
-  --base-danger-color: #D11F36;
+  --primary-color: #8054a0;
+  --secondary-color: #8e7aae;
+  --primary-accent-color: #f7b617;
+  --secondary-accent-color: #fff39f;
+  --base-danger-color: #d11f36;
 }
 
 .app-theme-dark {
-  --base-back-color: #3C404E;
-  --secondary-back-color: #2C2E38;
-  --base-font-color: #FFFFFF;
+  --base-back-color: #3c404e;
+  --secondary-back-color: #2c2e38;
+  --base-font-color: #ffffff;
   --primary-color: #744297;
-  --secondary-color: #4D2988;
-  --primary-accent-color: #F7B617;
-  --secondary-accent-color: #E24C0B;
-  --base-danger-color: #FF0021;
+  --secondary-color: #4d2988;
+  --primary-accent-color: #f7b617;
+  --secondary-accent-color: #e24c0b;
+  --base-danger-color: #ff0021;
 }
 
 @media (max-width: 576px) {

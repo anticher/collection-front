@@ -33,6 +33,6 @@ p {
   color: var(--base-font-color);
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }

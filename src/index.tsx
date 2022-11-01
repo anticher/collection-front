@@ -14,11 +14,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter basename={process.env.REACT_APP_BASE_URL}>
-        <Provider store={store}>
-          <SnackbarProvider maxSnack={1}>
-            <App />
-          </SnackbarProvider>
-        </Provider>
+      <Provider store={store}>
+        <SnackbarProvider maxSnack={1}>
+          <App />
+        </SnackbarProvider>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );
