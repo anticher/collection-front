@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
 import {
   useGetCollectionsByUserQuery,
@@ -13,8 +13,8 @@ import { useErrorSnack } from "../../../../../utils/useErrorSnack";
 
 function UpdateDescriptionGroup() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { ownerName } = useParams();
 
   const collectionId = useAppSelector(
     (state) => state.collections.updatedCollectionId
@@ -24,7 +24,7 @@ function UpdateDescriptionGroup() {
     isLoading: isDataLoading,
     isError: isDataError,
     refetch,
-  } = useGetCollectionsByUserQuery(collectionsOwner);
+  } = useGetCollectionsByUserQuery(ownerName!);
   const collection = collections?.find(
     (collection) => collection.id === collectionId
   );

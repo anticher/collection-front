@@ -1,13 +1,12 @@
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetCommentsByCollectionItemQuery } from "../../../app/comments/comments.api-slice";
 import Comment from "./Comment";
 
 function CommentsOutput() {
-  const pathname = useLocation().pathname;
-  const collectionItemId = pathname.substring(pathname.lastIndexOf("/") + 1);
+  const { collectionItemId } = useParams();
 
   const { data: comments } = useGetCommentsByCollectionItemQuery(
-    collectionItemId,
+    collectionItemId!,
     {
       pollingInterval: Number(process.env.REACT_APP_COMMENTS_POLLING),
     }

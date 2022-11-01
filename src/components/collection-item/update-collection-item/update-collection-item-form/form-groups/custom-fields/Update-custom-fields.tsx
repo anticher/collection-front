@@ -1,18 +1,17 @@
 import { Form } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../../../../../app/app-hooks";
 import { useGetCollectionByIdQuery } from "../../../../../../app/collections/collections.api-slice";
 import UpdateCollectionItemCustomField from "./custom-field/Update-custom-field";
 
 function UpdateCollectionItemCustomFields() {
-  const pathname = useLocation().pathname;
-  const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
+  const { collectionId } = useParams();
 
   const collectionItemId = useAppSelector(
     (state) => state.collectionItems.updatedCollectionItemId
   );
 
-  const { data: collection } = useGetCollectionByIdQuery(collectionId);
+  const { data: collection } = useGetCollectionByIdQuery(collectionId!);
 
   const collectionItem = collection?.items.find(
     (collectionItem) => collectionItem.id === collectionItemId

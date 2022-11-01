@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
 import {
   useGetCollectionsByUserQuery,
@@ -14,14 +14,15 @@ import { useErrorSnack } from "../../../../../utils/useErrorSnack";
 
 function UpdateTopicGroup() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { ownerName } = useParams();
 
   const collectionId = useAppSelector(
     (state) => state.collections.updatedCollectionId
   );
-  const { data: collections, refetch } =
-    useGetCollectionsByUserQuery(collectionsOwner);
+  const { data: collections, refetch } = useGetCollectionsByUserQuery(
+    ownerName!
+  );
   const collection = collections?.find(
     (collection) => collection.id === collectionId
   );
@@ -49,10 +50,7 @@ function UpdateTopicGroup() {
     }
   }, [dispatch, isTopicsLoading, isSendLoading]);
 
-  useErrorSnack(
-    Boolean(isTopicsError || isSendError),
-    "common:server-error"
-  );
+  useErrorSnack(Boolean(isTopicsError || isSendError), "common:server-error");
 
   if (!collection) {
     return null;
@@ -81,16 +79,14 @@ function UpdateTopicGroup() {
     <Form.Group className="mb-3">
       <Form.Label>{t("collections:collection-topic")}</Form.Label>
       <InputGroup className="mb-3">
-        <Form.Select
-          onChange={(e) => setTopicValue(e.target.value)}
-        >
+        <Form.Select onChange={(e) => setTopicValue(e.target.value)}>
           {options.map((option) => (
             <option key={option}>{option}</option>
           ))}
         </Form.Select>
         <Button variant={buttonVariant} type="button" onClick={submitHandler}>
-            {t("collections:apply")}
-          </Button>
+          {t("collections:apply")}
+        </Button>
       </InputGroup>
     </Form.Group>
   );

@@ -7,7 +7,7 @@ import {
   useCreateCollectionMutation,
   useGetCollectionsByUserQuery,
 } from "../../../../app/collections/collections.api-slice";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
 import { buttonVariant } from "../../../../constants/bootstrap-constants";
 import { useSendImageMutation } from "../../../../app/image-upload/image-upload.api-slice";
@@ -23,11 +23,12 @@ import CollectionCustomGroups from "./groups/custom/Collection-custom-groups";
 
 function CreateCollectionForm() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const ownerName = pathname.substring(pathname.lastIndexOf("/") + 1);
+  
+  const { ownerName } = useParams();
+
   const [customInputs, setCustomInputs] = useState([] as string[]);
 
-  const { refetch } = useGetCollectionsByUserQuery(ownerName);
+  const { refetch } = useGetCollectionsByUserQuery(ownerName!);
 
   const { username, role } = useAppSelector((state) => state.auth);
 

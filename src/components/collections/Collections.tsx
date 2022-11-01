@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import CollectionsItem from "../collections-item/Collections-item";
 import { useGetCollectionsByUserQuery } from "../../app/collections/collections.api-slice";
 import { ICollection } from "../../app/models/collection/collection.model";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CreateCollectionButton from "./create-collection/create-collection-button/Create-collection-button";
 import CreateCollectionModal from "./create-collection/create-collection-modal/Create-collection-modal";
 import RouteButton from "../common/route-button/Route-button";
@@ -15,20 +15,20 @@ import { useTranslation } from "react-i18next";
 
 function Collections() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { ownerName } = useParams();
 
   const {
     data: collections = [],
     isLoading,
     isSuccess,
     isError,
-  } = useGetCollectionsByUserQuery(collectionsOwner);
+  } = useGetCollectionsByUserQuery(ownerName!);
 
   const auth = useAppSelector((state) => state.auth);
 
   const isUserOwnerOrAdmin =
-    collectionsOwner === auth.username || auth.role === "admin" || false;
+    ownerName === auth.username || auth.role === "admin" || false;
 
   let content;
 
@@ -52,7 +52,7 @@ function Collections() {
   return (
     <Container className={styles.collections}>
       <h2 className={styles.title}>
-        {pathname.substring(pathname.lastIndexOf("/") + 1)}
+        {ownerName!}
       </h2>
       <div className={styles.buttonsRow}>
         <RouteButton route={`/`} text={t("collections:main-page")} />

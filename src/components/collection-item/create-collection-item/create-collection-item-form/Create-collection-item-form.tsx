@@ -7,7 +7,7 @@ import { transformImageToFormdata } from "../../../../app/image-upload/transform
 import { useSendImageMutation } from "../../../../app/image-upload/image-upload.api-slice";
 import { buttonVariant } from "../../../../constants/bootstrap-constants";
 import { ICollectionItemCreate } from "../../../../app/models/collection-item/create.model";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetCollectionByIdQuery } from "../../../../app/collections/collections.api-slice";
 import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
 import { setCollectionItemCreateModalVisibility } from "../../../../app/collection-items/collection-items.slice";
@@ -21,15 +21,14 @@ import { CreateCollectionItemFormInput } from "./models/create-collection-item-f
 
 function CreateCollectionItemForm() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
+  const { collectionId } = useParams();
 
   const {
     data: collection,
     isLoading: isDataLoading,
     isError: isDataError,
     refetch,
-  } = useGetCollectionByIdQuery(collectionId);
+  } = useGetCollectionByIdQuery(collectionId!);
 
   const [
     sendCollectionItemCredentials,

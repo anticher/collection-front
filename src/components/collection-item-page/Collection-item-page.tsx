@@ -1,6 +1,6 @@
 import { Badge, Card, Container, ListGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetCollectionItemByIdQuery } from "../../app/collection-items/collection-items.api-slice";
 import { badgeVariant } from "../../constants/bootstrap-constants";
 import RouteButton from "../common/route-button/Route-button";
@@ -10,10 +10,8 @@ import LikesBlock from "./likes-block/Likes-block";
 
 function CollectionItemPage() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionItemId = pathname.substring(pathname.lastIndexOf("/") + 1);
-  const { data: collectionItem } =
-    useGetCollectionItemByIdQuery(collectionItemId);
+  const { collectionItemId } = useParams();
+  const { data: collectionItem } = useGetCollectionItemByIdQuery(collectionItemId!);
   if (!collectionItem) return null;
   const customFieldValues = [...collectionItem.customFieldValues];
   return (
@@ -30,7 +28,9 @@ function CollectionItemPage() {
             {collectionItem.tagNames
               .map((tagName) => tagName.name)
               .map((tag) => (
-                <Badge key={tag} bg={badgeVariant}>{tag}</Badge>
+                <Badge key={tag} bg={badgeVariant}>
+                  {tag}
+                </Badge>
               ))}
           </Card.Text>
         </Card.Body>

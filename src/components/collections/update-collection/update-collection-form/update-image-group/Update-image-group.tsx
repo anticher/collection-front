@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
 import {
   useGetCollectionsByUserQuery,
@@ -18,8 +18,8 @@ import { useErrorSnack } from "../../../../../utils/useErrorSnack";
 
 function UpdateImageGroup() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { ownerName } = useParams();
 
   const collectionId = useAppSelector(
     (state) => state.collections.updatedCollectionId
@@ -29,7 +29,7 @@ function UpdateImageGroup() {
     isLoading: isDataLoading,
     isError: isDataError,
     refetch,
-  } = useGetCollectionsByUserQuery(collectionsOwner);
+  } = useGetCollectionsByUserQuery(ownerName!);
   const collection = collections?.find(
     (collection) => collection.id === collectionId
   );

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
 import {
   useDeleteCollectionMutation,
@@ -23,8 +23,8 @@ import UpdateTopicGroup from "./update-topic-group/Update-topic-group";
 
 function UpdateCollectionForm() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { ownerName } = useParams();
 
   const auth = useAppSelector((state) => state.auth);
 
@@ -36,7 +36,7 @@ function UpdateCollectionForm() {
     isLoading: isDataLoading,
     isError: isDataError,
     refetch,
-  } = useGetCollectionsByUserQuery(collectionsOwner);
+  } = useGetCollectionsByUserQuery(ownerName!);
   const collection = collections?.find(
     (collection) => collection.id === collectionId
   );

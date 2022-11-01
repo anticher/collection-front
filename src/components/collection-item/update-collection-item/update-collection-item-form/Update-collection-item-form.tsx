@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../app/app-hooks";
 import { useDeleteCollectionItemMutation } from "../../../../app/collection-items/collection-items.api-slice";
 import { setCollectionItemUpdateModalVisibility } from "../../../../app/collection-items/collection-items.slice";
@@ -17,8 +17,8 @@ import UpdateCollectionItemTagsGroup from "./form-groups/Update-tags-group";
 
 function UpdateCollectionItemForm() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
+  
+  const { collectionId } = useParams();
 
   const collectionItemId = useAppSelector(
     (state) => state.collectionItems.updatedCollectionItemId
@@ -29,7 +29,7 @@ function UpdateCollectionItemForm() {
     isLoading: isDataLoading,
     isError: isDataError,
     refetch,
-  } = useGetCollectionByIdQuery(collectionId);
+  } = useGetCollectionByIdQuery(collectionId!);
 
   const collectionItem = collection?.items.find(
     (collectionItem) => collectionItem.id === collectionItemId

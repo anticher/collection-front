@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
 import {
   useDeleteCollectionCustomFieldMutation,
@@ -18,14 +18,14 @@ type UpdateCustomFieldGroupProps = {
 
 function UpdateCustomFieldGroup({ index }: UpdateCustomFieldGroupProps) {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionsOwner = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { ownerName } = useParams();
 
   const collectionId = useAppSelector(
     (state) => state.collections.updatedCollectionId
   );
   const { data: collections, refetch } =
-    useGetCollectionsByUserQuery(collectionsOwner);
+    useGetCollectionsByUserQuery(ownerName!);
   const collection = collections?.find(
     (collection) => collection.id === collectionId
   );

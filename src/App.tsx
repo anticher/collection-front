@@ -61,11 +61,11 @@ function App() {
           />
           <Route path="/" element={<Main />} />
           <Route
-            path="/collections/:username/:id/:id"
+            path="/collections/:ownerName/:collectionId/:collectionItemId"
             element={<CollectionItemPage />}
           />
-          <Route path="/collections/:username/:id" element={<Collection />} />
-          <Route path="/collections/:username" element={<Collections />} />
+          <Route path="/collections/:ownerName/:collectionId" element={<Collection />} />
+          <Route path="/collections/:ownerName" element={<Collections />} />
           <Route path="/404" element={<div>not found</div>} />
           <Route path="*" element={<Navigate replace to="/404" />} />
         </Routes>

@@ -1,7 +1,7 @@
 import styles from "./Collection.module.css";
 import Container from "react-bootstrap/Container";
 import { useGetCollectionByIdQuery } from "../../app/collections/collections.api-slice";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import RouteButton from "../common/route-button/Route-button";
 import CreateCollectionItemButton from "../collection-item/create-collection-item/create-collection-item-button/Create-collection-item-button";
 import { Alert, Spinner } from "react-bootstrap";
@@ -18,15 +18,15 @@ import { useTranslation } from "react-i18next";
 
 function Collection() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { ownerName, collectionId } = useParams();
   
   const {
     data: collection,
     isLoading,
     isSuccess,
     isError,
-  } = useGetCollectionByIdQuery(collectionId);
+  } = useGetCollectionByIdQuery(collectionId!);
 
   const auth = useAppSelector((state) => state.auth);
 
@@ -63,7 +63,7 @@ function Collection() {
       <h2 className={styles.title}>{collection && collection.name}</h2>
       <div className={styles.buttonsRow}>
         <RouteButton
-          route={pathname.substring(0, pathname.lastIndexOf("/"))}
+          route={`/collections/${ownerName}`}
           text={t("collections:back-to-collections")}
         />
         <CollectionSortSelect />

@@ -1,6 +1,6 @@
 import { Badge, Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../../app/app-hooks";
 import { useGetCollectionItemByIdQuery } from "../../../app/collection-items/collection-items.api-slice";
 import {
@@ -12,15 +12,15 @@ import { useErrorSnack } from "../../../utils/useErrorSnack";
 
 function LikesBlock() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionItemId = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { collectionItemId } = useParams();
 
   const {
     data: collectionItem,
     isLoading: isDataLoading,
     isError: isDataError,
     refetch,
-  } = useGetCollectionItemByIdQuery(collectionItemId);
+  } = useGetCollectionItemByIdQuery(collectionItemId!);
 
   const auth = useAppSelector((state) => state.auth);
 

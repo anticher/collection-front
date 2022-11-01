@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../../app/app-hooks";
 import {
   useCreateCommentMutation,
@@ -11,14 +11,15 @@ import { buttonVariant } from "../../../constants/bootstrap-constants";
 
 function CommentInput() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionItemId = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { collectionItemId } = useParams();
+
   const auth = useAppSelector((state) => state.auth);
 
   const {
     isLoading: isDataLoading,
     refetch,
-  } = useGetCommentsByCollectionItemQuery(collectionItemId);
+  } = useGetCommentsByCollectionItemQuery(collectionItemId!);
 
   const [sendNewComment, { isLoading: isSendLoading }] =
     useCreateCommentMutation();
@@ -28,7 +29,7 @@ function CommentInput() {
   const onSendHandler = async () => {
     if (inputText && auth.id) {
       await sendNewComment({
-        itemId: collectionItemId,
+        itemId: collectionItemId!,
         userId: auth.id,
         message: inputText,
       });

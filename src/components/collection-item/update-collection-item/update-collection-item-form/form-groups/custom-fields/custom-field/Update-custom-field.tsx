@@ -1,7 +1,7 @@
 import styles from "./Update-custom-field.module.css";
 import { useState, useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   useAppDispatch,
   useAppSelector,
@@ -16,8 +16,8 @@ import { useErrorSnack } from "../../../../../../../utils/useErrorSnack";
 
 function UpdateCollectionItemCustomField({ index }: { index: number }) {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { collectionId } = useParams();
 
   const collectionItemId = useAppSelector(
     (state) => state.collectionItems.updatedCollectionItemId
@@ -30,7 +30,7 @@ function UpdateCollectionItemCustomField({ index }: { index: number }) {
     isLoading: isDataLoading,
     isError: isDataError,
     refetch,
-  } = useGetCollectionByIdQuery(collectionId);
+  } = useGetCollectionByIdQuery(collectionId!);
 
   const collectionItem = collection?.items.find(
     (collectionItem) => collectionItem.id === collectionItemId

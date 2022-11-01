@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Select, { OnChangeValue } from "react-select";
 import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
 import { useUpdateCollectionItemTagsMutation } from "../../../../../app/collection-items/collection-items.api-slice";
@@ -14,8 +14,8 @@ import { useErrorSnack } from "../../../../../utils/useErrorSnack";
 
 function UpdateCollectionItemTagsGroup() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { collectionId } = useParams();
 
   const collectionItemId = useAppSelector(
     (state) => state.collectionItems.updatedCollectionItemId
@@ -26,7 +26,7 @@ function UpdateCollectionItemTagsGroup() {
     isLoading: isDataLoading,
     isError: isDataError,
     refetch,
-  } = useGetCollectionByIdQuery(collectionId);
+  } = useGetCollectionByIdQuery(collectionId!);
 
   const collectionItem = collection?.items.find(
     (collectionItem) => collectionItem.id === collectionItemId

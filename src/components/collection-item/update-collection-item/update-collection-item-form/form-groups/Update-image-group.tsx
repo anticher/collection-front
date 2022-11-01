@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../app/app-hooks";
 import { useUpdateCollectionItemImageMutation } from "../../../../../app/collection-items/collection-items.api-slice";
 import { useGetCollectionByIdQuery } from "../../../../../app/collections/collections.api-slice";
@@ -16,8 +16,8 @@ import { useErrorSnack } from "../../../../../utils/useErrorSnack";
 
 function UpdateCollectionItemImageGroup() {
   const { t } = useTranslation();
-  const pathname = useLocation().pathname;
-  const collectionId = pathname.substring(pathname.lastIndexOf("/") + 1);
+
+  const { collectionId } = useParams();
 
   const collectionItemId = useAppSelector(
     (state) => state.collectionItems.updatedCollectionItemId
@@ -28,7 +28,7 @@ function UpdateCollectionItemImageGroup() {
     isLoading: isDataLoading,
     isError: isDataError,
     refetch,
-  } = useGetCollectionByIdQuery(collectionId);
+  } = useGetCollectionByIdQuery(collectionId!);
 
   const collectionItem = collection?.items.find(
     (collectionItem) => collectionItem.id === collectionItemId
